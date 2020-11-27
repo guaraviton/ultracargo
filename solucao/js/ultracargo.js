@@ -27,6 +27,10 @@ function UltraCargo()
 	this.init();
 }
 
+XMLHttpRequest.prototype.xml = function(xmlStr) {
+	return new XMLSerializer().serializeToString(this.document.documentElement);
+}
+
 XMLHttpRequest.prototype.loadXML = function(xmlStr) {
 	const parser = new DOMParser();
 	this.document = parser.parseFromString(xmlStr, "text/xml");
@@ -7153,7 +7157,7 @@ UltraCargo.prototype.send = function()
 					}
 				}
 			}
-			this.saveXmlQuery(new XMLSerializer().serializeToString(this.oXD.document.documentElement));
+			this.saveXmlQuery(this.oXD.xml());
 		}
 		else 
 		{
@@ -7947,7 +7951,7 @@ UltraCargo.prototype.checkLongTypeNodes = function(psXml)
 			}
 		}		
 			
-		return new XMLSerializer().serializeToString(this.oXD.document.documentElement);
+		return this.oXD.xml();
 //	}
 //	catch(oException) {
 //		this.exception(oException,"UltraCargo[checkLongTypeNodes]");
@@ -8733,7 +8737,7 @@ UltraCargo.prototype.extractXmlData = function(psOperation)
 			this.oNd = this.oXD.createNode(1,"operation","");
 			this.oNd.setAttribute("value",psOperation);
 			this.oRoot.appendChild(this.oNd);
-			return new XMLSerializer().serializeToString(this.oXD.document.documentElement);
+			return this.oXD.xml();
 		}
 		this.bGroupData = null;
 		this.bAdd = null;
