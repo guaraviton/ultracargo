@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <frm_pesquisa>
+      <page_count>1</page_count>
+      <row_count>5</row_count>
+      <row>
+         <server_name value="LocalHost-Renato" />
+         <dtultimasessao value="25/11/2020 17%3A26%3A36" />
+         <sessoesativas value="1" />
+         <dtultimoabandon value="25/11/2020 13%3A32%3A15" />
+      </row>
+      <row>
+         <server_name value="UCBRDMZV2K8149" />
+         <dtultimasessao value="27/08/2020 23%3A13%3A45" />
+         <sessoesativas value="128" />
+         <dtultimoabandon value="27/08/2020 23%3A14%3A03" />
+      </row>
+      <row>
+         <server_name value="UCBRSLBV2K8042" />
+         <dtultimasessao value="27/08/2020 23%3A13%3A07" />
+         <sessoesativas value="117" />
+         <dtultimoabandon value="27/08/2020 23%3A13%3A45" />
+      </row>
+      <row>
+         <server_name value="UCBRSLBV2K8241" />
+         <dtultimasessao value="27/08/2020 23%3A13%3A24" />
+         <sessoesativas value="25" />
+         <dtultimoabandon value="27/08/2020 23%3A13%3A45" />
+      </row>
+      <row>
+         <server_name value="UCBRSLBV2K8242" />
+         <dtultimasessao value="27/08/2020 23%3A13%3A12" />
+         <sessoesativas value="41" />
+         <dtultimoabandon value="27/08/2020 23%3A09%3A31" />
+      </row>
+   </frm_pesquisa>
+</root>

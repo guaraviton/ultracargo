@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Untitled Document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="css/styles.css" type="text/css" />
+  <script language="javascript" src="js/general.js" type="text/javascript"></script>
+  <script language="javascript" src="js/ultracargo.js" type="text/javascript"></script>
+  <script language="javascript" type="text/javascript">
+    var str_Operation = "";
+    var obj_Ultra = new UltraCargo();
+
+    function main(pstr_Operation) {
+      //alert(pstr_Operation);
+      try {
+        var obj_Field = (arguments[1] != null) ? arguments[1] : null;
+        var str_XML = (arguments[2] != null) ? arguments[2] : "";
+        switch (pstr_Operation) {
+          case "qry":
+            obj_Ultra.form("frm_pesquisa");
+            obj_Ultra.operation(pstr_Operation);
+            self.frames[0].clearGrid();
+            Fu_LimpaPaginador('frm_pesquisa');
+            //'<root><frm_pesquisa tipo="table"></frm_pesquisa><operation value="qry"/></root>'
+            if (obj_Ultra.send()) {
+              self.frames[0].clearGrid();
+              Fu_LimpaPaginador('frm_pesquisa');
+            }
+            break;
+          case "start":
+            //parent.top.frm_seguranca.acessomanutencao("CADLOCPAI");
+            //parent.top.frm_rodape.setButton("P");
+            obj_Ultra.initialize();
+            //Grid:Pesquisa
+            with(obj_Ultra) {
+              grid.id = "frm_pesquisa";
+              grid.size = 10;
+              grid.keys = "server_name";
+              grid.colsTitle = "Servidor|DtHr �ltima sess�o|Qtde sess�es|DtHr �ltima sess�o abandonada";
+              grid.colsField = "server_name|dtultimasessao|sessoesativas|dtultimoabandon";
+              //grid.colsHiddenField = "";
+              grid.colsToValidate = "1|2|5";
+              grid.colsType = "str(100)|str(100)|int(4)|str(100)";
+              grid.colsWidth = "145|170|145|170";
+              grid.colsAlign = "center|center|center|center";
+              grid.editOnDetail = false;
+              grid.editButton = false;
+              grid.insertButton = false;
+              grid.deleteButton = false;
+            }
+            obj_Ultra.addTable();
+
+            main("qry");
+            break;
+          case "grid":
+            obj_Ultra.dataGrid(str_XML);
+            break;
+          case "forms":
+            obj_Ultra.formData(str_XML);
+            break;
+        }
+      } catch (obj_Exception) {
+        console.log("main: " + obj_Exception.description);
+      } finally {
+        delete obj_Field;
+        delete str_XML;
+      }
+    }
+  </script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" onload="main('start');">
+  <table width="680" cellspacing="0" cellpadding="0" align="center" border="0">
+    <tr>
+      <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="ttop">
+          <tr>
+            <td width="37"><img src="images_home/img_display/img_titulos/ultr_p_1.gif" width="37" height="25" alt="" /></td>
+            <td valign="bottom">
+              <font size="2" color="#1445B8"><b>Configura��o / </b></font>Monitoramento / Sess�es
+            </td>
+            <td width="25"><img src="images_home/img_display/img_titulos/ultr_p_2.gif" width="25" height="25" alt="" /></td>
+          </tr>
+          <tr>
+            <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_3.gif" width="37" height="14" alt="" /></td>
+            <td background="images_home/img_display/img_titulos/ultr_bkg.gif">&nbsp;</td>
+            <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_4.gif" width="25" height="14" alt="" /></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <form id="frm_filtro" action="" style="margin-bottom:0">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td>
+                <div style="position:relative">
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabbordageral" align="center">
+                    <tr>
+                      <td width='10' class="tab1azul">&nbsp;<a name="lnk_Filtro"></a></td>
+                      <td class="tab1azul">Sess�es</td>
+                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Filtro"></a></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <div id="div_Filtro" nivel="0">
+                          <input type="hidden" id="servidor" operation="qry" />
+                          <table width="100%" border="0" cellspacing="0" cellpadding="2" class="tabfont">
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="iframecinza">
+                                  <tr>
+                                    <td><iframe id="frm_pesquisa" execute="server" width="100%" height="260" src="grid.html" frameborder="no" scrolling="yes"></iframe>
+                                      <div id="frm_pesquisa"></div>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

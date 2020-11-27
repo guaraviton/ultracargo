@@ -1,0 +1,494 @@
+SCC = This is a Source Code Control file.
+
+[CadastroPessoa.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/CadastroPessoa
+
+[wserv_integra.sln]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes
+
+[CriptoServer.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/CRIPTO/CRIPTOSERVER
+
+[vbp_Acc_Password.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/CRIPTO/INI_CONFIG
+
+[DBObjects.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/CRIPTO/NEWDBOBJECTS
+
+[Utilities.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/CRIPTO/UTILITIES
+
+[Crypto.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/Crypto_DLL
+
+[MRBanco.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/MatrizRastreabilidade
+
+[RegDLL1.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/RegistraDLL
+
+[testecomp.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/TesteCOM+
+
+[Project1.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/Utilitarios/WebMetodos
+
+[Integra.sln]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB
+
+[Ultra.Integra.Transporte.Adaptador.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Adaptador
+
+[Adaptador.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Adaptador
+
+[Agendamento.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Agendamento
+
+[AlarmeTerminal.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/AlarmeTerminal
+
+[ArqueacaoTanque.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/ArqueacaoTanque
+
+[CadastroTanque.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/CadastroTanque
+
+[STFCCEstoque.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Estoque/CC - controle
+
+[STFCDEstoque.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Estoque/CD - dados
+
+[STFCNEstoque.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Estoque/CN - negocio
+
+[STFCCFatArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Faturamento/CC - controle
+
+[STFCDFatArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Faturamento/CD - dados
+
+[STFCNFatArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Faturamento/CN - negocio
+
+[STFCCFiscalArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Fiscal/CC - controle
+
+[STFCDFiscalArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Fiscal/CD - dados
+
+[STFCNFiscalArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Fiscal/CN - negocio
+
+[STFCCOperacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Operacao/CC - controle
+
+[STFCDOperacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Operacao/CD - dados
+
+[STFCNOperacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/Operacao/CN - negocio
+
+[STFCCProgramacaoArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/ProgramacaoArmazem/CC - controle
+
+[STFCDProgramacaoArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/ProgramacaoArmazem/CD - dados
+
+[STFCNProgramacaoArmaz.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Armazem/ProgramacaoArmazem/CN - negocio
+
+[STFCCAdequacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Adequacao/CC - controle
+
+[STFCDAdequacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Adequacao/CD - dados
+
+[STFCNAdequacao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Adequacao/CN - negocio
+
+[STFCCAdministrativo.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Administrativo/CC - controle
+
+[STFCDAdministrativo.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Administrativo/CD - dados
+
+[STFCNAdministrativo.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Administrativo/CN - negocio
+
+[STFCCApoio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Apoio/CC - controle
+
+[STFCDApoio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Apoio/CD - dados
+
+[STFCNApoio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Apoio/CN - negocio
+
+[STFCCArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Armazem/CC - controle
+
+[STFCDArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Armazem/CD - dados
+
+[STFCNArmazem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Armazem/CN - Negocio
+
+[STFCCComercial.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Comercial/CC - controle
+
+[STFCDComercial.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Comercial/CD - dados
+
+[STFCNComercial.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Comercial/CN - negocio
+
+[STFCCEquipamento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Equipamento/CC - controle
+
+[STFCDEquipamento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Equipamento/CD - dados
+
+[STFCNEquipamento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Equipamento/CN - negocio
+
+[STFCCFiscal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Fiscal/CC - controle
+
+[STFCDFiscal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Fiscal/CD - dados
+
+[STFCNFiscal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Fiscal/CN - negocio
+
+[STFCCLocal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Local/CC - controle
+
+[STFCDLocal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Local/CD - dados
+
+[STFCNLocal.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Local/CN - negocio
+
+[STFCCOperacional.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Operacao/CC - controle
+
+[STFCDOperacional.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Operacao/CD - dados
+
+[STFCNOperacional.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Operacao/CN - negocio
+
+[STFCCPessoa.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Pessoa/CC - controle
+
+[STFCDPessoa.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Pessoa/CD - dados
+
+[STFCNPessoa.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Pessoa/CN - negocio
+
+[STFCCTransporte.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Transporte/CC - controle
+
+[STFCDTransporte.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Transporte/CD - dados
+
+[STFCNTransporte.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Cadastro/Transporte/CN - negocio
+
+[STFCDConexao.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Conexao
+
+[STFCCDominio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Dominio/CC
+
+[STFCDDominio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Dominio/CD
+
+[STFCNDominio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Dominio/CN
+
+[STFCCParametro.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Parametros/CC - controle
+
+[STFCDParametro.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Parametros/CD - dados
+
+[STFCNParametro.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Parametros/CN - negocio
+
+[STFPrc.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Prc
+
+[STFCCSeguranca.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Seguranca/CC - controle
+
+[STFCDSeguranca.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Seguranca/CD - dados
+
+[STFCNSeguranca.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Seguranca/CN - negocio
+
+[STFCDUtil.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Util/CD - dados
+
+[STFCNUtil.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Configuracao/Util/CN - negocio
+
+[prjIntegra.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/impressora
+
+[STFCCInterface.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Interface/CC - controle
+
+[STFCDInterface.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Interface/CD - dados
+
+[STFCNInterface.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Interface/CN - Negocio
+
+[STFCDMensagem.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Mensagem
+
+[STFCCMonitoramento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Monitoramento/CC - controle
+
+[STFCDMonitoramento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Monitoramento/CD - dados
+
+[STFCNMonitoramanto.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Monitoramento/CN - negocio
+
+[STFRelatorio.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Relatorio
+
+[ScheduleCrystalSev.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Servicos
+
+[ScheduleRotinaDiaria.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Servicos/RotinaDiaria
+
+[STFCCServicos.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Servicos/RotinaDiaria/CC - controle
+
+[STFCDServicos.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Servicos/RotinaDiaria/CD - dados
+
+[STFCNServicos.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Servicos/RotinaDiaria/CN - Negocio
+
+[STFCCDocumento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Documento/CC - controle
+
+[STFCDDocumento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Documento/CD - dados
+
+[STFCNDocumento.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Documento/CN - negocio
+
+[STFCCPedido.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Pedido/CC - controle
+
+[STFCDPedido.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Pedido/CD - dados
+
+[STFCNPedido.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Pedido/CN - negocio
+
+[STFCCPortaria.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Portaria/CC - controle
+
+[STFCDPortaria.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Portaria/CD - dados
+
+[STFCNPortaria.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Portaria/CN - negocio
+
+[STFCCprogramacaoTransp.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/ProgramacaoTransporte/CC - controle
+
+[STFCDProgramacaoTransp.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/ProgramacaoTransporte/CD - dados
+
+[STFCNProgramacaoTransp.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/ProgramacaoTransporte/CN - negocio
+
+[STFCCSolicitServ.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Solicit_Serv/CC - controle
+
+[STFCDSolicitServ.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Solicit_Serv/CD - dados
+
+[STFCNSolicitServ.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Componente/Transporte/Solicit_Serv/CN - negocio
+
+[Controles.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Controles
+
+[DTO.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/DTO
+
+[Extorna_DebitosPET.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Extorna_DebitosPET
+
+[Interface_PWSAT.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Interface_PWSAT
+
+[InterfaceANP.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/InterfaceANP
+
+[InterfaceOmniLink.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/InterfaceOmniLink
+
+[MonitoramentoArmazen.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/MonitoramentoArmazen
+
+[Negocio.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Negocio
+
+[Ultra.Integra.Transporte.Servicos.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Servicos
+
+[Servicos.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Servicos
+
+[ActivePrint.vbp]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/TextPrint
+
+[TotalizadorXTanque.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/TotalizadorXTanque
+
+[Utilidades.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Utilidades
+
+[Ultra.Integra.Transporte.Utilidades.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/Utilidades/My Project/Ultra.Integra.Transporte.Utilidades
+
+[webultra.vbproj]
+SCC_Aux_Path = 172.20.4.56:8877:Integra
+SCC_Project_Name = $/Integra/Fontes/WEB/WebService/Armazem
+
