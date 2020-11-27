@@ -27,48 +27,6 @@ function UltraCargo()
 	this.init();
 }
 
-XMLHttpRequest.prototype.loadXML = function(xmlStr) {
-	const parser = new DOMParser();
-	this.document = parser.parseFromString(xmlStr, "text/xml");
-}
-
-XMLHttpRequest.prototype.selectNodes = function(tagName) {  
-  var nodes = [];
-  var iterator = this.document.evaluate(tagName, this.document, null, XPathResult.ANY_TYPE, null);
-  try {
-    var thisNode = iterator.iterateNext();
-    while (thisNode) {
-      nodes.push(thisNode);
-      thisNode = iterator.iterateNext();
-    }
-    return nodes;
-  } catch (e) {
-    alert('Error: Documento modificado durante iteracao ' + e);
-  }
-}
-
-XMLHttpRequest.prototype.selectSingleNode = function(tagName) {
-  var nodes = this.selectNodes(tagName);
-  return nodes.length > 0 ? nodes[0] : null;
-}
-
-XMLHttpRequest.prototype.createNode = function(tipo, tagName, namespace) {
-  //NODE_ELEMENT (1)
-  //NODE_ATTRIBUTE (2)
-  //NODE_TEXT (3)
-  //https://docs.microsoft.com/en-us/previous-versions/windows/desktop/ms766473(v=vs.85)
-  switch (tipo) {
-    case 1:
-      return this.document.createElement(tagName);
-      break;
-    case 2:
-      this.document.createElement(tagName);
-      break;
-    default:
-      console.log('Tipo nao identificado');
-  }
-}
-
 UltraCargo.prototype.SessionText = function()
 {
 //	try {
@@ -178,15 +136,15 @@ UltraCargo.prototype.init = function()
 		this.init.host = getHost();
 		if (this.init.oXD == undefined) 
 		{
-			this.init.oXD = new XMLHttpRequest();
+			this.init.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		}
 		this.init.oXD.loadXML("<root/>");
 		if (this.init.oXDt == undefined) {
-			this.init.oXDt = new XMLHttpRequest();
+			this.init.oXDt = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		}
 		this.init.oXDt.loadXML("<root/>");
 		if (this.init.oXGr == undefined) {
-			this.init.oXGr = new XMLHttpRequest();
+			this.init.oXGr = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		}
 		this.init.oXGr.loadXML("<root/>");
 		//****************************************************************
@@ -194,7 +152,7 @@ UltraCargo.prototype.init = function()
 		//****************************************************************
 		if (this.init.oXCheck == undefined) 
 		{
-			this.init.oXCheck = new XMLHttpRequest();
+			this.init.oXCheck = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		}
 		this.init.oXCheck.loadXML("<root/>");
 		//****************************************************************
@@ -203,14 +161,13 @@ UltraCargo.prototype.init = function()
 		//****************************************************************
 		if (this.init.oXCheckXML == undefined)
 		{
-			this.init.oXCheckXML = new XMLHttpRequest();
+			this.init.oXCheckXML = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		}
 		this.init.oXCheckXML.loadXML("<root/>");
         //Atualiza com as variáveis de sessão
         
-		/*COMENTADO PARA SIMULACAO FABIO
-      	var loXHttp = new XMLHttpRequest();
-        var loXML   = new XMLHttpRequest();
+      	/*var loXHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        var loXML   = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 
 		loXHttp.open("POST",this.init.host + "/prc/prc_ultracargoSession.asp", false);
 		loXHttp.send();
@@ -231,7 +188,6 @@ UltraCargo.prototype.init = function()
 		this.init.sInLeitoraCartao = loXML.selectSingleNode("//inleitoracartao").getAttribute("value");
 		this.init.sInPesagemIndependente = loXML.selectSingleNode("//inpesagemindependente").getAttribute("value");
 		*/
-		
 //	}
 //	catch(oException) {
 //		this.exception(oException,"UltraCargo[init]");
@@ -1623,7 +1579,7 @@ UltraCargo.prototype.generateXmlDocument = function()
 		for (var iF = 0; iF < document.forms.length; iF++) 
 		{
 			document.forms[iF].onsubmit = new Function("return false");
-			this.oElmnts = document.forms[iF];
+			this.oElmnts = document.forms[iF].elements;
 			
 			
 			if (this.oElmnts != null)
@@ -5195,7 +5151,7 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 		this.sHCnt = "";
 		this.oNd = this.init.oXD.selectSingleNode("root/" + psTableId);
 		var vwChave  = ''
-		var vwobjXML_NOTIN   = new XMLHttpRequest();
+		var vwobjXML_NOTIN   = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		
 		this.oXPg = (arguments[1] != null) ? arguments[1] : "";
 		
@@ -5771,8 +5727,7 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 									this.oNd = this.init.oXD.selectSingleNode("root/" + psTableId + "/row/*[@index='" + iC + "']");
 									if (this.oNd != null) 
 									{
-										this.oElmnt = this.oNds[iR].getElementsByTagName(this.oNd.nodeName)[0];
-																																						
+										this.oElmnt = this.oNds[iR].selectSingleNode(this.oNd.nodeName);
 										if (this.oElmnt != null) {
 											this.sTipo = "";
 											this.sPK = (this.oElmnt.getAttribute("pk") != null) ? this.oElmnt.getAttribute("pk") : "";
@@ -6193,9 +6148,10 @@ UltraCargo.prototype.verifyExpiredSession = function()
 UltraCargo.prototype.fillCombo = function() 
 {
 		
+		/*
 		if (this.verifyExpiredSession()){
 			return;
-		}
+		}*/
 		
 		this.sResp = (arguments[0] != null) ? arguments[0] : "";
 		var vwNodeComplemento  =  (arguments[1] != null) ? arguments[1] : "";
@@ -6704,7 +6660,7 @@ UltraCargo.prototype.updateData = function() {
 			if ((this.sFrmId != "" && this.sSpecificFormId == "") || (this.sFrmId == this.sSpecificFormId)) {
 				this.sPK = (this.oFrm.getAttribute("pk") != null) ? this.oFrm.getAttribute("pk") : "";
 				this.sXPath = "root/" + this.sFrmId + "[@pk=\"" + this.sPK + "\"]";
-				this.oRoot = this.init.oXDt.document.documentElement;
+				this.oRoot = this.init.oXDt.documentElement;
 				this.oNd = this.init.oXDt.selectSingleNode(this.sXPath);
 				if (this.oNd == null) {
 					this.oNd = this.init.oXDt.createNode(1,this.sFrmId,"");
@@ -7061,11 +7017,10 @@ UltraCargo.prototype.send = function()
 		//Verifica se a sessão expirou  
 		//***********************************
 		this.shwSessionMsg = false;
-		/* COMENTADO PARA SIMULACAO FABIO
+		/*
 		if (this.verifyExpiredSession()){
 			return;
-		}
-		*/
+		}*/
 		
 		// Muda o foco para janela para funcionar a associação dos eventos nos campos str
 		//window.focus();
@@ -7117,9 +7072,9 @@ UltraCargo.prototype.send = function()
 			
 			
 			
-			this.oXD = new XMLHttpRequest()
+			this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
 			this.oXD.loadXML(this.sResp);
-			this.oRoot = this.oXD.document.documentElement;
+			this.oRoot = this.oXD.documentElement;
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			
 			
@@ -7153,7 +7108,7 @@ UltraCargo.prototype.send = function()
 					}
 				}
 			}
-			this.saveXmlQuery(new XMLSerializer().serializeToString(this.oXD.document.documentElement));
+			this.saveXmlQuery(this.oXD.xml);
 		}
 		else 
 		{
@@ -7356,7 +7311,7 @@ UltraCargo.prototype.postXML = function()
 {
 		
 		this.bPostXML = false;
-		this.oXHttp = new XMLHttpRequest();
+		this.oXHttp = new ActiveXObject("Microsoft.XMLHTTP");
 		this.oXHttp.open("POST",this.init.processPage, false);
 		
 		if(this.init.sPageOperation != '' && this.init.sPageOperation != null)
@@ -7395,14 +7350,13 @@ UltraCargo.prototype.postXML = function()
 		
 		this.sResp = this.oXHttp.responseText;
 		
-		this.oXD = new XMLHttpRequest()
+		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
 		
 		this.oXD.loadXML(this.checkStringValue(this.sResp));
 		
 		this.LogaString("XML Retorno:" , this.sResp);
 
-		//TODO: CHECK XML
-		if (true)
+		if (this.oXD.parseError == 0)
 		{
 			this.init.sXml = this.sResp;
 			this.oNds = this.oXD.selectNodes("root/*[@key='true']");
@@ -7436,7 +7390,7 @@ UltraCargo.prototype.postXML = function()
 				
 					if (this.oNd != null)
 					{
-						this.sResp = "<root>" + new XMLSerializer().serializeToString(this.oNd) + "</root>";
+						this.sResp = "<root>" + this.oNd.xml + "</root>";
 					}
 					
 					this.asXml[iM] = this.sResp;
@@ -7534,8 +7488,8 @@ UltraCargo.prototype.validateToSend = function()
 			vwTipoMensagem =  1; 
 			this.bValidate = false;
 		}
-		/*
-		if (!this.bValidate) 
+		
+		/*if (!this.bValidate) 
 		{
 			if(vwTipoMensagem == 0)
 			{
@@ -7547,8 +7501,8 @@ UltraCargo.prototype.validateToSend = function()
 				throw "Sua sessão expirou, por favor realize o Login novamente.";
 			}
 			 
-		}
-		*/
+		}*/
+		
 		
 		
 		
@@ -7602,105 +7556,106 @@ UltraCargo.prototype.verifyFields = function()
 		this.bVerify = false;
 		this.bOr = false;
 		this.iTpMsg;
-		this.oXD = new XMLHttpRequest();
+		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		this.oXD.loadXML(this.sXML);
-		
+		if (this.oXD.parseError == 0) {
 			
-		this.bVerify = true;
-		this.sOper = "";
-		this.oNd = this.oXD.selectSingleNode("root/operation");
-		if (this.oNd != null) {
-			this.sOper = (this.oNd.getAttribute("value") != null) ? this.oNd.getAttribute("value") : "";
-		}
-		this.oNds = this.init.oXD.selectNodes("root/*/*[@operation!='' and @lbl!='']");
-		if (this.oNds[0] != null) {
 			this.bVerify = true;
-			for (var iF = 0; iF < this.oNds.length; iF++) {
-				this.oNd = this.oNds[iF];
-				this.sElmntId = this.oNd.nodeName;
-				this.sAls = (this.oNd.getAttribute("alias") != null) ? this.oNd.getAttribute("alias") : "";
-				this.sVrf = (this.oNd.getAttribute("verify") != null) ? this.oNd.getAttribute("verify") : "";
-				this.sTgNm = (this.oNd.getAttribute("tag") != null) ? this.oNd.getAttribute("tag") : "";
-				this.sNdeOper = (this.oNd.getAttribute("operation") != null) ? this.oNd.getAttribute("operation") : "";
-				this.sLabel = (this.oNd.getAttribute("lbl") != null) ? unescape(this.oNd.getAttribute("lbl")) : "";
-				if (("," + this.sNdeOper + ",").indexOf("," + this.sOper + ",") != -1) {
-					if (this.sLabel != "") {
-						switch(this.sTgNm) {
-							case "input-file":
-							case "input-hidden":
-							case "input-text":
-							case "textarea":
-							case "input-checkbox":
-							case "input-radio":
-							case "select-one":
-							case "select-multiple":
-								this.bVrf = false;
-								this.oDt = this.oXD.selectSingleNode(((this.sAls != "") ? "//" + this.sAls + "[@value!='']" : "//" + this.sElmntId + "[@value!='']"));
-								if (this.oDt == null) {
-									this.bVrf = true;
-									if (this.sVrf != "") {
-										this.asVrf = this.sVrf.split("::");											
-										if (this.asVrf.length > 1){
-											this.bVrf = false;
-											for (var iV = 0; iV < this.asVrf.length; iV++) {												
-												if (this.asVrf[iV] != "") {
-													this.oDt = this.oXD.selectSingleNode(this.asVrf[iV]);
-													if (this.oDt == null) {
-														this.bVrf = true;
+			this.sOper = "";
+			this.oNd = this.oXD.selectSingleNode("root/operation");
+			if (this.oNd != null) {
+				this.sOper = (this.oNd.getAttribute("value") != null) ? this.oNd.getAttribute("value") : "";
+			}
+			this.oNds = this.init.oXD.selectNodes("root/*/*[@operation!='' and @lbl!='']");
+			if (this.oNds[0] != null) {
+				this.bVerify = true;
+				for (var iF = 0; iF < this.oNds.length; iF++) {
+					this.oNd = this.oNds[iF];
+					this.sElmntId = this.oNd.nodeName;
+					this.sAls = (this.oNd.getAttribute("alias") != null) ? this.oNd.getAttribute("alias") : "";
+					this.sVrf = (this.oNd.getAttribute("verify") != null) ? this.oNd.getAttribute("verify") : "";
+					this.sTgNm = (this.oNd.getAttribute("tag") != null) ? this.oNd.getAttribute("tag") : "";
+					this.sNdeOper = (this.oNd.getAttribute("operation") != null) ? this.oNd.getAttribute("operation") : "";
+					this.sLabel = (this.oNd.getAttribute("lbl") != null) ? unescape(this.oNd.getAttribute("lbl")) : "";
+					if (("," + this.sNdeOper + ",").indexOf("," + this.sOper + ",") != -1) {
+						if (this.sLabel != "") {
+							switch(this.sTgNm) {
+								case "input-file":
+								case "input-hidden":
+								case "input-text":
+								case "textarea":
+								case "input-checkbox":
+								case "input-radio":
+								case "select-one":
+								case "select-multiple":
+									this.bVrf = false;
+									this.oDt = this.oXD.selectSingleNode(((this.sAls != "") ? "//" + this.sAls + "[@value!='']" : "//" + this.sElmntId + "[@value!='']"));
+									if (this.oDt == null) {
+										this.bVrf = true;
+										if (this.sVrf != "") {
+											this.asVrf = this.sVrf.split("::");											
+											if (this.asVrf.length > 1){
+												this.bVrf = false;
+												for (var iV = 0; iV < this.asVrf.length; iV++) {												
+													if (this.asVrf[iV] != "") {
+														this.oDt = this.oXD.selectSingleNode(this.asVrf[iV]);
+														if (this.oDt == null) {
+															this.bVrf = true;
+														}
 													}
 												}
-											}
-										}else{
-											this.asVrf = this.sVrf.split("|");
-											for (var iV = 0; iV < this.asVrf.length; iV++) {
-												if (this.asVrf[iV] != "") {
-													this.oDt = this.oXD.selectSingleNode(this.asVrf[iV]);
-													if (this.oDt != null) {
-														this.bVrf = false;
-														break;
+											}else{
+												this.asVrf = this.sVrf.split("|");
+												for (var iV = 0; iV < this.asVrf.length; iV++) {
+													if (this.asVrf[iV] != "") {
+														this.oDt = this.oXD.selectSingleNode(this.asVrf[iV]);
+														if (this.oDt != null) {
+															this.bVrf = false;
+															break;
+														}
 													}
 												}
 											}
 										}
+										if (this.bVrf) {
+											this.sMsgBdy += "   " + this.sLabel + "\n";
+											this.bOr = true;
+										}
 									}
-									if (this.bVrf) {
-										this.sMsgBdy += "   " + this.sLabel + "\n";
-										this.bOr = true;
-									}
-								}
-								break;
+									break;
+							}
 						}
 					}
 				}
 			}
-		}
-		this.oNds = this.init.oXD.selectNodes("root/*[@tipo='table' and @required='true']");
-		if (this.oNds[0] != null) {
-			this.bVerify = true;
-			for (var iF = 0; iF < this.oNds.length; iF++) {
-				this.sLabel = (this.oNds[iF].getAttribute("lbl") != null) ? unescape(this.oNds[iF].getAttribute("lbl")) : "";
-				this.sNdeOper = (this.oNds[iF].getAttribute("operation") != null) ? this.oNds[iF].getAttribute("operation") : "";
-				this.sEmpty = (this.oNds[iF].getAttribute("empty") != null) ? this.oNds[iF].getAttribute("empty") : "";
-				if (this.sLabel != "") {
-					if (("," + this.sNdeOper + ",").indexOf("," + this.sOper + ",") != -1) {
-						this.oDt = this.oXD.selectSingleNode("root/" + this.oNds[iF].nodeName + "/row[@status!='del']");
-						if (this.oDt == null) {
-							this.sPKElement = "";
-							this.oFld = document.getElementById(this.oNds[iF].nodeName);
-							if (this.oFld != null) {
-								this.sPKElement = (this.oFld.getAttribute("pk") != null) ? this.oFld.getAttribute("pk") : "";
+			this.oNds = this.init.oXD.selectNodes("root/*[@tipo='table' and @required='true']");
+			if (this.oNds[0] != null) {
+				this.bVerify = true;
+				for (var iF = 0; iF < this.oNds.length; iF++) {
+					this.sLabel = (this.oNds[iF].getAttribute("lbl") != null) ? unescape(this.oNds[iF].getAttribute("lbl")) : "";
+					this.sNdeOper = (this.oNds[iF].getAttribute("operation") != null) ? this.oNds[iF].getAttribute("operation") : "";
+					this.sEmpty = (this.oNds[iF].getAttribute("empty") != null) ? this.oNds[iF].getAttribute("empty") : "";
+					if (this.sLabel != "") {
+						if (("," + this.sNdeOper + ",").indexOf("," + this.sOper + ",") != -1) {
+							this.oDt = this.oXD.selectSingleNode("root/" + this.oNds[iF].nodeName + "/row[@status!='del']");
+							if (this.oDt == null) {
+								this.sPKElement = "";
+								this.oFld = document.getElementById(this.oNds[iF].nodeName);
+								if (this.oFld != null) {
+									this.sPKElement = (this.oFld.getAttribute("pk") != null) ? this.oFld.getAttribute("pk") : "";
+								}
+								this.oDts = this.oXD.selectNodes("root/" + this.oNds[iF].nodeName + "/row[@status='del']");
+								this.iCnt = this.oDts.length;
+								this.oDts = this.init.oXGr.selectNodes("root/" + this.oNds[iF].nodeName + "[@pk=\"" + this.sPKElement + "\"]/row");
+								if (this.oDts.length <= this.iCnt && this.sEmpty == "false") {
+									this.sMsgBdy += "   " + this.sLabel + "\n";
+								}
 							}
-							this.oDts = this.oXD.selectNodes("root/" + this.oNds[iF].nodeName + "/row[@status='del']");
-							this.iCnt = this.oDts.length;
-							this.oDts = this.init.oXGr.selectNodes("root/" + this.oNds[iF].nodeName + "[@pk=\"" + this.sPKElement + "\"]/row");
-							if (this.oDts.length <= this.iCnt && this.sEmpty == "false") {
-								this.sMsgBdy += "   " + this.sLabel + "\n";
-							}
-						}
-						else {
-							this.sLabel = this.verifyDataGrid(this.oNds[iF].nodeName);
-							if (this.sLabel != "") {
-								this.sMsgBdy += this.sLabel;
+							else {
+								this.sLabel = this.verifyDataGrid(this.oNds[iF].nodeName);
+								if (this.sLabel != "") {
+									this.sMsgBdy += this.sLabel;
+								}
 							}
 						}
 					}
@@ -7895,59 +7850,61 @@ UltraCargo.prototype.setKeyValues = function() {
 UltraCargo.prototype.checkLongTypeNodes = function(psXml)
 {
 //	try {
-		this.oXD = new XMLHttpRequest();
+		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 		this.oXD.loadXML(psXml);		
-		
-		this.oNds = this.init.oXD.selectNodes("//*[@tipo!='']");
 
-		if (this.oNds[0] != null)
+		if (this.oXD.parseError == 0)
 		{
-			for (var iN = 0; iN < this.oNds.length; iN++)
+			this.oNds = this.init.oXD.selectNodes("//*[@tipo!='']");
+
+			if (this.oNds[0] != null)
 			{
-				this.oNd = this.oNds[iN];
-				
-				this.sAlias = (this.oNd.getAttribute("alias") != null) ? this.oNd.getAttribute("alias") : "";
-				this.sTipo = (this.oNd.getAttribute("tipo") != null) ? this.oNd.getAttribute("tipo") : "";
-				
-				if (this.sTipo.indexOf("int") != -1 || this.sTipo.indexOf("lng") != -1)
+				for (var iN = 0; iN < this.oNds.length; iN++)
 				{
-					this.oDts = this.oXD.selectNodes("//" + ((this.sAlias != "") ? this.sAlias : this.oNd.nodeName));
+					this.oNd = this.oNds[iN];
 					
-					if (this.oDts[0] != null)
+					this.sAlias = (this.oNd.getAttribute("alias") != null) ? this.oNd.getAttribute("alias") : "";
+					this.sTipo = (this.oNd.getAttribute("tipo") != null) ? this.oNd.getAttribute("tipo") : "";
+					
+					if (this.sTipo.indexOf("int") != -1 || this.sTipo.indexOf("lng") != -1)
 					{
-						for (var iI = 0; iI < this.oDts.length ; iI++)
+						this.oDts = this.oXD.selectNodes("//" + ((this.sAlias != "") ? this.sAlias : this.oNd.nodeName));
+						
+						if (this.oDts[0] != null)
 						{
-							this.oDt = this.oDts[iI];
-							
-							this.sSrvVl = (this.oDt.getAttribute("server_value") != null) ? unescape(this.oDt.getAttribute("server_value")) : "";
-							this.sVl = (this.oDt.getAttribute("value") != null) ? unescape(this.oDt.getAttribute("value")) : "";
-							
-							if (this.sSrvVl != "")
+							for (var iI = 0; iI < this.oDts.length ; iI++)
 							{
-								this.sSrvVl = new String(this.sSrvVl);
-								//this.sSrvVl = this.sSrvVl.replace(/\./g,"");
-								this.sSrvVl = this.sSrvVl.replace(/\,/g,".");
-								this.sSrvVl = escape(this.sSrvVl);
-								this.sSrvVl = this.sSrvVl.replace(/%20/g," ");
-								this.oDt.setAttribute("server_value",this.sSrvVl);
-							}
-							
-							if (this.sVl != "")
-							{
-								this.sVl = new String(this.sVl);
-								//this.sVl = this.sVl.replace(/\./g,"");
-								this.sVl = this.sVl.replace(/\,/g,".");
-								this.sVl = escape(this.sVl);
-								this.sVl = this.sVl.replace(/%20/g," ");
-								this.oDt.setAttribute("value",this.sVl);
+								this.oDt = this.oDts[iI];
+								
+								this.sSrvVl = (this.oDt.getAttribute("server_value") != null) ? unescape(this.oDt.getAttribute("server_value")) : "";
+								this.sVl = (this.oDt.getAttribute("value") != null) ? unescape(this.oDt.getAttribute("value")) : "";
+								
+								if (this.sSrvVl != "")
+								{
+									this.sSrvVl = new String(this.sSrvVl);
+									//this.sSrvVl = this.sSrvVl.replace(/\./g,"");
+									this.sSrvVl = this.sSrvVl.replace(/\,/g,".");
+									this.sSrvVl = escape(this.sSrvVl);
+									this.sSrvVl = this.sSrvVl.replace(/%20/g," ");
+									this.oDt.setAttribute("server_value",this.sSrvVl);
+								}
+								
+								if (this.sVl != "")
+								{
+									this.sVl = new String(this.sVl);
+									//this.sVl = this.sVl.replace(/\./g,"");
+									this.sVl = this.sVl.replace(/\,/g,".");
+									this.sVl = escape(this.sVl);
+									this.sVl = this.sVl.replace(/%20/g," ");
+									this.oDt.setAttribute("value",this.sVl);
+								}
 							}
 						}
 					}
 				}
 			}
-		}		
-			
-		return new XMLSerializer().serializeToString(this.oXD.document.documentElement);
+		}
+		return this.oXD.xml;
 //	}
 //	catch(oException) {
 //		this.exception(oException,"UltraCargo[checkLongTypeNodes]");
@@ -8293,9 +8250,9 @@ UltraCargo.prototype.extractXmlData = function(psOperation)
 		this.bAdd = false;
 		if (psOperation != "") 
 		{
-			this.oXD = new XMLHttpRequest();
+			this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
 			this.oXD.loadXML("<root/>");
-			this.oRoot = this.oXD.document.documentElement;
+			this.oRoot = this.oXD.documentElement;
 			this.bBrf = true;
 			if (this.bGroupData) 
 			{
@@ -8733,7 +8690,7 @@ UltraCargo.prototype.extractXmlData = function(psOperation)
 			this.oNd = this.oXD.createNode(1,"operation","");
 			this.oNd.setAttribute("value",psOperation);
 			this.oRoot.appendChild(this.oNd);
-			return new XMLSerializer().serializeToString(this.oXD.document.documentElement);
+			return this.oXD.xml;
 		}
 		this.bGroupData = null;
 		this.bAdd = null;
@@ -9243,38 +9200,39 @@ UltraCargo.prototype.saveXmlQuery = function(psXML)
 {
 
 //	try {
-		this.oXDom = new XMLHttpRequest()
+		this.oXDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
 		this.oXDom.loadXML(psXML);
-		this.oNd = this.oXDom.selectSingleNode("root/*");
-		if (this.oNd != null) {
-			this.sTblId = this.oNd.nodeName;
-			this.sTipo = "";
-			this.oNd = this.init.oXD.selectSingleNode("root/" + this.sTblId);
+		if (this.oXDom.parseError == 0) {
+			this.oNd = this.oXDom.selectSingleNode("root/*");
 			if (this.oNd != null) {
-				this.sTipo = (this.oNd.getAttribute("tipo") != null) ? this.oNd.getAttribute("tipo") : "";
-			}
-			this.sOper = "";
-			this.oNd = this.oXDom.selectSingleNode("root/operation");
-			if (this.oNd != null) {
-				this.sOper = (this.oNd.getAttribute("value") != null) ? this.oNd.getAttribute("value") : "";
-			}
-			
-			
-			if (this.sTipo == "table") 
-			{
-				this.iPos = this.init.asQuery.length;
-				for (var iA = 0; iA < this.init.asQuery.length; iA++) 
-				{
-					if (this.init.asQuery[iA][0] == this.sTblId) {
-						this.iPos = iA;
-					}
+				this.sTblId = this.oNd.nodeName;
+				this.sTipo = "";
+				this.oNd = this.init.oXD.selectSingleNode("root/" + this.sTblId);
+				if (this.oNd != null) {
+					this.sTipo = (this.oNd.getAttribute("tipo") != null) ? this.oNd.getAttribute("tipo") : "";
 				}
-				this.init.asQuery[this.iPos] = new Array();
-				this.init.asQuery[this.iPos][0] = this.sTblId;
-				this.init.asQuery[this.iPos][1] = psXML;
+				this.sOper = "";
+				this.oNd = this.oXDom.selectSingleNode("root/operation");
+				if (this.oNd != null) {
+					this.sOper = (this.oNd.getAttribute("value") != null) ? this.oNd.getAttribute("value") : "";
+				}
+				
+				
+				if (this.sTipo == "table") 
+				{
+					this.iPos = this.init.asQuery.length;
+					for (var iA = 0; iA < this.init.asQuery.length; iA++) 
+					{
+						if (this.init.asQuery[iA][0] == this.sTblId) {
+							this.iPos = iA;
+						}
+					}
+					this.init.asQuery[this.iPos] = new Array();
+					this.init.asQuery[this.iPos][0] = this.sTblId;
+					this.init.asQuery[this.iPos][1] = psXML;
+				}
 			}
 		}
-		
 //	}
 //	catch(oException) {
 //		this.exception(oException,"UltraCargo[saveXmlQuery]");
@@ -9630,11 +9588,10 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 		var strCheckSelec;
 		var strTipoCheckSelec;
 		
-		this.oXD = new XMLHttpRequest();
+		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
 		this.oXD.loadXML(psXML);
 		
-		//TODO: CHECK XML
-		if (true) 
+		if (this.oXD.parseError == 0) 
 		{
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.oNd != null) {
@@ -9681,7 +9638,7 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 					this.sHidFlds = (this.oNd.getAttribute("hidden") != null) ? this.oNd.getAttribute("hidden") : "";
 				}
 				this.oNd = this.init.oXGr.selectSingleNode("root/" + this.sFrmId + "[@pk=\"" + this.sElementPK + "\" and @page='" + this.sPgNum + "']");
-				this.oRoot = this.init.oXGr.document;
+				this.oRoot = this.init.oXGr.documentElement;
 				
 				if (this.oNd != null) 
 					this.oRoot.removeChild(this.oNd);
@@ -9738,14 +9695,14 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 						    this.oCol.setAttribute("value",this.init.sIdFilial);
 						    this.oRow.appendChild(this.oCol);
 					    }
-					    for (var iC = 0; iC < this.oNds[iR].children.length; iC++) 
+					    for (var iC = 0; iC < this.oNds[iR].childNodes.length; iC++) 
 					    {
 						    this.bPK = "false";
-						    this.sVl = (this.oNds[iR].children[iC].getAttribute("value") != null) ? unescape(this.oNds[iR].children[iC].getAttribute("value")) : "";
-						    this.oNds[iR].children[iC].setAttribute("server_value",escape(this.sVl));
+						    this.sVl = (this.oNds[iR].childNodes[iC].getAttribute("value") != null) ? unescape(this.oNds[iR].childNodes[iC].getAttribute("value")) : "";
+						    this.oNds[iR].childNodes[iC].setAttribute("server_value",escape(this.sVl));
 						    if (this.sPK != "") {
-							    if (("|" + this.sPK + "|").indexOf("|" + this.oNds[iR].children[iC].nodeName + "|") != -1) {
-								    this.sXPath = "root/" + this.sFrmId + "/row/" + this.oNds[iR].children[iC].nodeName + "[@value='" + escape(this.sVl) + "']";
+							    if (("|" + this.sPK + "|").indexOf("|" + this.oNds[iR].childNodes[iC].nodeName + "|") != -1) {
+								    this.sXPath = "root/" + this.sFrmId + "/row/" + this.oNds[iR].childNodes[iC].nodeName + "[@value='" + escape(this.sVl) + "']";
 								    this.oDt = this.init.oXDt.selectSingleNode(this.sXPath);
 								    if (this.oDt != null) 
 								    {
@@ -9769,7 +9726,7 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 						    }
 						    if (this.bPK == "false") 
 						    {
-							    this.oCol = this.init.oXD.selectSingleNode("root/" + this.sFrmId + "/row/" + this.oNds[iR].children[iC].nodeName);
+							    this.oCol = this.init.oXD.selectSingleNode("root/" + this.sFrmId + "/row/" + this.oNds[iR].childNodes[iC].nodeName);
 							    if (this.oCol == null) 
 							    {
 								    this.bPK = "";
@@ -9777,7 +9734,7 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 						    }
 						    if (this.sHidFlds != "") 
 						    {
-							    if (("|" + this.sHidFlds + "|").indexOf("|" + this.oNds[iR].children[iC].nodeName + "|") != -1) 
+							    if (("|" + this.sHidFlds + "|").indexOf("|" + this.oNds[iR].childNodes[iC].nodeName + "|") != -1) 
 							    {
 								    this.bRemoveDataRow = false;
 								    this.bPK = "false";
@@ -9785,8 +9742,8 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 						    }
 						    if (this.bPK != "") 
 						    {
-							    this.oNds[iR].children[iC].setAttribute("pk",this.bPK);
-							    this.oRow.appendChild(this.oNds[iR].children[iC].cloneNode(true));
+							    this.oNds[iR].childNodes[iC].setAttribute("pk",this.bPK);
+							    this.oRow.appendChild(this.oNds[iR].childNodes[iC].cloneNode(true));
 						    }
 					    }
 					    if (this.bRemoveDataRow) 
@@ -9809,7 +9766,7 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 				    this.oNd.setAttribute("page",this.sPgNum);
 				}    
 				
-				this.oRoot.documentElement.appendChild(this.oNd);
+				this.oRoot.appendChild(this.oNd);
 				this.oElmnts = this.init.oXD.selectNodes("root/" + this.sFrmId + "/row/*[@index!='']");
 				
 				this.sXPath = "root/" + this.sFrmId + "[@linked='" + this.sLnk + "' and @pk=\"" + this.sElementPK + "\" and @page='" + this.sPgNum + "']";

@@ -13,19 +13,7 @@ XMLHttpRequest.prototype.loadXML = function(root) {
   this.document = document.implementation.createDocument(null, rootClean, null);
 }
 
-XMLHttpRequest.prototype.selectNodes = function(tagName) {
-  /*var nos = tagName.split('/');
-  var docAtual = this.document;
-  for (var n = 0; n < nos.length; n++) {
-    if (n == nos.length - 1) {
-      return docAtual.getElementsByTagName(nos[n]);
-    }
-    docAtual = docAtual.getElementsByTagName(nos[n])[0];
-    if (!docAtual) {
-      return [];
-    }
-  }
-  return null;*/
+XMLHttpRequest.prototype.selectNodes = function(tagName) {  
   var nodes = [];
   var iterator = this.document.evaluate(tagName, this.document, null, XPathResult.UNORDERED_NODE_ITERATOR_TYPE, null);
   try {
@@ -41,15 +29,6 @@ XMLHttpRequest.prototype.selectNodes = function(tagName) {
 }
 
 XMLHttpRequest.prototype.selectSingleNode = function(tagName) {
-  /*var nos = tagName.split('/');
-  var docAtual = this.document;
-  for (var n = 0; n < nos.length; n++) {
-    docAtual = docAtual.getElementsByTagName(nos[n])[0];
-    if (!docAtual) {
-      return null;
-    }
-  }
-  return docAtual;*/
   var nodes = this.selectNodes(tagName);
   return nodes.length > 0 ? nodes[0] : null;
 }

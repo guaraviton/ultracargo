@@ -1831,7 +1831,7 @@ function reposition()
     
       
     var obj_New = document.getElementById("grid_New");
-    var obj_Cols = obj_New.querySelectorAll("[id^='Col']")
+    var obj_Cols = obj_New.all("Col");
     var int_Cols = 1;
     if (obj_Cols.length != null) 
     {
