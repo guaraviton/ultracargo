@@ -1,0 +1,343 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>:: Integra -------------------------------------------------------------------------------------------------------------------</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<link rel="stylesheet" href="css/styles.css" type="text/css" />
+	<!--#include file="includes/impressoraocx.asp" -->
+	<style type="text/css">
+		<!--
+		a:link {
+			color: #FFFFFF;
+		}
+
+		a:visited {
+			color: #FFFFFF;
+		}
+
+		a:hover {
+			color: #999999;
+		}
+
+		a:active {
+			color: #FFFFFF;
+		}
+		-->
+	</style>
+</head>
+
+<script language="javascript" src="js/general.js" type="text/javascript"></script>
+<script language="javascript" src="js/ultraarma.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	//Redimensionar e posicionar tela
+	try {
+		// self.resizeTo(screen.availWidth,screen.availHeight);
+		self.moveTo(0, 0);
+	} catch (ex) {}
+
+	var obj_Ultra = "";
+	var str_Operation = "";
+
+	function main(pstr_Operation) {
+		try {
+			var obj_Field = (arguments[1] != null) ? arguments[1] : null;
+			var str_XML = (arguments[2] != null) ? arguments[2] : "";
+
+
+			switch (pstr_Operation) {
+
+				case "start":
+
+					window.frm_index.disabled = false
+					obj_Field.doVerifySession = false;
+					frm_index.filial.options.length = 0;
+					frm_index.filial.disabled = true;
+					frm_index.dslogin.focus();
+
+					break;
+
+				case "informacao":
+					var info = window.showModelessDialog("pop_index_informacao.asp", "info", "help:0;status:no;scroll:no;center:yes;resizable:0;dialogWidth:214px;dialogHeight:180px");
+					info.focus();
+					break;
+
+				case "validaCertificadoDigital":
+					//	  	frm_index.action = "pop_index_certificadodigital.asp";
+					//		frm_index.target = "_blank";
+					//		frm_index.method = "post";
+					//		frm_index.submit();
+
+					//       var teste = window.showModelessDialog("pop_index_certificadodigital.asp","Certificado Digital","help:0;status:no;scroll:no;resizable:0;dialogWidth:214px;dialogHeight:160px");
+					//       teste.focus();
+					//       break;
+					window.open("pop_index_certificadodigital.asp", null, "height=475,width=655,top=(screen.availHeight-475)/2,<SPAN class=clsRange>width=(screen.availWidth-655)/2,status=no,scrollbars=no,resizable=no,toolbar=no,menubar=no,location=no");
+					//		winOpen.moveTo((screen.availWidth-655)/2,(screen.availHeight-475)/2);
+					//		winOpen.resizeTo(screen.availWidth,screen.availHeight);
+
+					break;
+
+				case "filial":
+				case "validarCampos":
+					var strMensagem;
+					var contTentativas = 0;
+
+					frm_index.dssenha.value = frm_index.pas_dssenha.value;
+
+					if (obj_Ultra.getSession("histlogin") == "") {
+						obj_Ultra.setSession("histlogin", frm_index.dslogin.value)
+					} else {
+						if (obj_Ultra.getSession("histlogin") != frm_index.dslogin.value) {
+							obj_Ultra.setSession("histlogin", frm_index.dslogin.value)
+							obj_Ultra.setSession("conttentativas", 0)
+						}
+					}
+
+					frm_index.conttentativas.value = obj_Ultra.getSession("conttentativas") * 1;
+
+					//Valida usu�rio
+					frm_index.idusuario.value = "";
+					frm_index.filial.options.length = 0;
+					frm_index.filial.disabled = true;
+					obj_Ultra.form("frm_index");
+					obj_Ultra.operation("usuario");
+					obj_Ultra.send();
+
+					//S� sugere instala��o do setup.exe nos casos de n�o ser cliente
+					//		if (obj_Ultra.getValue(obj_Ultra.Xml(),"//incategoria").toUpperCase() != "CLIENTE" && obj_Ultra.getValue(obj_Ultra.Xml(),"//idusuario") != ""){
+					//			verificarImpressora();
+					//		}
+
+					strMensagem = obj_Ultra.Xml().substr(obj_Ultra.Xml().lastIndexOf("M190"));
+					obj_Ultra.loadData("frm_index");
+
+					//Se usu�rio for v�lido, preencher filial
+					if (frm_index.idusuario.value != "") {
+
+						if (obj_Ultra.getSession("incategoria").toUpperCase() != "INTERFACE") {
+							//Grava os dados de acesso na sess�o do DOTNET
+							try {
+								var http = new ActiveXObject("Microsoft.XMLHTTP");
+								http.open("POST", "includes/session.aspx?pFunction=SET", false);
+								http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+								http.send(obj_Ultra.sResp);
+							} catch (ex) {
+								var strMsg = (ex.Message) ? ex.Message : ex.description;
+
+								alert(strMsg);
+							}
+
+							contTentativas = 0;
+							obj_Ultra.setSession("conttentativas", 0);
+							main("preencherFilial");
+						} else {
+							alert("Este usu�rio n�o possui perfil de acesso ao Integra");
+						}
+
+						break;
+					}
+					if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "M190") //Senha expirada
+					{
+						window.showModalDialog("pop_index_alteracao.asp", frm_index.dslogin.value + "�" + frm_index.dssenha.value, "help:0;status:no;scroll:no;resizable:0;dialogWidth:300px;dialogHeight:290px");
+						frm_index.pas_dssenha.value = "";
+						frm_index.pas_dssenha.focus();
+					} else if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "PW102") //Usu�rio Bloqueado
+					{
+						contTentativas = 0;
+						obj_Ultra.setSession("conttentativas", 0);
+						break;
+					} else {
+						//Contador de Tentativas de Acesso com senha invalida
+						contTentativas = obj_Ultra.getSession("conttentativas") * 1;
+						contTentativas++;
+						obj_Ultra.setSession("conttentativas", contTentativas);
+
+						frm_index.dslogin.value = "";
+						frm_index.pas_dssenha.value = "";
+						frm_index.dslogin.focus();
+					}
+					break;
+
+				case "preencherFilial":
+					//Preencher combo filial
+					with(obj_Ultra) {
+						combo.from = "frm_index.filial";
+						combo.operation = "filial";
+						combo.valueFields = "identidade_idfilial";
+						combo.descriptionFields = "dsentidade_dsfilial";
+						combo.autosele = true;
+					}
+					obj_Ultra.fillCombo();
+
+					frm_index.filial.disabled = false;
+
+					//Carrega session que posteriormente carrega combo Entidade/Filial do top e combos do monitoramento
+					obj_Ultra.setSession("sess_cbo_filial", cbo_filial.innerHTML);
+					//Se for cliente, selecionar a primeira filial
+					if ((obj_Ultra.getSession("incategoria").toUpperCase() == "CLIENTE") ||
+						(obj_Ultra.getSession("incategoria").toUpperCase() == "AGENDAMENTO")) {
+						frm_index.filial.selectedIndex = 1;
+					}
+
+					if (frm_index.filial.selectedIndex == 1) {
+						main("login");
+					} else {
+						frm_index.filial.options[0].text = "SELECIONE UMA FILIAL";
+						frm_index.filial.focus();
+					}
+					break;
+
+				case "login":
+
+					// Validar campos obrigat�rios
+					obj_Ultra.form("frm_index");
+					obj_Ultra.operation("login");
+					obj_Ultra.send();
+					obj_Ultra.loadData("frm_index");
+
+					if (frm_index.idusuario.value != "") {
+						//Limpar campos
+						obj_Ultra.clearForms("frm_index");
+						frm_index.pas_dssenha.value = "";
+						frm_index.filial.disabled = true;
+						obj_Ultra.ClearXmlData_Local("frm_index");
+
+						//Abrir tela
+						var winOpen = window.open('home.asp', 'winOpen_<%= Session.SessionID %>', 'resizable=yes,scrooling=no');
+						try {
+							winOpen.moveTo(0, 0);
+							winOpen.resizeTo(800, screen.availHeight);
+						} catch (ex) {}
+						//winOpen.focus();
+
+						//var winOpen = window.open('home.asp','winOpen','resizable=no,scrooling=no');
+						//winOpen.moveTo(0,0);
+						//winOpen.resizeTo(screen.availWidth,screen.availHeight);
+						winOpen.focus();
+					}
+
+					break;
+				case "createObject":
+
+					try {
+						opener = null;
+						obj_Ultra = new UltraCargo();
+						obj_Ultra.processPage("./prc/prc_index.asp");
+						obj_Ultra.initialize();
+					} catch (obj_Exception) {
+						alert("createObject: " + obj_Exception.description);
+						return false;
+					}
+
+					if (obj_Ultra != undefined) {
+						main('start', obj_Ultra);
+					}
+
+					break;
+			}
+		} catch (obj_Exception) {
+			alert("main: " + obj_Exception.description);
+		}
+
+		//frm_index.dslogin.focus();
+	}
+</script>
+
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background="images_index/ultr_bkg.gif" onLoad="main('createObject');" scroll="no">
+	<form id="frm_index">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
+			<tr>
+				<td align="center">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td><img src="images_index/ultr_p_1.gif" width="386" height="92"></td>
+							<td><img src="images_index/ultr_p_2.gif" width="394" height="92"></td>
+						</tr>
+						<tr>
+							<td><img src="images_index/ultr_p_3.gif" width="386" height="270"></td>
+							<td><img src="images_index/ultr_p_4.gif" width="394" height="270"></td>
+						</tr>
+						<tr>
+							<td background="images_index/ultr_p_5.gif" colspan="2" height="40">
+								<table width="100%" border="0">
+									<tr valign="bottom" height="20">
+										<td valign="middle">
+											<table border="0" cellpadding="0" cellspacing="0" valign="baseline">
+												<tr>
+													<td width="18">&nbsp;</td>
+													<td><a href="javascript:main('informacao');"><strong><u>Esqueci a Senha!</u></strong></a></td>
+												</tr>
+											</table>
+										</td>
+										<td align="right" valign="baseline">
+											<table border="0" cellpadding="2" cellspacing="0" class="ultrlogin" valign="baseline">
+												<tr>
+													<td width="35">Login:</td>
+													<td width="115"><input type="text" id="dslogin" class="ultrlogintxt" operation="login,filial,usuario" lbl="Login" tipo="str(20)" /></td>
+													<td width="35">Senha:</td>
+													<td width="115"><input type="password" id="pas_dssenha" class="ultrlogintxt" operation="login,filial,usuario" lbl="Senha" tipo="str(20)" onkeydown="if(event.keyCode==13)main('filial');" /></td>
+													<td width="25"><a href="javascript:main('filial');"><img src="images_index/ultr_bt_ok.gif" width="23" height="15" align="absmiddle" alt="Entrar no Sistema" border="0" /></a></td>
+													<td width="30">Filial:</td>
+													<td width="255">
+														<div id="cbo_filial"><select id="filial" style="width=240" class="ultrlogintxt" operation="login" onchange="main('login');"></select></div>
+													</td>
+													<td width="10">&nbsp;</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr height="7">
+										<td valign="top" align="right" colspan="2">
+											<table width="100%" border="0" class="ultrlogin">
+												<tr align="center">
+													<td align="right" width="58%">Acesso por certifica��o digital</td>
+													<td align="left" width="42%">
+														<table border="0" class="ultrlogin" cellpadding="0" cellspacing="0">
+															<tr>
+																<td width="39"><a href="javascript:main('validaCertificadoDigital');"><img src="./images_index/e_cpf.gif" alt="Certificado Digital" width="39" height="12" border="1"></a></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td background="images_index/ultr_p_6.gif" class="ultrlogin" align="center">&nbsp;</td>
+							<td><img src="images_index/ultr_p_7.gif" width="394" height="19"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" id="idusuario" operation="login,filial" />
+		<input type="hidden" id="dssenha" operation="login,filial,usuario" lbl="Senha" />
+		<input type="hidden" id="idempresa" operation="login,filial" />
+		<input type="hidden" id="idfilialempresa" operation="login,filial,usuario" />
+		<input type="hidden" id="dsip" operation="login,filial,usuario" value="<%= Request.ServerVariables("REMOTE_ADDR")%>" fixed="true" />
+		<input type="hidden" id="dslocalip" operation="login,filial,usuario" value="<%= Request.ServerVariables("LOCAL_ADDR")%>" fixed="true" />
+		<input type="hidden" id="conttentativas" operation="usuario" />
+		<input type="hidden" id="insenhabloq" operation="login,usuario" />
+	</form>
+</body>
+
+</html>
+<!--
+<script>
+/*
+function verificarImpressora(){
+	if (!fncVerificaImpressora())
+	{
+		var blConfirm = (msgBox("Por favor efetue o download e a instala��o do \"SETUP.EXE\" para efetuar as opera��es de impress�o de FAC e Nota Fiscal. Continuar download?",null,"SIM","NAO") == 0) ? true : false;
+		if (blConfirm)
+		{
+			window.open(getHost() + "/impressora/setup.exe");
+			//window.location.href = getHost() + "/impressora/setup.exe"; //,"Setup","resizable=no,toolbar=no,status=no,menubar=no,scrollbars=no,top=1000,left=1000, width=0,height=0");
+		}
+	}
+}
+*/
+</script>
+-->
