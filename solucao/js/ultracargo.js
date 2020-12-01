@@ -1672,10 +1672,10 @@ UltraCargo.prototype.generateXmlDocument = function()
 						switch(this.sTgNm) 
 						{
 							case "INPUT":
-								this.sTgNm += "-" + this.oElmnt.getAttribute("type");
+								this.sTgNm += "-" + this.oElmnt.type;
 								break;
 							case "SELECT":
-								this.sTgNm = this.oElmnt.getAttribute("type");
+								this.sTgNm = this.oElmnt.type;
 								break;
 						}
 						this.sTgNm = this.sTgNm.toLowerCase();
