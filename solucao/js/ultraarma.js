@@ -5978,10 +5978,10 @@ UltraCargo.prototype.loadData = function() {
 							if (this.sElmntId != "" && (this.sIgnore == false || (this.sIgnore == true && this.sUnique == true))) {
 								switch(this.sTgNm) {
 									case "INPUT":
-										this.sTgNm += "-" + this.oElmnt.getAttribute("type");
+										this.sTgNm += "-" + this.oElmnt.type;
 										break;
 									case "SELECT":
-										this.sTgNm = this.oElmnt.getAttribute("type");
+										this.sTgNm = this.oElmnt.type;
 										break;
 								}
 								this.sTgNm = this.sTgNm.toLowerCase();
@@ -6083,10 +6083,10 @@ UltraCargo.prototype.updateData = function() {
 						if (this.sElmntId != "") {
 							switch(this.sTgNm) {
 								case "INPUT":
-									this.sTgNm += "-" + this.oElmnt.getAttribute("type");
+									this.sTgNm += "-" + this.oElmnt.type;
 									break;
 								case "SELECT":
-									this.sTgNm = this.oElmnt.getAttribute("type");
+									this.sTgNm = this.oElmnt.type;
 									break;
 							}
 							this.sTgNm = this.sTgNm.toLowerCase();
@@ -6239,10 +6239,10 @@ UltraCargo.prototype.clearForms = function(psFormIds) {
 							if (this.sElmntId != "") {
 								switch(this.sTgNm) {
 									case "INPUT":
-										this.sTgNm += "-" + this.oElmnt.getAttribute("type");
+										this.sTgNm += "-" + this.oElmnt.type;
 										break;
 									case "SELECT":
-										this.sTgNm = this.oElmnt.getAttribute("type");
+										this.sTgNm = this.oElmnt.type;
 										break;
 								}
 								this.sTgNm = this.sTgNm.toLowerCase();
@@ -6314,10 +6314,10 @@ UltraCargo.prototype.clearLinkedForm = function(psFormId)
 							if (this.sElmntId != "") {
 								switch(this.sTgNm) {
 									case "INPUT":
-										this.sTgNm += "-" + this.oElmnt.getAttribute("type");
+										this.sTgNm += "-" + this.oElmnt.type;
 										break;
 									case "SELECT":
-										this.sTgNm = this.oElmnt.getAttribute("type");
+										this.sTgNm = this.oElmnt.type;
 										break;
 								}
 								this.sTgNm = this.sTgNm.toLowerCase();
