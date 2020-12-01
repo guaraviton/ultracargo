@@ -27,7 +27,7 @@ function UltraCargo()
 	this.init();
 }
 
-XMLHttpRequest.prototype.xml = function(xmlStr) {
+XMLHttpRequest.prototype.xml = function() {
 	return new XMLSerializer().serializeToString(this.document.documentElement);
 }
 

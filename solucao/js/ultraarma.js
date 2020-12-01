@@ -24,6 +24,10 @@ function UltraCargo()
 	this.init();
 }
 
+XMLHttpRequest.prototype.xml() = function() {
+	return new XMLSerializer().serializeToString(this.document.documentElement);
+}
+
 XMLHttpRequest.prototype.loadXML = function(xmlStr) {
     const parser = new DOMParser();
     this.document = parser.parseFromString(xmlStr, "text/xml");
@@ -73,7 +77,7 @@ UltraCargo.prototype.SessionText = function()
 		this.SPage = (arguments[1] != null) ? arguments[1] : "";
 		this.SSession = (arguments[2] != null) ? arguments[2] : "";
 
-		this.oXHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		this.oXHttp = new XMLHttpRequest();
 		this.oXHttp.open("POST",this.SPage + "?pFunction=" + this.sFunction + "&pSession=" + this.SSession, false);		
 
 		if(this.sFunction == "SET"){
@@ -162,8 +166,8 @@ UltraCargo.prototype.init = function()
 		this.init.oXCheckXML.loadXML("<root/>");
 	        
 			/*COMENTADO PARA SIMULACAO FABIO
-	      	var loXHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	        var loXML   = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	      	var loXHttp = new ActiveXObject("Microsoft.xml()HTTP");
+	        var loXML   = new XMLHttpRequest();
 	
 			loXHttp.open("POST",this.init.host + "/prc/prc_ultracargoSession.asp", false);
 			loXHttp.send();
@@ -194,9 +198,9 @@ UltraCargo.prototype.init = function()
 }
 UltraCargo.prototype.SeeXmls = function()
 {
-		alert('oXD:' + this.init.oXD.xml);
-		alert('oXDt:' + this.init.oXDt.xml); 
-		alert('oXGr:' + this.init.oXGr.xml);
+		alert('oXD:' + this.init.oXD.xml());
+		alert('oXDt:' + this.init.oXDt.xml()); 
+		alert('oXGr:' + this.init.oXGr.xml());
 }
 
 UltraCargo.prototype.setopenPopUp = function()
@@ -247,7 +251,7 @@ UltraCargo.prototype.openPopUp = function()
 			}else{
 				vwAtivaPopUp  = true;
 			}
-			str_XML = this.Xml();
+			str_XML = this.xml()();
 		}
 		else{
 			obj_Field = obj_Form.all(arr_FormField[0]);
@@ -259,10 +263,10 @@ UltraCargo.prototype.openPopUp = function()
 			}
 		}
 		if(vwAtivaPopUp == true){
-			var obj_XML = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+			var obj_XML = new XMLHttpRequest();
 			var str_PopWidth, str_PopHeight;
 			obj_XML.async = false;
-			obj_XML.load(str_Host + "/pop-up/Pop_Size.xml");
+			obj_XML.load(str_Host + "/pop-up/Pop_Size.xml()");
 			
 			if (obj_XML.parseError == 0){
 				var str_PopName = new String(this.setopenPopUp.sPath);
@@ -300,11 +304,11 @@ UltraCargo.prototype.openPopUp = function()
 
 UltraCargo.prototype.Fu_OrdenaXML = function(paPathPai,paPathLine,paOrdenarCampo)
 {
-	var vwObjXMLOrder = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwObjXMLOrder = new XMLHttpRequest();
 	var vwNodesOrder  = null; 
 	var vwStringCampos = null; 
 	var vwSNodeCampo   = null; 
-	vwObjXMLOrder.loadXML(this.init.oXGr.xml);
+	vwObjXMLOrder.loadXML(this.init.oXGr.xml());
 	vwNodesOrder  =  vwObjXMLOrder.selectNodes(paPathLine);  
 	if(vwNodesOrder!= null)
 	{
@@ -375,27 +379,27 @@ UltraCargo.prototype.Fu_RetXML = function(paNome)
 {
 	if(paNome ==  'CHECK')
 	{
-		return this.init.oXCheck.xml;
+		return this.init.oXCheck.xml();
 	}
 	
 	if(paNome ==  'CHECK_XML')
 	{
-		return this.init.oXCheckXML.xml;
+		return this.init.oXCheckXML.xml();
 	}
 	
 	if(paNome ==  'DT')  
 	{
-		return this.init.oXDt.xml;
+		return this.init.oXDt.xml();
 	}
 	
 	if(paNome ==  'GR')  
 	{
-		return this.init.oXGr.xml;
+		return this.init.oXGr.xml();
 	}
 	
 	if(paNome ==  'D')
 	{
-		return this.init.oXD.xml;
+		return this.init.oXD.xml();
 	}
 	return ''	
 }
@@ -423,7 +427,7 @@ UltraCargo.prototype.getPage = function(paFormName)
 
 UltraCargo.prototype.keepPage = function(paFormName,paPageForce)
 {
-	var vwObjXMLKP	= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwObjXMLKP	= new XMLHttpRequest();
 	var vwNodePai	= null; 
 	var vwNode		= null;
 	var vwPagina	= null; 
@@ -458,7 +462,7 @@ UltraCargo.prototype.keepPage = function(paFormName,paPageForce)
 			vwNode.setAttribute("value","keeppage");
 			vwNodePai.appendChild(vwNode);
 			
-			this.dataGrid(vwObjXMLKP.xml)
+			this.dataGrid(vwObjXMLKP.xml())
 		}
 	}
 	
@@ -471,10 +475,10 @@ UltraCargo.prototype.keepPage = function(paFormName,paPageForce)
 
 UltraCargo.prototype.Fu_RetXML_GridNotIn = function(paTabela)
 {
-	var vwXMLNo	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLNo	=   new XMLHttpRequest();
 	var vwNode;
 	
-	vwXMLNo.loadXML(this.init.oXGr.xml);
+	vwXMLNo.loadXML(this.init.oXGr.xml());
 	vwNode   = vwXMLNo.selectNodes('root/' + paTabela);
 	
 	
@@ -500,7 +504,7 @@ UltraCargo.prototype.Fu_RetLinhaAtualSele = function(psTableId,paXML)
 {
 	var vwLinhaSele=0;
 	var vwCheck = '' 
-	var vwXML	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXML	=   new XMLHttpRequest();
 	vwXML.loadXML(paXML);
 	
 	if(vwXML.parseError!=0) 
@@ -513,7 +517,7 @@ UltraCargo.prototype.Fu_RetLinhaAtualSele = function(psTableId,paXML)
 		vwLinhaSele  =  vwNodeXML[vwi].getAttribute('line');
 		vwCheck		 =  vwNodeXML[vwi].getAttribute('checked');
 	}
-	vwXML.loadXML(this.init.oXGr.xml);
+	vwXML.loadXML(this.init.oXGr.xml());
 	vwNodeXML   = vwXML.selectNodes('root/' + psTableId + '/row')
 	for(var vwi= 0;vwi<=vwNodeXML.length-1;vwi++)
 	{
@@ -533,7 +537,7 @@ UltraCargo.prototype.Fu_RetLinhasSele = function(psTableId,paXML)
 {
     var vwLinhaSele=0;
 	var vwCheck = '' 
-	var vwXML	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXML	=   new XMLHttpRequest();
 	var xmlReturn = '';
 	vwXML.loadXML(paXML);
 	
@@ -547,7 +551,7 @@ UltraCargo.prototype.Fu_RetLinhasSele = function(psTableId,paXML)
 		vwLinhaSele  =  vwNodeXML[vwi].getAttribute('line');
 		vwCheck		 =  vwNodeXML[vwi].getAttribute('checked');
 	}
-	vwXML.loadXML(this.init.oXGr.xml);
+	vwXML.loadXML(this.init.oXGr.xml());
 	vwNodeXML   = vwXML.selectNodes('root/' + psTableId + '/row')
 	for(var vwi= 0;vwi<=vwNodeXML.length-1;vwi++)
 	{
@@ -591,15 +595,15 @@ UltraCargo.prototype.PopulaXMLtoCheck = function()
 
 UltraCargo.prototype.CriaCheckXML = function(paNomeForm,paLinhaXML,paNomeFormEstru)
 {
-	var vwXMLCheckTemp =   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLCheckTemp =   new XMLHttpRequest();
 	var vwObjNodes;
 	vwXMLCheckTemp.loadXML(paLinhaXML);
 	vwObjNodes   =   vwXMLCheckTemp.selectNodes('root/*/*') 
 	this.oRoot = this.init.oXCheckXML.selectSingleNode('root/' + paNomeForm);
 	
-	var vwXMLStru	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLStru	=   new XMLHttpRequest();
 	var vwNodeStru;
-	vwXMLStru.loadXML(this.init.oXD.xml)  
+	vwXMLStru.loadXML(this.init.oXD.xml())  
 	vwNodeStru  =  vwXMLStru.selectSingleNode('root/' + paNomeFormEstru)
 	var vwChave = vwNodeStru.getAttribute('pk'); 
 	var vwCamposChave =  vwChave.split('|');
@@ -649,7 +653,7 @@ UltraCargo.prototype.CriaCheckXML = function(paNomeForm,paLinhaXML,paNomeFormEst
 
 UltraCargo.prototype.AddLinhaDT = function(paNomeForm,paXML,paStatusLinha)
 {
-	var vwXMLAddLinha =   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLAddLinha =   new XMLHttpRequest();
 	var vwObjNodes;
 	vwXMLAddLinha.loadXML(paXML);
 	vwObjNodes   =   vwXMLAddLinha.selectNodes('root/*/*')
@@ -742,9 +746,9 @@ UltraCargo.prototype.ExcluiLinhaDesCheckXML = function(paCamposChav,paChave)
 
 UltraCargo.prototype.ExcluiLinhaCheck = function(paGridSelecionar,paChave)
 {
-	var vwXMLStru	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLStru	=   new XMLHttpRequest();
 	var vwNodeStru;
-	vwXMLStru.loadXML(this.init.oXD.xml)  
+	vwXMLStru.loadXML(this.init.oXD.xml())  
 	vwNodeStru  =  vwXMLStru.selectSingleNode('root/' + paGridSelecionar)
 	
 	var vwChave = vwNodeStru.getAttribute('pk');
@@ -800,9 +804,9 @@ UltraCargo.prototype.ExcluiLinhaCheck = function(paGridSelecionar,paChave)
 UltraCargo.prototype.ExcluiLinhaCheckGrid_1 = function(paCamposChav,paChaveConc,psTableID_1)
 {
 	var vwLinhaRetorno;
-	var vwXMLGrid_1	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLGrid_1	=   new XMLHttpRequest();
 	var vwNodes
-	vwXMLGrid_1.loadXML(this.init.oXDt.xml);
+	vwXMLGrid_1.loadXML(this.init.oXDt.xml());
 	
 	vwNodes  = vwXMLGrid_1.selectNodes('root/' + psTableID_1 + '/row')
 	
@@ -868,7 +872,7 @@ UltraCargo.prototype.CriaXMLtoCheck = function(paTipo,paNomeForm,paLinhaXML)
 		return;  
 	}
 	
-	var vwXMLCheckTemp =   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLCheckTemp =   new XMLHttpRequest();
 	var vwObjNodes;
 	
 	vwXMLCheckTemp.loadXML(paLinhaXML);
@@ -877,9 +881,9 @@ UltraCargo.prototype.CriaXMLtoCheck = function(paTipo,paNomeForm,paLinhaXML)
 	
 	this.oRoot = this.init.oXCheck.selectSingleNode('root/' + paNomeForm);
 	
-	var vwXMLStru	=   new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwXMLStru	=   new XMLHttpRequest();
 	var vwNodeStru;
-	vwXMLStru.loadXML(this.init.oXD.xml)  
+	vwXMLStru.loadXML(this.init.oXD.xml())  
 	vwNodeStru  =  vwXMLStru.selectSingleNode('root/' + paNomeForm)
 	var vwChave = vwNodeStru.getAttribute('pk'); 
 	var vwCamposChave =  vwChave.split('|');
@@ -1228,8 +1232,8 @@ UltraCargo.prototype.setSession = function()
 	this.iSession = (arguments[0] != null || arguments[0] != undefined) ? arguments[0] : "";
 	this.sSession = (arguments[1] != null || arguments[1] != undefined) ? escape(arguments[1]) : "";
 	
-	var loXHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	var loXML   = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var loXHttp = new XMLHttpRequest();
+	var loXML   = new XMLHttpRequest();
 	
 	loXHttp.open("POST",this.init.host + "/prc/prc_Session.asp" + "?pFunction=SET&pSession=" + this.iSession, false);
 	loXHttp.send("<root>" + this.sSession + "</root>");
@@ -1257,8 +1261,8 @@ UltraCargo.prototype.getSession = function()
 	this.sSession = (arguments[1] != null || arguments[1] != undefined) ? arguments[1] : "";
 	
 	if (isNaN(this.iSession)){
-		var loXHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        	var loXML   = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		var loXHttp = new XMLHttpRequest();
+        	var loXML   = new XMLHttpRequest();
 		
 		loXHttp.open("POST",this.init.host + "/prc/prc_Session.asp" + "?pFunction=GET&pSession=" + this.iSession, false);
 		loXHttp.send();
@@ -1993,7 +1997,7 @@ UltraCargo.prototype.moveItem = function(psOper,psTableFrom,psTableTo)
 				}
 				if (this.oTable != null) 
 				{
-					this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+					this.oXD = new XMLHttpRequest();
 					this.oXD.loadXML(self.frames[this.iFrom].getSelectedItens(psTableFrom));
 					
 					if (this.oXD.parseError == 0) 
@@ -3072,7 +3076,7 @@ UltraCargo.prototype.dataGrid = function(psXML)
 		this.spageOperation	=null;
 		this.sOper		= "";
 		this.bCancelOperation	= true;
-		this.oXD		= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD		= new XMLHttpRequest();
 		
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
@@ -3150,7 +3154,7 @@ UltraCargo.prototype.dataGrid = function(psXML)
 								}
 								break;
 							case "edt":
-								this.Ond_But = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+								this.Ond_But = new XMLHttpRequest();
 								this.Ond_But.loadXML(this.init.oXD.xml);
 								this.Ond_ButNode   = this.Ond_But.selectSingleNode("root/" + this.sFrmId);
 								this.sShowButEdt   = this.Ond_ButNode.getAttribute('showbutedt');
@@ -3167,7 +3171,7 @@ UltraCargo.prototype.dataGrid = function(psXML)
 									this.bCancelOperation = false;
 									this.bGenerateTable = true;
 									
-									this.Ond_But = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+									this.Ond_But = new XMLHttpRequest();
 									this.Ond_But.loadXML(this.init.oXD.xml);
 									this.Ond_ButNode   = this.Ond_But.selectSingleNode("root/" + this.sFrmId);
 									this.sShowButUpd   = this.Ond_ButNode.getAttribute('showbutupd');
@@ -3360,7 +3364,7 @@ UltraCargo.prototype.dataGrid = function(psXML)
 										{
 											this.sXML = obj_Ultra.getSelectedItens(this.sFrmId,true);
 											
-											var vwValidaXMLCheck = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+											var vwValidaXMLCheck = new XMLHttpRequest();
 											var vwNodeXMLCheck   = null;
 											var vwStringXMLCria  = null;  
 											var vwLinhaXML		 = null;
@@ -4431,7 +4435,7 @@ UltraCargo.prototype.changePage = function()
 			if (this.iPos != -1) 
 			{
 				this.sXML = this.init.asQuery[this.iPos][1];
-				this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+				this.oXD = new XMLHttpRequest()
 				this.oXD.loadXML(this.sXML);
 				if (this.oXD.parseError == 0) 
 				{
@@ -4480,7 +4484,7 @@ UltraCargo.prototype.changePage = function()
 }
 
 UltraCargo.prototype.updateGrid = function(psXML) {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNds = this.oXD.selectNodes("root/*");
@@ -4568,7 +4572,7 @@ UltraCargo.prototype.updateGrid = function(psXML) {
 
 UltraCargo.prototype.updateFormData = function(psXML) {
 		this.asForm = new Array();
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
@@ -4658,7 +4662,7 @@ UltraCargo.prototype.updateFormData = function(psXML) {
 }
 
 UltraCargo.prototype.setDataLink = function(psXML) {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
@@ -5635,7 +5639,7 @@ UltraCargo.prototype.fillCombo = function()
 				{
 					if (this.oCboFrom.tagName == "SELECT") 
 					{
-						this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+						this.oXD = new XMLHttpRequest()
 						if (this.sResp != "") 
 						{
 							this.oXD.loadXML(this.sResp);
@@ -5722,7 +5726,7 @@ UltraCargo.prototype.fillCombo = function()
 							this.oRoot.appendChild(this.oNd);
 							
 							this.sResp = this.oXD.xml;
-							this.oXHttp = new ActiveXObject("Microsoft.XMLHTTP");
+							this.oXHttp = new XMLHttpRequest();
 							this.oXHttp.open("POST",this.processPage(),false);
 							
 							if(this.combo.forceXmlToSend == "" || this.combo.forceXmlToSend == undefined){this.sResp = this.oXD.xml;}
@@ -5919,7 +5923,7 @@ UltraCargo.prototype.terminateCombo = function() {
 }
 
 UltraCargo.prototype.formData = function(psXML) {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNd = this.oXD.selectSingleNode("root/operation");
@@ -6490,7 +6494,7 @@ UltraCargo.prototype.send = function()
 		}
 		else 
 		{
-			this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+			this.oXD = new XMLHttpRequest()
 			this.oXD.loadXML(this.sResp);
 			this.oRoot = this.oXD.documentElement;
 			this.oNd = this.oXD.selectSingleNode("root/*");
@@ -6544,7 +6548,7 @@ UltraCargo.prototype.send = function()
 			}
 			if (this.init.multiForm != "") 
 			{
-				this.oXAux = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+				this.oXAux = new XMLHttpRequest()
 				this.oXAux.loadXML("<root/>");
 				this.oRootAux = this.oXAux.documentElement;
 				this.asForm = this.init.multiForm.split("|");
@@ -6687,7 +6691,7 @@ UltraCargo.prototype.postXML = function()
 		
 		if(this.init.sPageOperation != '' && this.init.sPageOperation != null)
 		{
-			var vwObjXMLPost	= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+			var vwObjXMLPost	= new XMLHttpRequest();
 			var vwsNode			= null;
 			vwObjXMLPost.loadXML(this.sXml);
 			if(vwObjXMLPost.parseError ==0)
@@ -7114,7 +7118,7 @@ UltraCargo.prototype.setKeyValues = function() {
 		this.sKV.bAll = (arguments[0] != null) ? (arguments[0] == true) ? true : false : false;
 		this.sKV.sFrms = (arguments[1] != null) ? arguments[1] : "";
 		this.sKV.bSK = false;
-		this.sKV.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.sKV.oXD = new XMLHttpRequest();
 		this.sKV.oXD.loadXML(this.init.key);
 		if (this.sKV.oXD.parseError == 0) {
 			for (var iKV = 2; iKV < arguments.length; iKV++) {
@@ -7247,7 +7251,7 @@ UltraCargo.prototype.checkLongTypeNodes = function(psXml)
 }
 
 UltraCargo.prototype.pageLoader = function(psXML) {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oFrm = this.oXD.selectSingleNode("root/*");
@@ -7522,10 +7526,10 @@ UltraCargo.prototype.getXml = function(psFormId,psOperation) {
 		this.sResp = this.extractXmlData(psOperation,this.bGroupData);
 		if (this.sXPathAux != "") 
 		{
-			this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+			this.oXD = new XMLHttpRequest();
 			this.oXD.loadXML(this.sResp);
 			if (this.oXD.parseError == 0) {
-				this.oXAux = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+				this.oXAux = new XMLHttpRequest();
 				this.oXAux.loadXML("<root/>");
 				this.oRoot = this.oXAux.documentElement;
 				this.oNds = this.oXD.selectNodes(this.sXPathAux);
@@ -8088,7 +8092,7 @@ UltraCargo.prototype.popUp = function()
 			if (this.sResp != null) 
 			{
 				this.sXmlPop = this.sResp;
-				this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+				this.oXD = new XMLHttpRequest();
 				this.oXD.loadXML(this.sResp);
 				this.popUp.sXml = this.sResp;
 				if (this.oXD.parseError == 0) 
@@ -8166,7 +8170,7 @@ UltraCargo.prototype.popUp = function()
 										}
 										break;
 									case "table":
-										this.oXDt = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+										this.oXDt = new XMLHttpRequest();
 										this.oXDt.loadXML("<root/>");
 										this.oRoot = this.oXDt.documentElement;
 										this.oFrmRoot = this.oXDt.createNode(1,this.init.sPopUp,"");
@@ -8456,7 +8460,7 @@ UltraCargo.prototype.popUp = function()
 }
 
 UltraCargo.prototype.notExistDataLink = function(psXML) {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
@@ -8550,7 +8554,7 @@ UltraCargo.prototype.rebuild = function(psTableId)
 		if (this.iPos != -1) 
 		{
 			this.sXML = this.init.asQuery[this.iPos][1];
-			this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+			this.oXD = new XMLHttpRequest()
 			this.oXD.loadXML(this.sXML);
 			if (this.oXD.parseError == 0) {
 				this.sFrmId = "";
@@ -8634,7 +8638,7 @@ UltraCargo.prototype.gSI = function()
 
 UltraCargo.prototype.getSelectedItem = function(psXML)
 {
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		this.oNXD = this.oXD.selectSingleNode("root/*");
 		this.sName = this.oNXD.nodeName;
@@ -8673,7 +8677,7 @@ UltraCargo.prototype.getSelectedItens = function(psTableId)
 				this.gSI.sResp = self.frames[iF].getSelectedItens(psTableId);
 			}
 		}
-		this.gSI.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.gSI.oXD = new XMLHttpRequest()
 		this.gSI.oXD.loadXML(this.gSI.sResp);
 		if (this.gSI.oXD.parseError == 0) {
 			this.gSI.oNd = this.init.oXD.selectSingleNode("root/" + psTableId);
@@ -8738,7 +8742,7 @@ UltraCargo.prototype.getSelectedItens = function(psTableId)
 
 UltraCargo.prototype.RetornaLinhaXML = function(psTableId,psLinha,psPage) 
 {
-		this.gSI.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.gSI.oXD = new XMLHttpRequest()
 		this.gSI.oXD.loadXML(this.init.oXGr.xml);
 		var vwXmlRetorno='';
 		if (this.gSI.oXD.parseError == 0)
@@ -8754,7 +8758,7 @@ UltraCargo.prototype.RetornaLinhaXML = function(psTableId,psLinha,psPage)
 
 UltraCargo.prototype.getSelectedItensCheck = function(psTableId) 
 {
-		this.gSI.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.gSI.oXD = new XMLHttpRequest()
 		this.gSI.oXD.loadXML(this.init.oXCheck.xml);
 		this.gSI.oNd = this.gSI.oXD.selectSingleNode("root/" + psTableId);
 		if(this.gSI.oNd != null)
@@ -8773,7 +8777,7 @@ UltraCargo.prototype.showMessage = function(psXML)
 		this.sMsgHder = "________________________________________________     \n\n"
 			+ " Integra\n"
 			+ "________________________________________________     \n\n";
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.sMsgBdy = "";
@@ -8837,7 +8841,7 @@ UltraCargo.prototype.showMessageList = function(psXML) {
 		this.sMsgHder = "________________________________________________     \n\n"
 			+ " Integra\n"
 			+ "________________________________________________     \n\n";
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			this.oNds = this.oXD.selectSingleNode("//botoes_mensagem");
@@ -8872,7 +8876,7 @@ UltraCargo.prototype.showMessageList = function(psXML) {
 				}	
 			}
 		}
-		this.oXD2 = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		this.oXD2 = new XMLHttpRequest();
 		this.oXD2.loadXML(this.sXml);
 		if (this.oXD2.parseError == 0) {
 			this.oNds = this.oXD.selectNodes("//mensagem[@return!='']");
@@ -9168,7 +9172,7 @@ UltraCargo.prototype.getValue = function(psXML,psXPath) {
 		this.sAtt = arguments[2];
 		this.sAtt = (this.sAtt == null || this.sAtt == undefined) ? "" : this.sAtt;
 
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			if (psXPath != "") {
@@ -9192,7 +9196,7 @@ UltraCargo.prototype.getValue = function(psXML,psXPath) {
 
 UltraCargo.prototype.updateNodes = function(psXML,psXPath,psValue) {
 		this.sAttribute = (this.sAttribute == null || this.sAttribute == undefined) ? "" : this.sAttribute;
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			if (psXPath != "") {
@@ -9216,7 +9220,7 @@ UltraCargo.prototype.updateNodes = function(psXML,psXPath,psValue) {
 
 UltraCargo.prototype.getText = function(psXML,psXPath) {
 		this.sResult = "";
-		this.oXD = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
 		if (this.oXD.parseError == 0) {
 			if (psXPath != "") {
