@@ -2348,50 +2348,45 @@ function eliminatekeyboard(){
 	}
 }
 
-//FABIO
-//REMOVER ACENTUACAO E PASSAR PARA MAIUSCULO
 function digitarUpper(pobj)
 {
 	var aceitaMinusculo = (arguments[1] != null) ? arguments[1] : "N";	
-	
-	var novokeyCode = event.keyCode;
-	
+
 	if(event.keyCode == 199 || event.keyCode == 231)
 	{
-		novokeyCode = 67;
+		event.keyCode = 67;
 	}
 	if (aceitaMinusculo == "N"){
 		if (event.keyCode >= 97 && event.keyCode <= 122){
-			novokeyCode = event.keyCode - 32
+			event.keyCode = event.keyCode - 32
 		}
 	}
 	
 	if((event.keyCode>=192 && event.keyCode<=195)||(event.keyCode>=224 && event.keyCode <=227)){
-		novokeyCode = 65;
+		event.keyCode = 65;
 	}
 	else if((event.keyCode>=200 && event.keyCode <=203)||(event.keyCode>=232 && event.keyCode <=235)){
-		novokeyCode = 69;
+		event.keyCode = 69;
 	}
 	else if((event.keyCode>=204 && event.keyCode <=207)||(event.keyCode>=236 && event.keyCode <=239)){
-		novokeyCode = 73;
+		event.keyCode = 73;
 	}
 	else if((event.keyCode>=210 && event.keyCode <=214)||(event.keyCode>=242 && event.keyCode <=246)){
-		novokeyCode = 79;
+		event.keyCode = 79;
 	}
 
 	else if((event.keyCode>=217 && event.keyCode <=220)||(event.keyCode>=249 && event.keyCode <=252)){
-		novokeyCode = 85;
+		event.keyCode = 85;
 	}
 	else if(event.keyCode==209 || event.keyCode==241){
-		novokeyCode = 78;
+		event.keyCode = 78;
 	}
 	else if(event.keyCode==126 || event.keyCode==96 || event.keyCode==180 || event.keyCode==94){
-		novokeyCode = 13;
+		event.keyCode=13;
 	}else if(event.keyCode==39){
-		 novokeyCode = 00;
+		event.keyCode=00;
 	}
-	event.srcElement.value = event.srcElement.value + String.fromCharCode(novokeyCode);
-	event.preventDefault();	
+	
 }
 
 function trim(pstr_Palavra) {

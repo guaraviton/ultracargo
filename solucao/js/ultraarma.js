@@ -24,7 +24,7 @@ function UltraCargo()
 	this.init();
 }
 
-XMLHttpRequest.prototype.xml() = function() {
+XMLHttpRequest.prototype.xml = function() {
 	return new XMLSerializer().serializeToString(this.document.documentElement);
 }
 
@@ -3079,7 +3079,8 @@ UltraCargo.prototype.dataGrid = function(psXML)
 		this.oXD		= new XMLHttpRequest();
 		
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNd = this.oXD.selectSingleNode("root/operation");
 			if (this.oNd != null) 
 			{
@@ -4437,7 +4438,8 @@ UltraCargo.prototype.changePage = function()
 				this.sXML = this.init.asQuery[this.iPos][1];
 				this.oXD = new XMLHttpRequest()
 				this.oXD.loadXML(this.sXML);
-				if (this.oXD.parseError == 0) 
+				//TODO: FABIO - CHECK XML VIA PARSER
+				if (true) 
 				{
 					this.oNd = this.oXD.selectSingleNode("root/" + this.sFrmId + "/page_number");
 					if (this.oNd != null) 
@@ -4486,7 +4488,8 @@ UltraCargo.prototype.changePage = function()
 UltraCargo.prototype.updateGrid = function(psXML) {
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNds = this.oXD.selectNodes("root/*");
 			if (this.oNds[0] != null) {
 				for (var iF = 0; iF < this.oNds.length; iF++) {
@@ -4574,7 +4577,8 @@ UltraCargo.prototype.updateFormData = function(psXML) {
 		this.asForm = new Array();
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.oNd != null) {
 				this.sLnk = this.oNd.nodeName;
@@ -4664,7 +4668,8 @@ UltraCargo.prototype.updateFormData = function(psXML) {
 UltraCargo.prototype.setDataLink = function(psXML) {
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.oNd != null) {
 				this.sPrntFrmId = this.oNd.nodeName;
@@ -5740,7 +5745,8 @@ UltraCargo.prototype.fillCombo = function()
 							this.sResp = this.oXHttp.responseText;
 							this.oXD.loadXML(this.checkStringValue(this.sResp));
 						}
-						if (this.oXD.parseError == 0) 
+						//TODO: FABIO - CHECK XML VIA PARSER
+						if (true) 
 						{
 							this.init.sXml = this.sResp;
 							this.addAttribute(1,"root/" + this.combo.from.split(".")[0] + "/" + this.combo.from.split(".")[1],
@@ -5925,7 +5931,8 @@ UltraCargo.prototype.terminateCombo = function() {
 UltraCargo.prototype.formData = function(psXML) {
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNd = this.oXD.selectSingleNode("root/operation");
 			if (this.oNd != null) {
 				this.sOper = (this.oNd.getAttribute("value") != null) ? this.oNd.getAttribute("value") : "";
@@ -6108,7 +6115,7 @@ UltraCargo.prototype.updateData = function() {
 										this.oNd.removeChild(this.oDt);
 										
 									}
-									this.sVl = this.oElmnt.getAttribute("value");
+									this.sVl = this.oElmnt.value;
 									this.createNode(2,this.sElmntId,this.sXPath,"",
 										"server_value",this.sServerValue,
 										"value",escape(this.sVl),
@@ -7188,7 +7195,8 @@ UltraCargo.prototype.checkLongTypeNodes = function(psXml)
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXml);		
 
-		if (this.oXD.parseError == 0)
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true)
 		{
 			this.oNds = this.init.oXD.selectNodes("//*[@tipo!='']");
 
@@ -7253,7 +7261,8 @@ UltraCargo.prototype.checkLongTypeNodes = function(psXml)
 UltraCargo.prototype.pageLoader = function(psXML) {
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oFrm = this.oXD.selectSingleNode("root/*");
 			if (this.oFrm != null) {
 				this.sFrmId = this.oFrm.nodeName;
@@ -7528,7 +7537,8 @@ UltraCargo.prototype.getXml = function(psFormId,psOperation) {
 		{
 			this.oXD = new XMLHttpRequest();
 			this.oXD.loadXML(this.sResp);
-			if (this.oXD.parseError == 0) {
+			////TODO: FABIO - CHECK XML VIA PARSER
+			if (true) {
 				this.oXAux = new XMLHttpRequest();
 				this.oXAux.loadXML("<root/>");
 				this.oRoot = this.oXAux.documentElement;
@@ -8095,7 +8105,8 @@ UltraCargo.prototype.popUp = function()
 				this.oXD = new XMLHttpRequest();
 				this.oXD.loadXML(this.sResp);
 				this.popUp.sXml = this.sResp;
-				if (this.oXD.parseError == 0) 
+				//TODO: FABIO - CHECK XML VIA PARSER
+				if (true) 
 				{
 					if (this.init.oPopUp != null) 
 					{
@@ -8462,7 +8473,8 @@ UltraCargo.prototype.popUp = function()
 UltraCargo.prototype.notExistDataLink = function(psXML) {
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.oNd != null) {
 				this.sFrmId = this.oNd.nodeName;
@@ -8556,7 +8568,8 @@ UltraCargo.prototype.rebuild = function(psTableId)
 			this.sXML = this.init.asQuery[this.iPos][1];
 			this.oXD = new XMLHttpRequest()
 			this.oXD.loadXML(this.sXML);
-			if (this.oXD.parseError == 0) {
+			//TODO: FABIO - CHECK XML VIA PARSER
+			if (true) {
 				this.sFrmId = "";
 				this.oNd = this.oXD.selectSingleNode("root/*");
 				if (this.oNd != null) {
@@ -8779,7 +8792,8 @@ UltraCargo.prototype.showMessage = function(psXML)
 			+ "________________________________________________     \n\n";
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.sMsgBdy = "";
 			this.oNds = this.oXD.selectNodes("root/mensagem");
 			if (this.oNds[0] != null) {
@@ -8843,7 +8857,8 @@ UltraCargo.prototype.showMessageList = function(psXML) {
 			+ "________________________________________________     \n\n";
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			this.oNds = this.oXD.selectSingleNode("//botoes_mensagem");
 			this.sMsgBut = "SIM|NAO"
 			if (this.oNds != null) {
@@ -8907,7 +8922,8 @@ UltraCargo.prototype.saveXmlGrid = function(psXML)
 		this.oXD = new XMLHttpRequest();
 		this.oXD.loadXML(psXML);
 		
-		if (this.oXD.parseError == 0) 
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) 
 		{
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.oNd != null) {
@@ -9174,7 +9190,8 @@ UltraCargo.prototype.getValue = function(psXML,psXPath) {
 
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			if (psXPath != "") {
 				this.oNd = this.oXD.selectSingleNode(psXPath);
 				if (this.oNd != null) {
@@ -9198,7 +9215,8 @@ UltraCargo.prototype.updateNodes = function(psXML,psXPath,psValue) {
 		this.sAttribute = (this.sAttribute == null || this.sAttribute == undefined) ? "" : this.sAttribute;
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			if (psXPath != "") {
 				this.oNd = this.oXD.selectSingleNode(psXPath);
 				if (this.oNd != null) {
@@ -9222,7 +9240,8 @@ UltraCargo.prototype.getText = function(psXML,psXPath) {
 		this.sResult = "";
 		this.oXD = new XMLHttpRequest()
 		this.oXD.loadXML(psXML);
-		if (this.oXD.parseError == 0) {
+		//TODO: FABIO - CHECK XML VIA PARSER
+		if (true) {
 			if (psXPath != "") {
 				this.oNd = this.oXD.selectSingleNode(psXPath);
 				if (this.oNd != null) {

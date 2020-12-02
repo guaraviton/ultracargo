@@ -26,7 +26,7 @@
 	</style>
 </head>
 
-<script language="javascript" src="js/general.js" type="text/javascript"></script>
+<script language="javascript" src="js/general_original.js" type="text/javascript"></script>
 <script language="javascript" src="js/ultraarma_original.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	//Redimensionar e posicionar tela
@@ -39,203 +39,201 @@
 	var str_Operation = "";
 
 	function main(pstr_Operation) {
-		try {
-			var obj_Field = (arguments[1] != null) ? arguments[1] : null;
-			var str_XML = (arguments[2] != null) ? arguments[2] : "";
+
+		var obj_Field = (arguments[1] != null) ? arguments[1] : null;
+		var str_XML = (arguments[2] != null) ? arguments[2] : "";
 
 
-			switch (pstr_Operation) {
+		switch (pstr_Operation) {
 
-				case "start":
+			case "start":
 
-					window.frm_index.disabled = false
-					obj_Field.doVerifySession = false;
-					frm_index.filial.options.length = 0;
-					frm_index.filial.disabled = true;
-					frm_index.dslogin.focus();
+				window.frm_index.disabled = false
+				obj_Field.doVerifySession = false;
+				frm_index.filial.options.length = 0;
+				frm_index.filial.disabled = true;
+				frm_index.dslogin.focus();
 
-					break;
+				break;
 
-				case "informacao":
-					var info = window.showModelessDialog("pop_index_informacao.asp", "info", "help:0;status:no;scroll:no;center:yes;resizable:0;dialogWidth:214px;dialogHeight:180px");
-					info.focus();
-					break;
+			case "informacao":
+				var info = window.showModelessDialog("pop_index_informacao.asp", "info", "help:0;status:no;scroll:no;center:yes;resizable:0;dialogWidth:214px;dialogHeight:180px");
+				info.focus();
+				break;
 
-				case "validaCertificadoDigital":
-					//	  	frm_index.action = "pop_index_certificadodigital.asp";
-					//		frm_index.target = "_blank";
-					//		frm_index.method = "post";
-					//		frm_index.submit();
+			case "validaCertificadoDigital":
+				//	  	frm_index.action = "pop_index_certificadodigital.asp";
+				//		frm_index.target = "_blank";
+				//		frm_index.method = "post";
+				//		frm_index.submit();
 
-					//       var teste = window.showModelessDialog("pop_index_certificadodigital.asp","Certificado Digital","help:0;status:no;scroll:no;resizable:0;dialogWidth:214px;dialogHeight:160px");
-					//       teste.focus();
-					//       break;
-					window.open("pop_index_certificadodigital.asp", null, "height=475,width=655,top=(screen.availHeight-475)/2,<SPAN class=clsRange>width=(screen.availWidth-655)/2,status=no,scrollbars=no,resizable=no,toolbar=no,menubar=no,location=no");
-					//		winOpen.moveTo((screen.availWidth-655)/2,(screen.availHeight-475)/2);
-					//		winOpen.resizeTo(screen.availWidth,screen.availHeight);
+				//       var teste = window.showModelessDialog("pop_index_certificadodigital.asp","Certificado Digital","help:0;status:no;scroll:no;resizable:0;dialogWidth:214px;dialogHeight:160px");
+				//       teste.focus();
+				//       break;
+				window.open("pop_index_certificadodigital.asp", null, "height=475,width=655,top=(screen.availHeight-475)/2,<SPAN class=clsRange>width=(screen.availWidth-655)/2,status=no,scrollbars=no,resizable=no,toolbar=no,menubar=no,location=no");
+				//		winOpen.moveTo((screen.availWidth-655)/2,(screen.availHeight-475)/2);
+				//		winOpen.resizeTo(screen.availWidth,screen.availHeight);
 
-					break;
+				break;
 
-				case "filial":
-				case "validarCampos":
-					var strMensagem;
-					var contTentativas = 0;
+			case "filial":
+			case "validarCampos":
+				var strMensagem;
+				var contTentativas = 0;
 
-					frm_index.dssenha.value = frm_index.pas_dssenha.value;
+				frm_index.dssenha.value = frm_index.pas_dssenha.value;
 
-					if (obj_Ultra.getSession("histlogin") == "") {
+				/*
+				if (obj_Ultra.getSession("histlogin") == "") {
+					obj_Ultra.setSession("histlogin", frm_index.dslogin.value)
+				} else {
+					if (obj_Ultra.getSession("histlogin") != frm_index.dslogin.value) {
 						obj_Ultra.setSession("histlogin", frm_index.dslogin.value)
-					} else {
-						if (obj_Ultra.getSession("histlogin") != frm_index.dslogin.value) {
-							obj_Ultra.setSession("histlogin", frm_index.dslogin.value)
-							obj_Ultra.setSession("conttentativas", 0)
-						}
+						obj_Ultra.setSession("conttentativas", 0)
 					}
+				}*/
 
-					frm_index.conttentativas.value = obj_Ultra.getSession("conttentativas") * 1;
+				frm_index.conttentativas.value = obj_Ultra.getSession("conttentativas") * 1;
 
-					//Valida usu�rio
-					frm_index.idusuario.value = "";
-					frm_index.filial.options.length = 0;
-					frm_index.filial.disabled = true;
-					obj_Ultra.form("frm_index");
-					obj_Ultra.operation("usuario");
-					obj_Ultra.send();
+				//Valida usu�rio
+				frm_index.idusuario.value = "";
+				frm_index.filial.options.length = 0;
+				frm_index.filial.disabled = true;
+				obj_Ultra.form("frm_index");
+				obj_Ultra.operation("usuario");
+				obj_Ultra.send();
 
-					//S� sugere instala��o do setup.exe nos casos de n�o ser cliente
-					//		if (obj_Ultra.getValue(obj_Ultra.Xml(),"//incategoria").toUpperCase() != "CLIENTE" && obj_Ultra.getValue(obj_Ultra.Xml(),"//idusuario") != ""){
-					//			verificarImpressora();
-					//		}
+				//S� sugere instala��o do setup.exe nos casos de n�o ser cliente
+				//		if (obj_Ultra.getValue(obj_Ultra.Xml(),"//incategoria").toUpperCase() != "CLIENTE" && obj_Ultra.getValue(obj_Ultra.Xml(),"//idusuario") != ""){
+				//			verificarImpressora();
+				//		}
 
-					strMensagem = obj_Ultra.Xml().substr(obj_Ultra.Xml().lastIndexOf("M190"));
-					obj_Ultra.loadData("frm_index");
+				strMensagem = obj_Ultra.Xml().substr(obj_Ultra.Xml().lastIndexOf("M190"));
+				obj_Ultra.loadData("frm_index");
 
-					//Se usu�rio for v�lido, preencher filial
-					if (frm_index.idusuario.value != "") {
+				//Se usu�rio for v�lido, preencher filial
+				if (frm_index.idusuario.value != "") {
 
-						if (obj_Ultra.getSession("incategoria").toUpperCase() != "INTERFACE") {
-							//Grava os dados de acesso na sess�o do DOTNET
-							try {
-								var http = new ActiveXObject("Microsoft.XMLHTTP");
-								http.open("POST", "includes/session.aspx?pFunction=SET", false);
-								http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-								http.send(obj_Ultra.sResp);
-							} catch (ex) {
-								var strMsg = (ex.Message) ? ex.Message : ex.description;
+					if (obj_Ultra.getSession("incategoria").toUpperCase() != "INTERFACE") {
+						//Grava os dados de acesso na sess�o do DOTNET
+						try {
+							var http = new ActiveXObject("Microsoft.XMLHTTP");
+							http.open("POST", "includes/session.aspx?pFunction=SET", false);
+							http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							http.send(obj_Ultra.sResp);
+						} catch (ex) {
+							var strMsg = (ex.Message) ? ex.Message : ex.description;
 
-								alert(strMsg);
-							}
-
-							contTentativas = 0;
-							obj_Ultra.setSession("conttentativas", 0);
-							main("preencherFilial");
-						} else {
-							alert("Este usu�rio n�o possui perfil de acesso ao Integra");
+							alert(strMsg);
 						}
 
-						break;
-					}
-					if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "M190") //Senha expirada
-					{
-						window.showModalDialog("pop_index_alteracao.asp", frm_index.dslogin.value + "�" + frm_index.dssenha.value, "help:0;status:no;scroll:no;resizable:0;dialogWidth:300px;dialogHeight:290px");
-						frm_index.pas_dssenha.value = "";
-						frm_index.pas_dssenha.focus();
-					} else if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "PW102") //Usu�rio Bloqueado
-					{
 						contTentativas = 0;
 						obj_Ultra.setSession("conttentativas", 0);
-						break;
+						main("preencherFilial");
 					} else {
-						//Contador de Tentativas de Acesso com senha invalida
-						contTentativas = obj_Ultra.getSession("conttentativas") * 1;
-						contTentativas++;
-						obj_Ultra.setSession("conttentativas", contTentativas);
-
-						frm_index.dslogin.value = "";
-						frm_index.pas_dssenha.value = "";
-						frm_index.dslogin.focus();
-					}
-					break;
-
-				case "preencherFilial":
-					//Preencher combo filial
-					with(obj_Ultra) {
-						combo.from = "frm_index.filial";
-						combo.operation = "filial";
-						combo.valueFields = "identidade_idfilial";
-						combo.descriptionFields = "dsentidade_dsfilial";
-						combo.autosele = true;
-					}
-					obj_Ultra.fillCombo();
-
-					frm_index.filial.disabled = false;
-
-					//Carrega session que posteriormente carrega combo Entidade/Filial do top e combos do monitoramento
-					obj_Ultra.setSession("sess_cbo_filial", cbo_filial.innerHTML);
-					//Se for cliente, selecionar a primeira filial
-					if ((obj_Ultra.getSession("incategoria").toUpperCase() == "CLIENTE") ||
-						(obj_Ultra.getSession("incategoria").toUpperCase() == "AGENDAMENTO")) {
-						frm_index.filial.selectedIndex = 1;
-					}
-
-					if (frm_index.filial.selectedIndex == 1) {
-						main("login");
-					} else {
-						frm_index.filial.options[0].text = "SELECIONE UMA FILIAL";
-						frm_index.filial.focus();
-					}
-					break;
-
-				case "login":
-
-					// Validar campos obrigat�rios
-					obj_Ultra.form("frm_index");
-					obj_Ultra.operation("login");
-					obj_Ultra.send();
-					obj_Ultra.loadData("frm_index");
-
-					if (frm_index.idusuario.value != "") {
-						//Limpar campos
-						obj_Ultra.clearForms("frm_index");
-						frm_index.pas_dssenha.value = "";
-						frm_index.filial.disabled = true;
-						obj_Ultra.ClearXmlData_Local("frm_index");
-
-						//Abrir tela
-						var winOpen = window.open('home.asp', 'winOpen_<%= Session.SessionID %>', 'resizable=yes,scrooling=no');
-						try {
-							winOpen.moveTo(0, 0);
-							winOpen.resizeTo(800, screen.availHeight);
-						} catch (ex) {}
-						//winOpen.focus();
-
-						//var winOpen = window.open('home.asp','winOpen','resizable=no,scrooling=no');
-						//winOpen.moveTo(0,0);
-						//winOpen.resizeTo(screen.availWidth,screen.availHeight);
-						winOpen.focus();
+						alert("Este usu�rio n�o possui perfil de acesso ao Integra");
 					}
 
 					break;
-				case "createObject":
+				}
+				if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "M190") //Senha expirada
+				{
+					window.showModalDialog("pop_index_alteracao.asp", frm_index.dslogin.value + "�" + frm_index.dssenha.value, "help:0;status:no;scroll:no;resizable:0;dialogWidth:300px;dialogHeight:290px");
+					frm_index.pas_dssenha.value = "";
+					frm_index.pas_dssenha.focus();
+				} else if (obj_Ultra.getValue(obj_Ultra.Xml(), "//mensagem") == "PW102") //Usu�rio Bloqueado
+				{
+					contTentativas = 0;
+					obj_Ultra.setSession("conttentativas", 0);
+					break;
+				} else {
+					//Contador de Tentativas de Acesso com senha invalida
+					contTentativas = obj_Ultra.getSession("conttentativas") * 1;
+					contTentativas++;
+					obj_Ultra.setSession("conttentativas", contTentativas);
 
+					frm_index.dslogin.value = "";
+					frm_index.pas_dssenha.value = "";
+					frm_index.dslogin.focus();
+				}
+				break;
+
+			case "preencherFilial":
+				//Preencher combo filial
+				with(obj_Ultra) {
+					combo.from = "frm_index.filial";
+					combo.operation = "filial";
+					combo.valueFields = "identidade_idfilial";
+					combo.descriptionFields = "dsentidade_dsfilial";
+					combo.autosele = true;
+				}
+				obj_Ultra.fillCombo();
+
+				frm_index.filial.disabled = false;
+
+				//Carrega session que posteriormente carrega combo Entidade/Filial do top e combos do monitoramento
+				obj_Ultra.setSession("sess_cbo_filial", cbo_filial.innerHTML);
+				//Se for cliente, selecionar a primeira filial
+				if ((obj_Ultra.getSession("incategoria").toUpperCase() == "CLIENTE") ||
+					(obj_Ultra.getSession("incategoria").toUpperCase() == "AGENDAMENTO")) {
+					frm_index.filial.selectedIndex = 1;
+				}
+
+				if (frm_index.filial.selectedIndex == 1) {
+					main("login");
+				} else {
+					frm_index.filial.options[0].text = "SELECIONE UMA FILIAL";
+					frm_index.filial.focus();
+				}
+				break;
+
+			case "login":
+
+				// Validar campos obrigat�rios
+				obj_Ultra.form("frm_index");
+				obj_Ultra.operation("login");
+				obj_Ultra.send();
+				obj_Ultra.loadData("frm_index");
+
+				if (frm_index.idusuario.value != "") {
+					//Limpar campos
+					obj_Ultra.clearForms("frm_index");
+					frm_index.pas_dssenha.value = "";
+					frm_index.filial.disabled = true;
+					obj_Ultra.ClearXmlData_Local("frm_index");
+
+					//Abrir tela
+					var winOpen = window.open('home.asp', 'winOpen_<%= Session.SessionID %>', 'resizable=yes,scrooling=no');
 					try {
-						opener = null;
-						obj_Ultra = new UltraCargo();
-						obj_Ultra.processPage("./prc/prc_index.asp");
-						obj_Ultra.initialize();
-					} catch (obj_Exception) {
-						console.log("createObject: " + obj_Exception.description);
-						return false;
-					}
+						winOpen.moveTo(0, 0);
+						winOpen.resizeTo(800, screen.availHeight);
+					} catch (ex) {}
+					//winOpen.focus();
 
-					if (obj_Ultra != undefined) {
-						main('start', obj_Ultra);
-					}
+					//var winOpen = window.open('home.asp','winOpen','resizable=no,scrooling=no');
+					//winOpen.moveTo(0,0);
+					//winOpen.resizeTo(screen.availWidth,screen.availHeight);
+					winOpen.focus();
+				}
 
-					break;
-			}
-		} catch (obj_Exception) {
-			console.log("main: " + obj_Exception.description);
+				break;
+			case "createObject":
+
+				try {
+					opener = null;
+					obj_Ultra = new UltraCargo();
+					obj_Ultra.processPage("./prc/prc_index.asp");
+					obj_Ultra.initialize();
+				} catch (obj_Exception) {
+					console.log("createObject: " + obj_Exception.description);
+					return false;
+				}
+
+				if (obj_Ultra != undefined) {
+					main('start', obj_Ultra);
+				}
+
+				break;
 		}
 
 		//frm_index.dslogin.focus();
