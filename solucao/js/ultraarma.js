@@ -166,7 +166,7 @@ UltraCargo.prototype.init = function()
 		this.init.oXCheckXML.loadXML("<root/>");
 	        
 			/*COMENTADO PARA SIMULACAO FABIO
-	      	var loXHttp = new ActiveXObject("Microsoft.xml()HTTP");
+	      	var loXHttp = new XMLHttpRequest();
 	        var loXML   = new XMLHttpRequest();
 	
 			loXHttp.open("POST",this.init.host + "/prc/prc_ultracargoSession.asp", false);
@@ -5622,8 +5622,8 @@ UltraCargo.prototype.fillCombo = function()
 			}
 			if (this.oFrmFrom != null) 
 			{
-				this.oCboFrom = this.oFrmFrom.item(this.combo.from.split(".")[1]);
-				this.oFld = this.oFrmFrom.item(this.combo.from.split(".")[1]);
+				this.oCboFrom = this.oFrmFrom.elements[this.combo.from.split(".")[1]];
+				this.oFld = this.oFrmFrom.elements[this.combo.from.split(".")[1]];
 				this.oCboTo = null;
 				if (!this.combo.grid) 
 				{
@@ -5649,14 +5649,15 @@ UltraCargo.prototype.fillCombo = function()
 						{
 							this.oXD.loadXML(this.sResp);
 						}
-						
-						if (this.sResp == "" || this.oXD.parseError != 0) 
+						//TODO: FABIO - CHECK XML VIA PARSER
+						//if (this.sResp == "" || this.oXD.parseError != 0) 
+						if (this.sResp == "") 
 						{
 							this.oXD.loadXML("<root/>");
-							this.oRoot = this.oXD.documentElement;
+							this.oRoot = this.oXD.document.documentElement;
 							this.oNd = this.oXD.createNode(1,this.combo.from.split(".")[0],"");
 							this.oNd.setAttribute("tipo","table");
-							if (this.oCboFrom.getAttribute("type") == "select-one") {
+							if (this.oCboFrom.type == "select-one") {
 								this.oElmnt = this.oXD.createNode(1,this.combo.from.split(".")[1],"");
 								this.oElmnt.setAttribute("value",this.oCboFrom.getAttribute("value"));
 								this.oNd.appendChild(this.oElmnt);
@@ -5666,7 +5667,7 @@ UltraCargo.prototype.fillCombo = function()
 								for (var iC = 0; iC < this.oCboFrom.length; iC++) {
 									if (this.oCboFrom[iC].selected) {
 										this.oElmnt = this.oXD.createNode(1,this.combo.from.split(".")[1],"");
-										this.oElmnt.setAttribute("value",this.oCboFrom[iC].getAttribute("value"));
+										this.oElmnt.setAttribute("value",this.oCboFrom.value);
 										this.oNd.appendChild(this.oElmnt);
 										this.bSelected = true;
 									}
@@ -5713,9 +5714,9 @@ UltraCargo.prototype.fillCombo = function()
 										this.sVl = "";
 										if (this.oElmnt != null) 
 										{
-											if (this.oElmnt.item(this.oNds[iC].nodeName) != null) 
+											if (this.oElmnt.elements[this.oNds[iC].nodeName] != null) 
 											{
-												this.sVl = (this.oElmnt.item(this.oNds[iC].nodeName).getAttribute("value") != null) ? this.oElmnt.item(this.oNds[iC].nodeName).getAttribute("value") : "";
+												this.sVl = (this.oElmnt.elements[(this.oNds[iC].nodeName)].value != null) ? this.oElmnt.elements[this.oNds[iC].nodeName].value : "";
 											}
 										}
 										this.oElmnt = this.oXD.createNode(1,this.oNds[iC].nodeName,"");
@@ -5730,11 +5731,11 @@ UltraCargo.prototype.fillCombo = function()
 							this.oNd.setAttribute("value",this.combo.operation);
 							this.oRoot.appendChild(this.oNd);
 							
-							this.sResp = this.oXD.xml;
+							this.sResp = this.oXD.xml();
 							this.oXHttp = new XMLHttpRequest();
 							this.oXHttp.open("POST",this.processPage(),false);
 							
-							if(this.combo.forceXmlToSend == "" || this.combo.forceXmlToSend == undefined){this.sResp = this.oXD.xml;}
+							if(this.combo.forceXmlToSend == "" || this.combo.forceXmlToSend == undefined){this.sResp = this.oXD.xml();}
 							else{this.sResp = this.combo.forceXmlToSend;}
 							this.oXHttp.send(this.sResp.replace(/%20/g," "));
 							while(this.oXHttp.readyState != 4) {
@@ -5820,7 +5821,7 @@ UltraCargo.prototype.fillCombo = function()
 		this.terminateCombo();
 		if (this.oXD != null) 
 		{
-			return this.oXD.xml;
+			return this.oXD.xml();
 		}
 
 		this.sResp = null;
