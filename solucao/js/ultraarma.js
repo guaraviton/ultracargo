@@ -6860,8 +6860,8 @@ UltraCargo.prototype.validateToSend = function()
 			vwTipoMensagem =  1; 
 			this.bValidate = false;
 		}
-		
-		/*COMENTADO PARA TESTE FABIO
+		 
+		/* COMENTADO PARA SIMULACAO FABIO
 		if (!this.bValidate) 
 		{
 			if(vwTipoMensagem == 0)
