@@ -6504,7 +6504,7 @@ UltraCargo.prototype.send = function()
 		{
 			this.oXD = new XMLHttpRequest()
 			this.oXD.loadXML(this.sResp);
-			this.oRoot = this.oXD.documentElement;
+			this.oRoot = this.oXD.document.documentElement;
 			this.oNd = this.oXD.selectSingleNode("root/*");
 			if (this.init.form != "" && this.init.form != this.oNd.nodeName) 
 			{
@@ -6644,9 +6644,9 @@ UltraCargo.prototype.send = function()
 			{
 				this.oNd = this.oXD.createNode(1,"operation","");
 				this.oNd.setAttribute("value",this.init.operation);
-				this.oXD.documentElement.appendChild(this.oNd);
+				this.oXD.document.documentElement.appendChild(this.oNd);
 			}
-			this.sResp = this.oXD.xml;
+			this.sResp = this.oXD.xml();
 		}
 		
 		this.sXml = this.checkLongTypeNodes(this.sResp);
@@ -7297,7 +7297,7 @@ UltraCargo.prototype.pageLoader = function(psXML) {
 						this.oNds = this.init.oXD.selectNodes("root/*[@tipo='form' and @linked='" + this.sLnk + "']/*[@ignore='false']");
 					}
 					if (this.oNds[0] != null) {
-						this.oRoot = this.init.oXDt.documentElement;
+						this.oRoot = this.init.oXDt.document.documentElement;
 						for (var iN = 0; iN < this.oNds.length; iN++) {
 							this.oNd = this.oNds[iN];
 							this.sNdId = this.oNd.nodeName;
