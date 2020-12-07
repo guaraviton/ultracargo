@@ -13,9 +13,9 @@ function Fu_RadioClick()
 //****************************************************
 function Fu_DireBotaoEspecial(pobj_Field)
 {
-	var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
 	var obj_Node = obj_XmlDom.createNode(1,pobj_Field.getAttribute("maincase"),"");
 	obj_Node.setAttribute("line",pobj_Field.getAttribute("line")); 
 	obj_Node.setAttribute("page",pobj_Field.getAttribute("page")); 
@@ -28,7 +28,7 @@ function Fu_DireBotaoEspecial(pobj_Field)
 	obj_Node = obj_XmlDom.createNode(1,"form","");
 	obj_Node.setAttribute("value",pobj_Field.getAttribute("form"));
 	obj_Root.appendChild(obj_Node);
-	main(null,null,obj_XmlDom.xml);
+	main(null,null,obj_XmlDom.xml());
 }
 
 
@@ -58,8 +58,8 @@ function checkGrid(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 {
 	var obj_Div				= document.getElementById("grid_Description");
 	var obj_Chk				= obj_Div.getElementsByTagName("INPUT");
-	var vwObjXML_orig		= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
-	var vwObjXML_comp		= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwObjXML_orig		= new XMLHttpRequest();
+	var vwObjXML_comp		= new XMLHttpRequest();
 	var vwCampos			= paCampos.split('|');
 	
 	//***********************************
@@ -142,8 +142,8 @@ function checkGrid_pagi(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 {
 	var obj_Div				= document.getElementById("grid_Description");
 	var obj_Chk				= obj_Div.getElementsByTagName("INPUT");
-	var vwObjXML_orig		= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
-	var vwObjXML_comp		= new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var vwObjXML_orig		= new XMLHttpRequest();
+	var vwObjXML_comp		= new XMLHttpRequest();
 	var vwCampos			= paCampos.split('|');
 
 	//***********************************
@@ -451,9 +451,9 @@ function editGrid(pobj_Field)
       obj_Field.innerText = "Editar";
     }
     str_Operation = "upd";
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Div = null;
     var obj_Row = null;
     var str_Element = "pobj_Field";
@@ -496,8 +496,8 @@ function editGrid(pobj_Field)
         var obj_Node = obj_XmlDom.createNode(1,"operation","");
         obj_Node.setAttribute("value","edt");
         obj_Root.appendChild(obj_Node);
-        //zalert("xml: " + obj_XmlDom.xml);
-        main(null,null,obj_XmlDom.xml);
+        //zalert("xml: " + obj_XmlDom.xml());
+        main(null,null,obj_XmlDom.xml());
         //zalert("arrá!");
         var obj_Field = document.getElementById("grid_New");
         var obj_Cols = obj_Field.all("Col");
@@ -547,7 +547,7 @@ function editGrid(pobj_Field)
 function loadRow(pstr_XML) 
 {
 	
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML(pstr_XML);
     if (obj_XmlDom.parseError == 0) {
       var obj_Node = obj_XmlDom.selectSingleNode("root/*");
@@ -558,7 +558,7 @@ function loadRow(pstr_XML)
         for (var int_E = 0; int_E < obj_Elements.length; int_E++) {
           var obj_Element = obj_Elements[int_E];
           var str_ElementId = (obj_Element.getAttribute("id") != null) ? obj_Element.getAttribute("id") : "";
-          //zalert("AAA: " + obj_XmlDom.xml);
+          //zalert("AAA: " + obj_XmlDom.xml());
           var obj_Nodes = obj_XmlDom.selectNodes("root/" + str_Frame + "/" + str_ElementId);
           if (obj_Nodes[0] != null) {
             switch(obj_Element.getAttribute("type")) {
@@ -666,7 +666,8 @@ function loadRow(pstr_XML)
 function check() {
 //  try {
       var obj_Description = document.getElementById("grid_Description");
-      var obj_Chks = obj_Description.all("Chk");
+	  //FABIO: VALIDAR FUNCAO ABAIXO
+      var obj_Chks = obj_Description.querySelectorAll('input[type="checkbox"]');
       if (obj_Chks != null) {
         if (obj_Chks.length != null) {
           for (var int_I = 0; int_I < obj_Chks.length; int_I++) {
@@ -710,10 +711,10 @@ function saveGrid()
     
    //procaqui 
 
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
     
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     
@@ -809,8 +810,8 @@ function saveGrid()
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value",str_Operation);
       obj_Root.appendChild(obj_Node);
-      //zalert(obj_XmlDom.xml);
-      main(null,null,obj_XmlDom.xml);
+      //zalert(obj_XmlDom.xml());
+      main(null,null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -834,9 +835,9 @@ function saveGrid()
 
 function deleteGridCheck(pobj_Field)
 {
-	var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
  	
 	var obj_Node = obj_XmlDom.createNode(1,pobj_Field.getAttribute("formsele"),"");
 	obj_Node.setAttribute("line",pobj_Field.getAttribute("line")); 
@@ -847,7 +848,7 @@ function deleteGridCheck(pobj_Field)
 	obj_Node.setAttribute("value","check_del");
 	obj_Root.appendChild(obj_Node);
 	
-	main(null,null,obj_XmlDom.xml);
+	main(null,null,obj_XmlDom.xml());
 }
 
 
@@ -861,9 +862,9 @@ function deleteGrid(pobj_Field)
     if (str_Return == null || str_Return == 1) {
       return;
     }
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
@@ -876,7 +877,7 @@ function deleteGrid(pobj_Field)
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","del");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -972,9 +973,9 @@ function popUpGrid() {
         return;
       }
     }
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
@@ -1015,7 +1016,7 @@ function popUpGrid() {
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value",str_Operation);
       obj_Root.appendChild(obj_Node);
-      main(str_Operation,obj_FieldToFill,obj_XmlDom.xml);
+      main(str_Operation,obj_FieldToFill,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -1042,12 +1043,12 @@ function linkedGrid(pobj_Field) {
 	//zalert("linkedGrid");
 	if (pobj_Field.getAttribute("sublinha") != '0')
 	{	
-		var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		var obj_XmlDom = new XMLHttpRequest();
 		obj_XmlDom.loadXML("<root/>");
-		var obj_Root = obj_XmlDom.documentElement;
+		var obj_Root = obj_XmlDom.document.documentElement;
 		var int_LinkedLine = pobj_Field.getAttribute("line");
 		var obj_Field = document.getElementById("grid_PK");
-		var obj_Frame = obj_Field.all("FRAME");
+		var obj_Frame = obj_Field.querySelector('#FRAME')
 		var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
 		if (str_Frame != "") {
 		var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");
@@ -1056,7 +1057,7 @@ function linkedGrid(pobj_Field) {
 		var obj_Node = obj_XmlDom.createNode(1,"operation","");
 		obj_Node.setAttribute("value","lnk");
 		obj_Root.appendChild(obj_Node);
-		main(null,null,obj_XmlDom.xml);
+		main(null,null,obj_XmlDom.xml());
 		}
 	//  }
 	//  catch(obj_Exception) {
@@ -1076,16 +1077,16 @@ function linkedGrid(pobj_Field) {
 
 function listGrid() {
 //  try {
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
     if (str_Frame != "") {
       var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");
       obj_Root.appendChild(obj_Node);
-      main((str_Frame + "_lst"),null,obj_XmlDom.xml);
+      main((str_Frame + "_lst"),null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -1130,9 +1131,9 @@ function Fu_PaginaDire(paTecla,paObj,paNrPags)
       var obj_Field = document.getElementById("grid_PK");
       var obj_Frame = obj_Field.all("FRAME");
       var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
-      var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+      var obj_XmlDom = new XMLHttpRequest();
       obj_XmlDom.loadXML("<root/>");
-      var obj_Root = obj_XmlDom.documentElement;
+      var obj_Root = obj_XmlDom.document.documentElement;
       var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");
       obj_Node.setAttribute("tipo","table");
       obj_Node.setAttribute("page",int_Page);
@@ -1140,7 +1141,7 @@ function Fu_PaginaDire(paTecla,paObj,paNrPags)
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","lst");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -1166,9 +1167,9 @@ function lastPageGrid()
       var obj_Field = document.getElementById("grid_PK");
       var obj_Frame = obj_Field.all("FRAME");
       var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
-      var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+      var obj_XmlDom = new XMLHttpRequest();
       obj_XmlDom.loadXML("<root/>");
-      var obj_Root = obj_XmlDom.documentElement;
+      var obj_Root = obj_XmlDom.document.documentElement;
       var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");
       obj_Node.setAttribute("tipo","table");
       obj_Node.setAttribute("page",int_Page);
@@ -1176,7 +1177,7 @@ function lastPageGrid()
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","lst");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -1202,9 +1203,9 @@ function nextPageGrid()
       var obj_Field = document.getElementById("grid_PK");
       var obj_Frame = obj_Field.all("FRAME");
       var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
-      var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+      var obj_XmlDom = new XMLHttpRequest();
       obj_XmlDom.loadXML("<root/>");
-      var obj_Root = obj_XmlDom.documentElement;
+      var obj_Root = obj_XmlDom.document.documentElement;
       var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");
       obj_Node.setAttribute("tipo","table");
       obj_Node.setAttribute("page",int_Page);
@@ -1212,7 +1213,7 @@ function nextPageGrid()
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","nxt");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
     delete int_Page;
     delete obj_Field;
@@ -1368,9 +1369,9 @@ function onChangeCombo()
 {
 //  try {
     var str_Operation = (arguments[0] != null) ? arguments[0] : "";
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
@@ -1451,7 +1452,7 @@ function onChangeCombo()
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value",str_Operation);
       obj_Root.appendChild(obj_Node);
-      main(str_Operation,null,obj_XmlDom.xml);
+      main(str_Operation,null,obj_XmlDom.xml());
     }
 //  }
 //  catch(obj_Exception) {
@@ -1467,9 +1468,9 @@ function getSelectedItens()
 //  try {
     var str_TableId = (arguments[0] != null) ? arguments[0] : "";
     if (str_TableId != "") {
-      var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+      var obj_XmlDom = new XMLHttpRequest();
       obj_XmlDom.loadXML("<root/>");
-      var obj_Root = obj_XmlDom.documentElement;
+      var obj_Root = obj_XmlDom.document.documentElement;
       var obj_TableRoot = obj_XmlDom.createNode(1,str_TableId,"");
       obj_TableRoot.setAttribute("tipo","table");
       var obj_Description = document.getElementById("grid_Description");
@@ -1495,7 +1496,7 @@ function getSelectedItens()
         }
       }
       obj_Root.appendChild(obj_TableRoot);
-      return obj_XmlDom.xml;
+      return obj_XmlDom.xml();
     }
     else {
       return "";
@@ -1552,9 +1553,9 @@ var bln_Enable = true;
 function enableGrid() {
 //  try {
     bln_Enable = true;
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
@@ -1564,7 +1565,7 @@ function enableGrid() {
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","enb");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
     var obj_Field = document.getElementById("grid_Dsb");
     obj_Field.style.display = "none";
@@ -1585,9 +1586,9 @@ function enableGrid() {
 function disableGrid() {
 //  try {
     bln_Enable = false;
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
     var obj_Frame = obj_Field.all("FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
@@ -1597,7 +1598,7 @@ function disableGrid() {
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","dsb");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml);
+      main(null,null,obj_XmlDom.xml());
     }
     var obj_Field = document.getElementById("grid_Dsb");
     obj_Field.style.display = "";
@@ -1618,9 +1619,9 @@ function disableGrid() {
 function setCheck(pobj_Field) 
 {
 //  try {
-    var obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XmlDom = new XMLHttpRequest();
     obj_XmlDom.loadXML("<root/>");
-    var obj_Root = obj_XmlDom.documentElement;
+    var obj_Root = obj_XmlDom.document.documentElement;
     var int_LinkedLine = pobj_Field.getAttribute("line");
     var int_LinkedPage = pobj_Field.getAttribute("page");
     
@@ -1639,7 +1640,7 @@ function setCheck(pobj_Field)
       var obj_Node = obj_XmlDom.createNode(1,"operation","");
       obj_Node.setAttribute("value","chk");
       obj_Root.appendChild(obj_Node);
-      main(null,null,obj_XmlDom.xml); // Aqui
+      main(null,null,obj_XmlDom.xml()); // Aqui
     }
 }
 

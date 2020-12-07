@@ -186,12 +186,13 @@ function Fu_TrocaSepDec(paValor,paSep)
 
 function Fu_AtuaValueNodesXML(paXMLString, paPathNodes, paNodeAtu,paValorAtu)
 {
-	var vwobjXml = new ActiveXObject("MSXML2.DOMDocument");
+	var vwobjXml = new XMLHttpRequest();
 	var vwNodes  = null; 
 	var vwSNode  = null;
 	vwobjXml.loadXML(paXMLString)
 	
-	if(vwobjXml.parseError  != 0)
+	//TODO: FABIO - CHECK XML VIA PARSER
+	if(false)
 	{
 		alert('Erro ao tentar abrir o XML para atualização de valores de Nodes!')
 		return  ''
@@ -1056,11 +1057,12 @@ function maskDec_Type_lng(paEvento,paObjeto,paNrInteiros, paNrDecimais,paSepDeci
 
 function Fu_AutoCompletar(paObject,paXml,paNo)
 {
-	var objXML  =  new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+	var objXML  =  new XMLHttpRequest();
 	var objNodes
 	var objFill
 	objXML.loadXML(paXml)
-	if(objXML.parseError != 0) // Erro  
+	//TODO: FABIO - CHECK XML VIA PARSER
+	if(false) // Erro  
 	{
 		alert('Erro na leitura do XML informado.')
 		return false;
@@ -1703,7 +1705,7 @@ function clone(pobj_Field) {
     if (this.str_FieldId != "") {
       this.obj_Elements = document.all(this.str_FieldId);
       for (var int_E = 0; int_E < this.obj_Elements.length; int_E++) {
-        if (pobj_Field.getAttribute("type") == this.obj_Elements[int_E].getAttribute("type")) {
+        if (pobj_Field.type == this.obj_Elements[int_E].type) {
           this.bln_Clone = (this.obj_Elements[int_E].getAttribute("clone") != null) ? ((this.obj_Elements[int_E].getAttribute("clone") == "true") ? true : false) : false;
           if (this.bln_Clone) {
             this.obj_Elements[int_E].value = pobj_Field.getAttribute("value");
@@ -1853,7 +1855,7 @@ function setFocus(pstr_Id) {
     this.int_FocusIndex = (arguments[1] != null) ? arguments[1] : 0;
     this.obj_Element = document.getElementById(pstr_Id);
     if (this.obj_Element != null) {
-      while(this.obj_Element.getAttribute("tagName") != "FORM") {
+      while(this.obj_Element.tagName != "FORM") {
         this.obj_Element = this.obj_Element.parentElement;
       }
       this.int_Index = -1;
@@ -1870,13 +1872,13 @@ function setFocus(pstr_Id) {
       for (var int_E = 0; int_E < document.forms[this.int_Index].elements.length; int_E++) {
         this.obj_Element = document.forms[this.int_Index].elements[int_E];
         if (this.obj_Element.getAttribute("disabled") != true && this.obj_Element.getAttribute("readOnly") != true) {
-          this.str_TagName = this.obj_Element.getAttribute("tagName");
+          this.str_TagName = this.obj_Element.tagName;
           switch(this.str_TagName) {
             case "INPUT":
-              this.str_TagName += "-" + this.obj_Element.getAttribute("type");
+              this.str_TagName += "-" + this.obj_Element.type;
               break;
             case "SELECT":
-              this.str_TagName = this.obj_Element.getAttribute("type");
+              this.str_TagName = this.obj_Element.type;
               break;
           }
           this.str_TagName = this.str_TagName.toLowerCase();
@@ -1934,9 +1936,9 @@ function expand(pstr_FieldId)
         return;
       }
     }
-    this.obj_XmlDom = new ActiveXObject("MSXML2.FreeThreadedDOMDocument")
+    this.obj_XmlDom = new XMLHttpRequest();
     this.obj_XmlDom.loadXML("<root/>");
-    this.obj_Root = this.obj_XmlDom.documentElement;
+    this.obj_Root = this.obj_XmlDom.document.documentElement;
     this.obj_Form = null;
     this.obj_Img = document.getElementById(pstr_FieldId);
     if (this.obj_Img != null) {
@@ -1976,33 +1978,35 @@ function expand(pstr_FieldId)
           for (var int_D = 0; int_D < this.obj_Divs.length; int_D++) {
             this.str_Id = (this.obj_Divs[int_D].getAttribute("id") != null) ? this.obj_Divs[int_D].getAttribute("id") : "";
             this.str_Nivel = (this.obj_Divs[int_D].getAttribute("nivel") != null) ? this.obj_Divs[int_D].getAttribute("nivel") : "";
-            this.obj_Img = document.getElementById("img"+this.obj_Divs[int_D].getAttribute("id").substring(3,this.obj_Divs[int_D].getAttribute("id").length));
-            if (this.str_Id != "" && this.str_Nivel != "") {
-              if (this.bln_Hide) {
-                if (this.str_Id == ("div"+pstr_FieldId.substring(3,pstr_FieldId.length))) {
-                  if (this.obj_Img != null) {
-                    this.obj_Img.src = vwNivelPath +  "images_home/img_display/img_botoes/ultr_mais.gif";
-                  }
-                  this.obj_Divs[int_D].style.display = "none";
-                }
-              }
-              else {
-                if (this.str_Id == ("div"+pstr_FieldId.substring(3,pstr_FieldId.length))) {
-                  if (this.obj_Img != null) {
-                    this.obj_Img.src = vwNivelPath + "images_home/img_display/img_botoes/ultr_menos.gif";
-                  }
-                  this.obj_Divs[int_D].style.display = "";
-                }
-                else {
-                  if (Math.floor(this.str_Nivel) >= Math.floor(this.str_NivelOrigem)) {
-                    if (this.obj_Img != null) {
-                      this.obj_Img.src = vwNivelPath + "images_home/img_display/img_botoes/ultr_mais.gif";
-                    }
-                    this.obj_Divs[int_D].style.display = "none";
-                  }
-                }
-              }
-            }
+			if(this.obj_Divs[int_D].getAttribute("id")){
+				this.obj_Img = document.getElementById("img"+this.obj_Divs[int_D].getAttribute("id").substring(3,this.obj_Divs[int_D].getAttribute("id").length));
+				if (this.str_Id != "" && this.str_Nivel != "") {
+				  if (this.bln_Hide) {
+					if (this.str_Id == ("div"+pstr_FieldId.substring(3,pstr_FieldId.length))) {
+					  if (this.obj_Img != null) {
+						this.obj_Img.src = vwNivelPath +  "images_home/img_display/img_botoes/ultr_mais.gif";
+					  }
+					  this.obj_Divs[int_D].style.display = "none";
+					}
+				  }
+				  else {
+					if (this.str_Id == ("div"+pstr_FieldId.substring(3,pstr_FieldId.length))) {
+					  if (this.obj_Img != null) {
+						this.obj_Img.src = vwNivelPath + "images_home/img_display/img_botoes/ultr_menos.gif";
+					  }
+					  this.obj_Divs[int_D].style.display = "";
+					}
+					else {
+					  if (Math.floor(this.str_Nivel) >= Math.floor(this.str_NivelOrigem)) {
+						if (this.obj_Img != null) {
+						  this.obj_Img.src = vwNivelPath + "images_home/img_display/img_botoes/ultr_mais.gif";
+						}
+						this.obj_Divs[int_D].style.display = "none";
+					  }
+					}
+				  }
+				}
+			}
           }
         }
         if (this.obj_Form != null) {
@@ -2018,11 +2022,11 @@ function expand(pstr_FieldId)
           else {
             if (!this.bln_Bar) {
               this.obj_Node.setAttribute("value","save");
-              main("forms",null,this.obj_XmlDom.xml);
+              main("forms",null,this.obj_XmlDom.xml());
             }
             this.obj_Node.setAttribute("value","load");
           }
-          main("forms",null,this.obj_XmlDom.xml);
+          main("forms",null,this.obj_XmlDom.xml());
         }
       }
     }
@@ -2149,7 +2153,7 @@ function omitirBarra(){
 
 function lerMensagem(pstr_IdMensagem){
 try {
-    var obj_XML = new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+    var obj_XML = new XMLHttpRequest();
     var obj_NXML;
     var str_DsMensagem = "";
     var str_Host, astr_Host;
@@ -2193,7 +2197,7 @@ function mergeXMLSL(pstr_XMLServer,pstr_XMLLocal){
 	var str_FormName = "";
 	
 	var str_XMLServer = "";	
-	var obj_XMLServer = new ActiveXObject("MSXML2.DOMDocument");
+	var obj_XMLServer = new XMLHttpRequest();
 	obj_XMLServer.loadXML(pstr_XMLServer);
 	
 	var obj_NServer = obj_XMLServer.selectNodes("//row");	
@@ -2204,7 +2208,7 @@ function mergeXMLSL(pstr_XMLServer,pstr_XMLLocal){
 	}
 	
 	var str_XMLLocal = "";	
-	var obj_XMLLocal = new ActiveXObject("MSXML2.DOMDocument");
+	var obj_XMLLocal = new XMLHttpRequest();
 	obj_XMLLocal.loadXML(pstr_XMLLocal);
 	
 	var obj_NLocal = obj_XMLLocal.selectNodes("//row");	
@@ -2244,13 +2248,13 @@ function mergeXmlArrayReceita (pastr_Xml)
 		var obj_ItemNode;
 		var llng_cont;       
 
-		obj_MergeXml	  = new ActiveXObject("MSXML2.DOMDocument");
-		obj_MergeXml2	  = new ActiveXObject("MSXML2.DOMDocument");
-		obj_ItemNode      = new ActiveXObject("MSXML2.DOMDocument");
+		obj_MergeXml	  = new XMLHttpRequest();
+		obj_MergeXml2	  = new XMLHttpRequest();
+		obj_ItemNode      = new XMLHttpRequest();
     
 		obj_MergeXml.loadXML ("<root/>");
     
-		obj_MergeRoot = obj_MergeXml.documentElement;
+		obj_MergeRoot = obj_MergeXml.document.documentElement;
 		for(llng_cont = 0 ; llng_cont < pastr_Xml.length ; llng_cont++)
 		{
 			obj_MergeXml2.loadXML (pastr_Xml[llng_cont]);
@@ -2453,12 +2457,12 @@ function mergeXmlArray (pastr_Xml){
 		var obj_MergeNode;
 		var llng_cont;       
 
-		obj_MergeXml	  = new ActiveXObject("MSXML2.DOMDocument");
-		obj_MergeXml2	  = new ActiveXObject("MSXML2.DOMDocument");
+		obj_MergeXml	  = new XMLHttpRequest();
+		obj_MergeXml2	  = new XMLHttpRequest();
     
 		obj_MergeXml.loadXML ("<root/>");
     
-		obj_MergeRoot = obj_MergeXml.documentElement;
+		obj_MergeRoot = obj_MergeXml.document.documentElement;
 		for(llng_cont = 0 ; llng_cont < pastr_Xml.length ; llng_cont++)
 		{
 			obj_MergeXml2.loadXML (pastr_Xml[llng_cont]);
@@ -2489,7 +2493,7 @@ function mergeXmlArray (pastr_Xml){
 
 function getAttribute(strXML, atribute, path)
 {
-	var objDOM_v = new ActiveXObject("MSXML2.DOMDocument");
+	var objDOM_v = new XMLHttpRequest();
 	objDOM_v.loadXML(strXML);
 	if (objDOM_v.parseError == 0) 
 	{
@@ -2506,9 +2510,9 @@ function getXmlToRel(){
 		
 		var str_xml_in = arguments[0];
 		
-		var objXML_At  =  new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		var objXML_At  =  new XMLHttpRequest();
 		var objNodesAt;
-		var objXML_Tipo  =  new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+		var objXML_Tipo  =  new XMLHttpRequest();
 		var objNodesTipo;
 	
 		objXML_At.loadXML(str_xml_in);
@@ -2595,7 +2599,7 @@ function fncVerificaImpressora()
 {
 	var nrVersao			= 0;
 	var strXMLImpressora	= "";
-	var objXMLImpressora	= new ActiveXObject("MSXML2.DOMDocument");
+	var objXMLImpressora	= new XMLHttpRequest();
 	
 	strXMLImpressora = Impressora.ObtemImpressora;
 	objXMLImpressora.loadXML(strXMLImpressora);
@@ -2627,7 +2631,7 @@ function fncVerificaImpressora()
 function fncVerificaVersaoOcxBal(){
 	var nrVersao	  = 0;
 	var strXMLBalanca = "";
-	var objXMLBalanca = new ActiveXObject("MSXML2.DOMDocument");
+	var objXMLBalanca = new XMLHttpRequest();
 	
 	strXMLBalanca = BalancaToledo.ObtemBalanca;
 	objXMLBalanca.loadXML(strXMLBalanca);

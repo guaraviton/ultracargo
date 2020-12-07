@@ -1,0 +1,18 @@
+<HTML>
+
+<HEAD></HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+  function openChild(file, window) {
+    childWindow = open(file, window, 'resizable=no,width=200,height=200, location = no, status=no, titlebar=no, toolbar=no, left=20, top=10');
+    if (childWindow.opener == null) childWindow.opener = self;
+  }
+</SCRIPT>
+
+<BODY>
+  <FORM NAME="parentForm">
+    <INPUT NAME="data" TYPE="text" VALUE="">
+    <INPUT TYPE="button" VALUE="Calendario" onClick="openChild('filho.html','win2')">
+  </FORM>
+</BODY>
+
+</HTML>

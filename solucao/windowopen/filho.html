@@ -1,0 +1,20 @@
+<HTML>
+
+<HEAD>
+  <SCRIPT LANGUAGE="JavaScript">
+    function updateParent() {
+      opener.document.parentForm.data.value = document.childForm.data.value;
+      self.close();
+      return false;
+    }
+  </SCRIPT>
+</HEAD>
+
+<BODY>
+  <FORM NAME="childForm" onSubmit="return updateParent();">
+    <INPUT NAME="data" TYPE="TEXT" VALUE="">
+    <BR><INPUT TYPE="SUBMIT" VALUE="X">
+  </FORM>
+</BODY>
+
+</HTML>

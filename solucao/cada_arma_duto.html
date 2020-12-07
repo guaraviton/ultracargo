@@ -1,0 +1,486 @@
+<html>
+
+<head>
+  <title>Untitled Document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link rel="stylesheet" href="css/styles.css" type="text/css" />
+  <script language="javascript" src="js/general.js" type="text/javascript"></script>
+  <script language="javascript" src="js/ultraarma.js" type="text/javascript"></script>
+  <script language="javascript" type="text/javascript">
+    var bln_New = true;
+    var str_Operation = "ins";
+    var obj_Ultra = new UltraCargo();
+    obj_Ultra.processPage("./prc/prc_cada_arma_duto.asp");
+
+    function main(pstr_Operation) {
+      try {
+        var obj_Field = (arguments[1] != null) ? arguments[1] : null;
+        var str_XML = (arguments[2] != null) ? arguments[2] : "";
+
+        switch (pstr_Operation) {
+
+          case "exp":
+            if (bln_New) {
+              main('new');
+            }
+            break;
+
+          case "ext":
+            obj_Ultra.clearForms("frm_detalhe");
+            parent.top.frm_rodape.setButton("N,P");
+
+            setLayer("img_Filtro", null, null, true);
+            str_Operation = "ins";
+            setFocus("frm_filtro");
+            bln_Expand = false;
+            bln_New = true;
+            obj_Ultra.getSession(1, "frm_detalhe.idempresaultra");
+            obj_Ultra.getSession(2, "frm_detalhe.idfilialultra");
+            obj_Ultra.getSession(2, "frm_detalhe.idfilialcliente");
+            break;
+
+          case "new":
+            parent.top.frm_rodape.setButton("S,X");
+            obj_Ultra.clearLinkedForm("frm_pesquisa");
+            setLayer("img_Detalhe", null, null, true);
+            str_Operation = "ins";
+            setFocus("frm_detalhe");
+            bln_New = false;
+            document.getElementById('intipomovimentacao').checked = true;
+
+            obj_Ultra.getSession(1, "frm_detalhe.idempresaultra");
+            obj_Ultra.getSession(2, "frm_detalhe.idfilialultra");
+            obj_Ultra.getSession(2, "frm_detalhe.idfilialcliente");
+            break;
+
+          case "qry":
+            setLayer("img_Filtro", null, null, true);
+            obj_Ultra.form("frm_pesquisa");
+            obj_Ultra.operation(pstr_Operation);
+            obj_Ultra.ClearXmlData_Local('frm_pesquisa');
+            obj_Ultra.ClearXmlData_Filtro('frm_pesquisa');
+            self.frames[0].clearGrid();
+            Fu_LimpaPaginador('frm_pesquisa');
+            if (obj_Ultra.send()) {
+              if (str_Operation == "ins") {
+                self.frames[0].clearGrid();
+                Fu_LimpaPaginador('frm_pesquisa');
+              }
+            }
+            setFocus("frm_filtro");
+            break;
+
+          case "ins":
+            obj_Ultra.form("frm_detalhe");
+            obj_Ultra.operation(str_Operation);
+
+            if (obj_Ultra.send()) {
+              if (str_Operation == "ins") {
+                Fu_CarregaFiltroFromIns('frm_detalhe', 'frm_filtro')
+                parent.top.frm_rodape.setButton("N,P");
+                obj_Ultra.clearLinkedForm("frm_pesquisa");
+                obj_Ultra.rebuild("frm_pesquisa");
+                setLayer("img_Filtro");
+                bln_Expand = false;
+                bln_New = true;
+                main("qry");
+                // obj_Ultra.clearForms("frm_filtro");
+                setFocus("frm_filtro");
+              } else {
+                // Fu_CarregaFiltroFromIns('frm_detalhe','frm_filtro')
+                parent.top.frm_rodape.setButton("N,P");
+                // obj_Ultra.clearLinkedForm("frm_pesquisa");
+                // obj_Ultra.rebuild("frm_pesquisa");
+                setLayer("img_Filtro");
+                bln_Expand = false;
+                bln_New = true;
+
+                //**comando que retorna o grid para a paginaem que foi escolhido o registro para alterar.
+                //obj_Ultra.keepPage('frm_pesquisa');
+                //*******
+                main("qry");
+                // obj_Ultra.clearForms("frm_filtro");
+                setFocus("frm_filtro");
+              }
+            }
+            break;
+
+          case "frm_pesquisa_upd":
+          case "frm_pesquisa_del":
+            obj_Ultra.form("frm_pesquisa");
+            obj_Ultra.operation(pstr_Operation);
+            if (obj_Ultra.send(str_XML)) {
+              //**comando que retorna o grid para a paginaem que foi escolhido o registro para alterar.
+              obj_Ultra.keepPage('frm_pesquisa');
+              //*******
+              //obj_Ultra.rebuild("frm_pesquisa");
+              setFocus("frm_filtro");
+            }
+            break;
+
+          case "frm_pesquisa_lnk":
+            obj_Ultra.clearForms("frm_detalhe");
+            parent.top.frm_rodape.setButton("S,X");
+            obj_Ultra.clearLinkedForm("frm_pesquisa");
+            obj_Ultra.setDataLink(str_XML);
+            if (obj_Ultra.notExistDataLink(str_XML)) {
+              obj_Ultra.form("frm_detalhe");
+              obj_Ultra.operation("qry");
+              obj_Ultra.send(str_XML);
+            }
+
+            setLayer("img_Detalhe", null, null, true);
+            setFocus("frm_detalhe");
+            str_Operation = "upd";
+            bln_New = false;
+            break;
+
+          case "clear_idclientedetalhe":
+            frm_detalhe.idcliente.value = "";
+            frm_detalhe.idfilialcliente.value = "";
+            break;
+
+          case "clear_idproduto":
+            frm_detalhe.idproduto.value = "";
+            break;
+
+          case "filt_deta_clie":
+            separateEntFil(frm_detalhe.dsnomefantasiafilialcliente.value, frm_detalhe.dsnomefantasiacliente, frm_detalhe.dsnomefantasiafilial);
+
+            obj_Ultra.setopenPopUp.sForm = "frm_detalhe";
+            obj_Ultra.setopenPopUp.oDsField = obj_Field;
+            obj_Ultra.setopenPopUp.sOperation = "filt_deta_clie";
+            obj_Ultra.setopenPopUp.sFormField = "dsnomefantasiafilialcliente|idcliente|idfilialcliente";
+            obj_Ultra.setopenPopUp.sXmlField = "dsnomefantasiafilialcliente|idcliente|idfilialcliente";
+            obj_Ultra.setopenPopUp.sPath = "./pop-up/pop_auxi_cliente.asp";
+            obj_Ultra.openPopUp();
+
+            break;
+
+          case "filt_deta_prod":
+
+            obj_Ultra.setopenPopUp.sForm = "frm_detalhe";
+            obj_Ultra.setopenPopUp.oDsField = obj_Field;
+            obj_Ultra.setopenPopUp.sOperation = "deta_prod";
+            obj_Ultra.setopenPopUp.sFormField = "dsnomefantasiaproduto|idproduto";
+            obj_Ultra.setopenPopUp.sXmlField = "dsnomefantasiaproduto|idproduto";
+            obj_Ultra.setopenPopUp.sPath = "../../cadastro/basico/pop-up/pop_auxi_prod.asp";
+            obj_Ultra.openPopUp();
+
+            /*
+            	var str_Form = "frm_detalhe";
+            	str_PopUp_Operation = "deta_prod";
+            	obj_Ultra.operation(str_PopUp_Operation);
+            	obj_Ultra.form(str_Form);
+            	var bln_PopUp = true;
+            	if (obj_Field != null) {
+            	  if (obj_Field.value != "") {
+            		if (!obj_Field.disabled) {
+            		  obj_Ultra.operation(str_PopUp_Operation);
+            		  obj_Ultra.shwMsg = false;
+            		  obj_Ultra.unique = true;
+            		  obj_Ultra.doNotVerify = true;
+            		  if (obj_Ultra.send()) {
+            			obj_Ultra.loadData(str_Form);
+            		  }
+            		  else {
+            		  str_XML = obj_Ultra.getXml(str_Form,str_PopUp_Operation);
+            		  obj_Ultra.popUpGrid(str_Form);
+            		  obj_Ultra.popUp("../../cadastro/basico/pop-up/pop_auxi_prod.asp",str_XML,null,480,false);
+            		  //obj_Ultra.clearForms(str_Form,pstr_Operation);
+            		  }
+            		}
+            	  }
+            	  else {
+            		//obj_Ultra.clearForms(str_Form,pstr_Operation);
+            	  }
+            	}
+            	else {
+            	  obj_Field = document.getElementById(str_Form).item("dsnomefantasiaproduto");
+            	  if (obj_Field != null) {
+            		if (!obj_Field.disabled) {
+            		  str_XML = obj_Ultra.getXml(str_Form,str_PopUp_Operation);
+            		  obj_Ultra.popUpGrid(str_Form);
+            		  // obj_Ultra.popUp("./pop-up/pop_auxi_prod.asp",str_XML,null,480,false);
+            		  obj_Ultra.popUp("../../cadastro/basico/pop-up/pop_auxi_prod.asp",str_XML,null,480,false);
+            		}
+            	  }
+            	}
+            	*/
+            break;
+
+          case "start":
+            obj_Ultra.getSession(1, "frm_detalhe.idempresaultra");
+            obj_Ultra.getSession(2, "frm_detalhe.idfilialultra");
+
+            obj_Ultra.getSession(1, "frm_filtro.idempresaultraopera");
+            obj_Ultra.getSession(2, "frm_filtro.idfilialultraopera");
+
+            parent.top.frm_seguranca.acessomanutencao("CADARMDUT");
+            parent.top.frm_rodape.setButton("N,P");
+            obj_Ultra.initialize();
+            //Grid:Pesquisa
+            with(obj_Ultra) {
+              grid.id = "frm_pesquisa";
+              grid.size = 10;
+              grid.keys = "cdanp";
+              grid.colsTitle = "Cod. da Dutovia|Cód. ANP|Cliente|Produto";
+              grid.colsField = "cddutovia|cdanp|dsconcatenado|dsnomefantasiaproduto"
+              grid.colsHiddenField = "iddutovia"
+              grid.colsToValidate = "3|4"
+              grid.colsType = "str(20)|str(20)|str(60)|str(25)";
+              grid.colsWidth = "160|100|270|150";
+              grid.colsAlign = "left|left|left|left";
+              grid.colIndex = 0;
+              grid.insertButton = false;
+              grid.deleteButton = true;
+            }
+            obj_Ultra.addTable();
+            //Combo:Revestimento (Detalhe)
+            with(obj_Ultra) {
+              combo.from = "frm_detalhe.idmaterial";
+              combo.operation = "cbo_material";
+              combo.valueFields = "idmaterial";
+              combo.descriptionFields = "dsmaterial";
+              combo.autosele = true;
+            }
+            obj_Ultra.fillCombo();
+            setFocus("frm_filtro", 0);
+            break;
+          case "grid":
+            obj_Ultra.dataGrid(str_XML);
+            break;
+          case "forms":
+            obj_Ultra.formData(str_XML);
+            frm_detalhe.dsnomefantasiafilialcliente.value = frm_detalhe.dsconcatenado.value;
+            break;
+        }
+      } catch (obj_Exception) {
+        alert("main: " + obj_Exception.description);
+      } finally {
+        delete obj_Field;
+        delete str_XML;
+      }
+    }
+
+
+    function Fu_LimpaHidden(paTipo) {
+      if (paTipo == 'CLIENTE') {
+        //*********************************************
+        // Limpa os hiddens de Cliente/ClienteFilial
+        //*********************************************
+        frm_detalhe.idcliente.value = '';
+        frm_detalhe.idfilialcliente.value = '';
+      }
+
+      if (paTipo == 'PRODUTO') {
+        //*********************************************
+        // Limpa os hiddens de Cliente/ClienteFilial
+        //*********************************************
+        frm_detalhe.idproduto.value = '';
+      }
+    }
+  </script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" onload="main('start');">
+  <table width="680" cellspacing="0" cellpadding="0" align="center" border="0">
+    <tr>
+      <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="ttop">
+          <tr>
+            <td width="37"><img src="../../images_home/img_display/img_titulos/ultr_p_1.gif" width="37" height="25"></td>
+            <td valign="bottom">
+              <font size="2" color="#1445B8"><b>Cadastro / </b></font>Armazenagem / Dutovia
+            </td>
+            <td width="25"><img src="../../images_home/img_display/img_titulos/ultr_p_2.gif" width="25" height="25"></td>
+          </tr>
+          <tr>
+            <td valign="top"><img src="../../images_home/img_display/img_titulos/ultr_p_3.gif" width="37" height="14"></td>
+            <td background="../../images_home/img_display/img_titulos/ultr_bkg.gif">&nbsp;</td>
+            <td valign="top"><img src="../../images_home/img_display/img_titulos/ultr_p_4.gif" width="25" height="14"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center">
+        <form id="frm_filtro" style="margin-bottom:0">
+          <input type="hidden" id="idempresaultraopera" operation="cbo_terminal,qry">
+          <input type="hidden" id="idfilialultraopera" operation="cbo_terminal,qry">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td>
+                <div style="position:relative">
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabbordageral" align="center">
+                    <tr>
+                      <td width='10' class="tab1azul">&nbsp;<a name="lnk_Filtro"></a></td>
+                      <td class="tab1azul">Filtro</td>
+                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Filtro"><img id="img_Filtro" border='0' src='../../images_home/img_display/img_botoes/ultr_menos.gif' style='cursor:hand'
+                            onclick="javascript:expand('img_Filtro',null,null,true);"></a></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <div id="div_Filtro" nivel="0">
+                          <table width="100%" border="0" cellspacing="0" cellpadding="2" class="tabfont">
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="1" class="framesfundo">
+                                  <tr>
+                                    <td width="50%">Código da Dutovia</td>
+                                    <td width="50%">Código ANP</td>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="text" id="cddutovia" tipo="str(20)" operation="qry" ignore="true" class="cxtext" size="55"></td>
+                                    <td><input type="text" id="cdanp" tipo="str(20)" operation="qry" ignore="true" class="cxtext" size="55"></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2"><img src="../../images_home/img_display/img_titulos/div.gif" width="100%" height="1"></td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="iframecinza">
+                                  <tr>
+                                    <td><iframe id="frm_pesquisa" execute="server" operation="upd" width="100%" height="280" src="grid.html" frameborder="no" scrolling="yes"></iframe>
+                                      <div id="frm_pesquisa"></div>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <div style="position:relative">
+                <form id="frm_detalhe" style="margin-bottom:0" linked="frm_pesquisa">
+                  <input type="hidden" id="iddutovia" tipo="int(5)" operation="ins" pk="true">
+                  <input type="hidden" id="idcliente" tipo="int(7)" operation="ins,filt_deta_clie" unique="true">
+                  <input type="hidden" id="idfilialcliente" tipo="int(3)" operation="ins,filt_deta_clie" unique="true">
+                  <input type="hidden" id="idproduto" tipo="int(6)" operation="ins,deta_prod" unique="true">
+                  <input type="hidden" id="idempresaultra" tipo="int(7)" operation="ins,qry">
+                  <input type="hidden" id="idfilialultra" tipo="int(3)" operation="ins,qry">
+                  <input type="hidden" id="dsconcatenado">
+                  <input type="hidden" id="intipomodal" tipo="str(15)" value="Dutovia" fixed="true" operation="ins" pk="true">
+                  <input type="hidden" id="dsnomefantasiacliente" operation="filt_deta_clie" unique="true">
+                  <input type="hidden" id="dsnomefantasiafilial" operation="filt_deta_clie" unique="true">
+                  <input type="hidden" id="inrevestimentointerno" value="S" operation="cbo_material,ins">
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabbordageral" align="center">
+                    <tr>
+                      <td width='10' class="tab1azul">&nbsp;<a name="lnk_Detalhe"></a></td>
+                      <td class="tab1azul">Detalhe do Modal Dutovia</td>
+                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Detalhe"><img id="img_Detalhe" border='0' src='../../images_home/img_display/img_botoes/ultr_mais.gif' style='cursor:hand'
+                            onclick="javascript:expand('img_Detalhe',null,null,true);"></a></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <div id="div_Detalhe" nivel="0" style="display:none">
+                          <table width="100%" border="0" cellspacing="0" cellpadding="2" class="tabfont">
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="1" class="framesfundo">
+                                  <tr>
+                                    <td colspan="2">
+                                      <table width="100%" border="0" cellspacing="0" cellpadding="1" class="framesfundo">
+                                        <tr>
+                                          <td colspan="2">C&oacute;digo da Dutovia</td>
+                                          <td colspan="2">C&oacute;digo ANP</td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2"><input type="text" id="cddutovia" class="cxtext" size="20" operation="ins" tipo="str(20)" lbl="Código da Dutovia" filtro_ins="cddutovia"></td>
+                                          <td colspan="2"><input type="text" id="cdanp" class="cxtext" size="20" operation="ins" tipo="str(20)" filtro_ins="cdanp"></td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2">Cliente</td>
+                                          <td colspan="2">Produto &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Tipo Movimentação</td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2"><input type="text" id="dsnomefantasiafilialcliente" alias="dsnomefantasia" operation="ins,upd" unique="true" tipo="str(60)" size="55" class="cxtext" onChange="Fu_LimpaHidden('CLIENTE')"
+                                              onBlur="javascript:main('filt_deta_clie',this);" lbl="Cliente">
+                                            &nbsp;&nbsp;<img src="../../images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle"
+                                              onClick="javascript:main('filt_deta_clie',null);">
+                                          </td>
+                                          <td colspan="2"> <input type="text" id="dsnomefantasiaproduto" operation="ins,deta_prod,upd" tipo="str(25)" unique="true" class="cxtext" onChange="Fu_LimpaHidden('PRODUTO')"
+                                              onBlur="javascript:main('filt_deta_prod',this);" lbl="Produto">
+                                            &nbsp;&nbsp;<img src="../../images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('filt_deta_prod');">
+                                            &nbsp; &nbsp; &nbsp;
+                                            <input id="intipomovimentacao" name="Grupodebotõesderádio1" checked="true" type="radio" value="Carga" operation="ins,upd" />Carga&nbsp;
+                                            <input id="intipomovimentacao" name="Grupodebotõesderádio1" type="radio" value="Descarga" operation="ins,upd" />Descarga</td>
+                                        </tr>
+                                        <tr>
+                                          <td width="25%">Diâmetro (pol)</td>
+                                          <td width="25%">Comprimento (m)</td>
+                                          <td width="25%">Volume (m&sup3)</td>
+                                          <td width="25%">Revestimento</td>
+                                        </tr>
+                                        <tr>
+                                          <td><input type="text" id="nrdiametro" class="cxtext" size="20" style="" operation="ins" tipo="int(6,2)"></td>
+                                          <td><input type="text" id="nrcomprimento" class="cxtext" size="22" style="" operation="ins" tipo="int(6,2)"></td>
+                                          <td><input type="text" id="nrvolume" class="cxtext" size="20" operation="ins" tipo="int(8,2)"></td>
+                                          <td><select id="idmaterial" style="width=126" class="cmbbox" operation="ins" tipo="int(5)">
+                                            </select></td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">&nbsp;</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
