@@ -194,7 +194,7 @@ function Fu_AtuaValueNodesXML(paXMLString, paPathNodes, paNodeAtu,paValorAtu)
 	//TODO: FABIO - CHECK XML VIA PARSER
 	if(false)
 	{
-		alert('Erro ao tentar abrir o XML para atualização de valores de Nodes!')
+		alert('Erro ao tentar abrir o XML para atualizaï¿½ï¿½o de valores de Nodes!')
 		return  ''
 	}
 	vwNodes  =  vwobjXml.selectNodes(paPathNodes); 
@@ -585,7 +585,7 @@ function Fu_ValidaData_blur(paObj)
 //	situacao = "";
 //	
 //	if (ano < 1900){
-//		msgBoxG('O Ano informado é inválido!');
+//		msgBoxG('O Ano informado ï¿½ invï¿½lido!');
 //		paObj.focus(); 
 //		return;
 //	}
@@ -612,7 +612,7 @@ function Fu_ValidaData_blur(paObj)
 
 //	if (situacao == "falsa")
 //	{ 
-//		msgBoxG("Data inválida!");
+//		msgBoxG("Data invï¿½lida!");
 //		paObj.value= ''; 
 //		paObj.focus();
 //		return;  
@@ -641,7 +641,7 @@ function Fu_ValidaData_blur(paObj)
             }
             else
             {
-                msgBoxG("Data inválida!");
+                msgBoxG("Data invï¿½lida!");
                 paObj.value = '';
                 paObj.focus();
                 //return;
@@ -791,7 +791,7 @@ function maskDec_TypeKeyUp(paObjeto,paNrInteiros, paNrDecimais,paSepDecimais)
 	if(vwPos != -1)
 	{
 		vwDec  =  vwString.substr(vwPos+1,vwString.length);
-		if(vwDec.length > parseInt(paNrDecimais)) // Se estourar o numero de decimais, não deixa digitar
+		if(vwDec.length > parseInt(paNrDecimais)) // Se estourar o numero de decimais, nï¿½o deixa digitar
 		{
 			vwInt  =  vwString.substr(0,vwPos);
 			vwDec  =  vwString.substr(vwPos+1,paNrDecimais);
@@ -818,7 +818,7 @@ function maskDec_Type(paEvento,paObjeto,paNrInteiros, paNrDecimais,paSepDecimais
 	vwString  = paObjeto.value;
 	if (paSepDecimais != ',' && paSepDecimais != '.')
 	{
-		alert('O Separador de Decimal informado é inválido.')
+		alert('O Separador de Decimal informado ï¿½ invï¿½lido.')
 	} 
 	
 	if((tecla > 47 && tecla < 58) || (tecla == 44 || tecla == 46)) 
@@ -979,7 +979,7 @@ function maskDec_Type_lng(paEvento,paObjeto,paNrInteiros, paNrDecimais,paSepDeci
 	vwString  = paObjeto.value;
 	if (paSepDecimais != ',' && paSepDecimais != '.')
 	{
-		alert('O Separador de Decimal informado é inválido.')
+		alert('O Separador de Decimal informado ï¿½ invï¿½lido.')
 	} 
 	
 	if((tecla > 47 && tecla < 58) || (tecla == 44 || tecla == 46 || tecla == 45)) 
@@ -1042,7 +1042,7 @@ function maskDec_Type_lng(paEvento,paObjeto,paNrInteiros, paNrDecimais,paSepDeci
 		if(vwPos != -1)
 		{
 			vwDec  =  vwString.substr(vwPos+1,vwString.length);
-			if(vwDec.length > parseInt(paNrDecimais)) // Se estourar o numero de decimais, não deixa digitar
+			if(vwDec.length > parseInt(paNrDecimais)) // Se estourar o numero de decimais, nï¿½o deixa digitar
 			{
 				return false;
 			}
@@ -1099,7 +1099,7 @@ function checkCPFCNPJ(pobj_text){
 		if (pobj_text.type == undefined) return false;
 		
 		if (!validarCPFCNPJ(pobj_text.value)){
-			msgBox("CNPJ Raiz / CPF é inválido\n");
+			msgBox("CNPJ Raiz / CPF ï¿½ invï¿½lido\n");
 			return false;
 		}
 		
@@ -1108,21 +1108,21 @@ function checkCPFCNPJ(pobj_text){
 		if (str_number == "") return false;
 		if (arguments[1] == "CPF"){
 			if (str_number.length != 11){
-				msgBox("CPF é inválido\n");
+				msgBox("CPF ï¿½ invï¿½lido\n");
 				return false;
 			}	
 		}else if (arguments[1] == "CNPJ"){
 			if (str_number.length != 14){			
-				msgBox("CNPJ é inválido\n");
+				msgBox("CNPJ ï¿½ invï¿½lido\n");
 				return false;
 			}	
 		}else{
 			if (str_number.length < 11 || str_number.length > 14){			
-				msgBox("CNPJ Raiz / CPF é inválido\n");
+				msgBox("CNPJ Raiz / CPF ï¿½ invï¿½lido\n");
 				return false;
 			}			
 			if (str_number.length > 11 && str_number.length < 14){			
-				msgBox("CNPJ Raiz / CPF é inválido\n");
+				msgBox("CNPJ Raiz / CPF ï¿½ invï¿½lido\n");
 				return false;
 			}			
 		}	
@@ -1131,16 +1131,16 @@ function checkCPFCNPJ(pobj_text){
 		str_number = str_number.substr(0, str_number.length - 2);
 		
 		if (str_number == "000000000"){
-			msgBox("CNPJ Raiz / CPF é inválido\n");
+			msgBox("CNPJ Raiz / CPF ï¿½ invï¿½lido\n");
 			return false;
 		}
 		bln_check = isCPF_CNPJ(str_number, str_dac);
 		
 		if (!bln_check) {
 			if (arguments[1] == undefined){
-				msgBox("CNPJ Raiz / CPF é inválido\n");				
+				msgBox("CNPJ Raiz / CPF ï¿½ invï¿½lido\n");				
 			}else{
-				msgBox(arguments[1] + " é inválido\n");				
+				msgBox(arguments[1] + " ï¿½ invï¿½lido\n");				
 			}
 			return false;
 		}
@@ -1922,10 +1922,12 @@ function setFocus(pstr_Id) {
 
 function expand(pstr_FieldId) 
 {
-	var vwNivelPath =  "../../";
+	// var vwNivelPath =  "../../";
+	var vwNivelPath =  "";
 	if(vwNr_NivelPath == 1)  
 	{
-		vwNivelPath  =  "../";
+		// vwNivelPath  =  "../";
+		vwNivelPath  =  "";
 	} 
 //  try {
     if (!bln_Expand) {
@@ -2085,7 +2087,7 @@ function exception(pobj_Exception,pstr_ClassMethod) {
     {
       if (pobj_Exception.number != 0) {
         this.str_ExceptionBody += "Erro: " + pstr_ClassMethod + "\n\n";
-        this.str_ExceptionBody += "Descrição : [" + pobj_Exception.number + "] ";
+        this.str_ExceptionBody += "Descriï¿½ï¿½o : [" + pobj_Exception.number + "] ";
         this.str_ExceptionBody += pobj_Exception.name + " - ";
         this.str_ExceptionBody += pobj_Exception.description + "\n\n";
         this.str_ExceptionBody += self.location + "\n";
@@ -2098,7 +2100,7 @@ function exception(pobj_Exception,pstr_ClassMethod) {
     }
     if (this.str_ExceptionBody != "") {
       this.str_ExceptionBody = "Favor reportar esta mensagem para o suporte do sitema, comentando\n"
-        + "a operação que está sendo executada.\n\n" + this.str_ExceptionBody;
+        + "a operaï¿½ï¿½o que estï¿½ sendo executada.\n\n" + this.str_ExceptionBody;
       alert(this.str_ExceptionBody);
     }
   }
@@ -2165,7 +2167,7 @@ try {
     if (obj_XML.parseError == 0){		
 	obj_NXML = obj_XML.selectSingleNode("//*[@value='" + pstr_IdMensagem.toUpperCase() + "']");		
 	if (obj_NXML == null){
-		str_DsMensagem = "Mensagem não encontrada";
+		str_DsMensagem = "Mensagem nï¿½o encontrada";
 	}else{
 		str_DsMensagem = obj_NXML.text;
 	}
@@ -2179,7 +2181,7 @@ try {
 	}
 	
    }else if (str_DsMensagem.indexOf("[") != -1 && arguments[1] == undefined) {
-   	str_DsMensagem = "Informar o(s) parâmetro(s) da mensagem";
+   	str_DsMensagem = "Informar o(s) parï¿½metro(s) da mensagem";
    }
    return unescape(str_DsMensagem);
 }
@@ -2562,7 +2564,7 @@ function getXmlToRel(){
 
 function fncForceForm(objForm){
 
-	var mensagem = "Necessário informar o(s) seguinte(s) campo(s):\n\n";
+	var mensagem = "Necessï¿½rio informar o(s) seguinte(s) campo(s):\n\n";
 	var indice = "";
 	for (var i=0; i < objForm.length; i++)
 	{
@@ -2763,9 +2765,9 @@ function TimeMinutMedia(str_minut, str_dia){
 
  function valida_AlfabetoComPontuacao(objElemento) {
             if (objElemento.length > 0) {
-                var reVerifica = /^[.:;@&, ()$ºª\/\-\r\n0-9a-zA-Z]*$/ 
+                var reVerifica = /^[.:;@&, ()$ï¿½ï¿½\/\-\r\n0-9a-zA-Z]*$/ 
                 if (objElemento.replace('\r\n','').search(reVerifica) == -1) {
-                    alert('Insira valores sem acentuações');
+                    alert('Insira valores sem acentuaï¿½ï¿½es');
                     return false;
                 }
             }
@@ -2776,7 +2778,7 @@ function valida_Pontuacao(objElemento)
     if (objElemento.length > 0) {
         var reVerifica = /^[\/\\.\,\&\-\r\n0-9a-zA-Z ]*$/ 
         if (objElemento.replace('\r\n','').search(reVerifica) == -1) {
-            alert('Insira valores sem pontuação.');
+            alert('Insira valores sem pontuaï¿½ï¿½o.');
             objElemento.replace('\r\n','')
             return false;
         }
@@ -3790,7 +3792,7 @@ return(dig == nro[8]);
 } //to
 
 
-//inscrição estadual antiga
+//inscriï¿½ï¿½o estadual antiga
 function CheckIETOantigo(ie)
 {
 
@@ -3844,7 +3846,7 @@ s = ie.substring(2, 4);
     } // fecha if
 
 
-}//fecha função CheckIETOantiga
+}//fecha funï¿½ï¿½o CheckIETOantiga
 
 
 function CheckIEMG(ie)
@@ -3945,7 +3947,7 @@ function validaNomeProprio(objNome)
 	var strNome = objNome.value;
 	if (strNome.length > 0 && strNome.length <5)
 	{
-		alert("Informe um nome Válido!")
+		alert("Informe um nome Vï¿½lido!")
 		objNome.value = "";
 		objNome.focus();
 	}
@@ -3958,13 +3960,13 @@ function formataValorTexto(obj)
     
     strValue = strValue.toUpperCase();
     
-    strValue = strValue.replace(/Á/g, 'A').replace(/À/g, 'A').replace(/Ã/g, 'A').replace(/Â/g, 'A').replace(/Ä/g, 'A');
-    strValue = strValue.replace(/É/g, 'E').replace(/È/g, 'E').replace(/Ê/g, 'E').replace(/Ë/g, 'E');
-    strValue = strValue.replace(/Ó/g, 'O').replace(/Ò/g, 'O').replace(/Õ/g, 'O').replace(/Ô/g, 'O').replace(/Ö/g, 'O');
-    strValue = strValue.replace(/Í/g, 'I').replace(/Ì/g, 'I').replace(/Î/g, 'I').replace(/Ï/g, 'I');
-    strValue = strValue.replace(/Ú/g, 'U').replace(/Ù/g, 'U').replace(/Û/g, 'U').replace(/Ü/g, 'U');
-    strValue = strValue.replace(/Ñ/g, 'N');
-    strValue = strValue.replace(/Ç/g, 'C');
+    strValue = strValue.replace(/ï¿½/g, 'A').replace(/ï¿½/g, 'A').replace(/ï¿½/g, 'A').replace(/ï¿½/g, 'A').replace(/ï¿½/g, 'A');
+    strValue = strValue.replace(/ï¿½/g, 'E').replace(/ï¿½/g, 'E').replace(/ï¿½/g, 'E').replace(/ï¿½/g, 'E');
+    strValue = strValue.replace(/ï¿½/g, 'O').replace(/ï¿½/g, 'O').replace(/ï¿½/g, 'O').replace(/ï¿½/g, 'O').replace(/ï¿½/g, 'O');
+    strValue = strValue.replace(/ï¿½/g, 'I').replace(/ï¿½/g, 'I').replace(/ï¿½/g, 'I').replace(/ï¿½/g, 'I');
+    strValue = strValue.replace(/ï¿½/g, 'U').replace(/ï¿½/g, 'U').replace(/ï¿½/g, 'U').replace(/ï¿½/g, 'U');
+    strValue = strValue.replace(/ï¿½/g, 'N');
+    strValue = strValue.replace(/ï¿½/g, 'C');
     
     obj.value = strValue;
 }

@@ -1879,13 +1879,13 @@ UltraCargo.prototype.validateTable = function()
         {
 			if(this.grid.ImgBotaoEspecial=="")
 			{
-				this.CompMensagem  += "Imagem não informada para o Botão Especial.\n" 
+				this.CompMensagem  += "Imagem nï¿½o informada para o Botï¿½o Especial.\n" 
 				this.bValidate = false;
 			}
 			
 			if(this.grid.MainCaseBotaoEspecial=="")
 			{
-				this.CompMensagem  += "Case/Operação que deverá ser executado na função Main não foi informado.\n" 
+				this.CompMensagem  += "Case/Operaï¿½ï¿½o que deverï¿½ ser executado na funï¿½ï¿½o Main nï¿½o foi informado.\n" 
 				this.bValidate = false;
 			}
 			
@@ -2364,9 +2364,9 @@ UltraCargo.prototype.addTableHeader = function()
 
 UltraCargo.prototype.createTableInformartion = function(psTableId) 
 {
-		this.sTransImg = "/images_home/img_display/img_botoes/ultr_icon_transp.gif";
+		this.sTransImg = "images_home/img_display/img_botoes/ultr_icon_transp.gif";
 		this.createTableInformartion.sSpan = "<table border='0' cellspacing='1' cellpadding='1' class='framesfundo' style='filter:progid:dximagetransform.microsoft.alpha(style=0,opacity=50);background-color:#C7C7C7;'>"
-			+ "<tr><td><img src='" + this.init.host + this.sTransImg + "' border='0' width='100%' height='100%'></td></tr>"
+			+ "<tr><td><img src='" + this.sTransImg + "' border='0' width='100%' height='100%'></td></tr>"
 			+ "</table>"
 		this.createTableInformartion.sPK = "<input type='hidden' id='FRAME' value='" + psTableId + "'>";
 		if (this.createTableInformartion.sPK != "") 
@@ -2412,7 +2412,7 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 					+ "<td width='15' nowrap class='iftabazul'>&nbsp;</td>"
 					+ "<td class='iftabazul'>&nbsp;<label id='labelButton'></label>&nbsp;</td>"
 					+ "<td width='10' nowrap class='iftabazul'>&nbsp;</td>"
-					+ "<td><img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_canto_pasta_dir.gif'></td>"
+					+ "<td><img src='" + "images_home/img_display/img_botoes/ultr_canto_pasta_dir.gif'></td>"
 					+ "</tr></table>"
 					+ "<table border='0' cellspacing='1' cellpadding='1' class='iftabfundocinza'><tr>"
 					+ "<td nowrap align='center' valign='middle' class='iftab3branco'>";
@@ -2421,7 +2421,7 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 					+ "<td width='15' nowrap class='iftabazul'>&nbsp;</td>"
 					+ "<td class='iftabazul'>&nbsp;<label id='labelItem'></label>&nbsp;</td>"
 					+ "<td width='10' nowrap class='iftabazul'>&nbsp;</td>"
-					+ "<td><img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_canto_pasta_dir.gif'></td>"
+					+ "<td><img src='" + "images_home/img_display/img_botoes/ultr_canto_pasta_dir.gif'></td>"
 					+ "</tr></table>"
 					+ "<table border='0' cellspacing='1' cellpadding='1' class='iftabfundocinza'><tr>"
 					+ "<td nowrap align='center' valign='middle' class='iftab3branco'>";
@@ -2438,22 +2438,22 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 					}
 				}
 				
-				this.createTableItem.sButton += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_chek_verd.gif'"
+				this.createTableItem.sButton += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_chek_verd.gif'"
 					+ " border='0' style='cursor:hand'"
 					+ " onclick='saveGrid();' alt='Confirmar'>" 
 					+ "</td>"
 					+ "<td nowrap align='center' valign='middle' class='iftab3branco'>"
-					+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_canc_verm.gif'"
+					+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_canc_verm.gif'"
 					+ " border='0' style='cursor:hand'"
 					+ " onclick='cancelGrid()\;main(\""+psTableId+"_can\");' alt='Cancelar'>"
 					+ "</td>";
 					
-				this.createTableItem.sItem += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_chek_verd.gif'"
+				this.createTableItem.sItem += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_chek_verd.gif'"
 					+ " border='0' style='cursor:hand'"
 					+ " onclick='saveGrid();' alt='Confirmar'>"
 					+ "</td>"
 					+ "<td nowrap align='center' valign='middle' class='iftab3branco'>"
-					+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_canc_verm.gif'"
+					+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_canc_verm.gif'"
 					+ " border='0' style='cursor:hand'"
 					+ " onclick='cancelGrid();main(\""+psTableId+"_can\");' alt='Cancelar'>"
 					+ "</td>";
@@ -2500,7 +2500,7 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 										+ " type='text'" + ((this.sAlign != "") ? " style='width:1;text-align:" + this.sAlign + ";'" : "")
 										+ " onkeypress='return Fu_DigData_keypress(this);' onblur='Fu_ValidaData_blur(this);' maxlength='10' class='cxtext'>"
 										+ "</td>"
-										+ "<td width='20' nowrap><img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_cale.gif'"
+										+ "<td width='20' nowrap><img src='" + "images_home/img_display/img_botoes/ultr_icon_cale.gif'"
 										+ " style='cursor:hand' onclick='javascript:calendarField(document.getElementById(\"grid_New\").all(\"" + this.oCol.nodeName + "\"));'>";
 								
 										
@@ -2629,7 +2629,7 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 										+ "<td><input id='" + this.oCol.nodeName + "'"
 										+ " type='text'" + ((this.sAlign != "") ? " onkeypress ='digitarUpper(this);' style='width:1;text-align:" + this.sAlign + ";'" : "")
 										+ " class='cxtext' " + p_newParameter + "></td>"
-										+ "<td width='20' nowrap><img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_pasta.gif' id='" +  psTableId + "_" + iC + "'"
+										+ "<td width='20' nowrap><img src='" + "images_home/img_display/img_botoes/ultr_icon_pasta.gif' id='" +  psTableId + "_" + iC + "'"
 										+ " style='cursor:hand' onclick='javascript:popUpGrid(\"" + psTableId + "_" + iC + "\",document.getElementById(\"grid_New\").all(\"" + this.oCol.nodeName + "\"));'>";
 									break;								
 							}
@@ -2676,7 +2676,7 @@ UltraCargo.prototype.createTableItem = function(psTableId)
 
 UltraCargo.prototype.createTableHeader = function(psTableId) 
 {
-		this.sTransImg = "/images_home/img_display/img_botoes/ultr_icon_transp.gif";
+		this.sTransImg = "images_home/img_display/img_botoes/ultr_icon_transp.gif";
 		this.createTableItem.sHeader = "";
 		this.createTableHeader.sFixedHeader = "";
 		this.oNd = this.init.oXD.selectSingleNode("//" + psTableId);
@@ -2702,11 +2702,11 @@ UltraCargo.prototype.createTableHeader = function(psTableId)
 					if (this.bSelBt == "single" || this.bSelBt == "multiple") 
 					{
 						this.createTableHeader.sHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							+ "<img src='" + this.sTransImg + "' border='0'>"
 							+ "</td>";
 							
 						this.createTableHeader.sFixedHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							+ "<img src='" + this.sTransImg + "' border='0'>"
 							+ "</td>";
 			
 					}
@@ -2714,33 +2714,33 @@ UltraCargo.prototype.createTableHeader = function(psTableId)
 					if (this.bEdtBt == "true") 
 					{
 						this.createTableHeader.sHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							+ "<img src='" + this.sTransImg + "' border='0'>"
 							+ "</td>";
 							
 						this.createTableHeader.sFixedHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							+ "<img src='" + this.sTransImg + "' border='0'>"
 							+ "</td>";
 					}
 					
 					if (this.bDelBt == "true") 
 					{
 						this.createTableHeader.sHeader += "<td nowrap class='iftabazul'>"
-						+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+						+ "<img src='" + this.sTransImg + "' border='0'>"
 					
 						if(this.bEdtBt == "false" && this.BotaoEspecial == "false")
 						{
-							this.createTableHeader.sHeader += "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							this.createTableHeader.sHeader += "<img src='" + this.sTransImg + "' border='0'>"
 						}  
 						this.createTableHeader.sHeader  +=  "</td>";
 						
 							
 						this.createTableHeader.sFixedHeader += "<td nowrap class='iftabazul'>"
-						+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+						+ "<img src='" + this.sTransImg + "' border='0'>"
 						
 							
 						if(this.bEdtBt == "false" && this.BotaoEspecial == "false")
 						{
-							this.createTableHeader.sFixedHeader +=  "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							this.createTableHeader.sFixedHeader +=  "<img src='" + this.sTransImg + "' border='0'>"
 						}  
 						this.createTableHeader.sFixedHeader  += "</td>";
 					}
@@ -2751,11 +2751,11 @@ UltraCargo.prototype.createTableHeader = function(psTableId)
 					if (this.BotaoEspecial == "true")
 					{
 						this.createTableHeader.sHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>" 
+							+ "<img src='" + this.sTransImg + "' border='0'>" 
 							+ "</td>";
 							
 						this.createTableHeader.sFixedHeader += "<td nowrap class='iftabazul'>"
-							+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+							+ "<img src='" + this.sTransImg + "' border='0'>"
 							+ "</td>";
 					}
 					
@@ -2890,12 +2890,12 @@ UltraCargo.prototype.createTableFooter = function(psTableId)
 		if (this.cTF.bInsertButton == "true") 
 		{
 			this.cTF.sFooter += "<td width='40' nowrap align='center'>"
-				+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_mais.gif' border='0' style='cursor:hand' onclick='"+psTableId+".newGrid();main(\""+psTableId+"_new\");' alt=\"" + altNew + "\">"
+				+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_mais.gif' border='0' style='cursor:hand' onclick='"+psTableId+".newGrid();main(\""+psTableId+"_new\");' alt=\"" + altNew + "\">"
 				+ "</td>";
 		}
 		if (this.cTF.bInsertMultipleButton == "true") {
 			this.cTF.sFooter += "<td width='40' nowrap align='center'>"
-				+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_mais_grupo.gif' border='0' style='cursor:hand' onclick='"+psTableId+".listGrid();' alt=\"" + altNewPop + "\">"
+				+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_mais_grupo.gif' border='0' style='cursor:hand' onclick='"+psTableId+".listGrid();' alt=\"" + altNewPop + "\">"
 				+ "</td>";
 		}
 		this.cTF.sFooter += "<td>&nbsp;</td>"
@@ -2908,7 +2908,7 @@ UltraCargo.prototype.createTableFooter = function(psTableId)
 		
 		if (Math.floor(this.cTF.iPage) > 1) 
 		{
-			this.cTF.sFooter += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_volt.gif' border='0' style='cursor:hand' onclick='"+psTableId+".lastPageGrid(" + (Math.floor(this.cTF.iPage) - 1) + ");' alt='Voltar'>";
+			this.cTF.sFooter += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_volt.gif' border='0' style='cursor:hand' onclick='"+psTableId+".lastPageGrid(" + (Math.floor(this.cTF.iPage) - 1) + ");' alt='Voltar'>";
 		}
 		
 		if (Math.floor(this.cTF.iPageCount) > 1) 
@@ -2925,7 +2925,7 @@ UltraCargo.prototype.createTableFooter = function(psTableId)
 		
 		if (Math.floor(this.cTF.iPage) < Math.floor(this.cTF.iPageCount)) 
 		{
-			this.cTF.sFooter += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_avan.gif' border='0' style='cursor:hand' onclick='"+psTableId+".nextPageGrid(" + (Math.floor(this.cTF.iPage) + 1) + ");' alt='Avançar'>";
+			this.cTF.sFooter += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_avan.gif' border='0' style='cursor:hand' onclick='"+psTableId+".nextPageGrid(" + (Math.floor(this.cTF.iPage) + 1) + ");' alt='Avanï¿½ar'>";
 		}
 		this.cTF.sFooter += "</td><td width='10' nowrap>&nbsp;</td></tr></table>";
 		
@@ -3001,12 +3001,12 @@ UltraCargo.prototype.createTableFooter_ini = function(psTableId)
 			
 		if (this.cTF.bInsertButton == "true") {
 			this.cTF.sFooter += "<td width='40' nowrap align='center'>"
-				+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_mais.gif' border='0' style='cursor:hand' onclick='"+psTableId+".newGrid();main(\""+psTableId+"_new\");' alt=\"" + altNew + "\">"
+				+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_mais.gif' border='0' style='cursor:hand' onclick='"+psTableId+".newGrid();main(\""+psTableId+"_new\");' alt=\"" + altNew + "\">"
 				+ "</td>";
 		}
 		if (this.cTF.bInsertMultipleButton == "true") {
 			this.cTF.sFooter += "<td width='40' nowrap align='center'>"
-				+ "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_mais_grupo.gif' border='0' style='cursor:hand' onclick='"+psTableId+".listGrid();' alt=\"" + altNewPop + "\">"
+				+ "<img src='" + "images_home/img_display/img_botoes/ultr_icon_mais_grupo.gif' border='0' style='cursor:hand' onclick='"+psTableId+".listGrid();' alt=\"" + altNewPop + "\">"
 				+ "</td>";
 		}
 		this.cTF.sFooter += "<td>&nbsp;</td>"
@@ -3015,7 +3015,7 @@ UltraCargo.prototype.createTableFooter_ini = function(psTableId)
 			this.cTF.iPage = this.cTF.iPageCount;
 		}
 		if (Math.floor(this.cTF.iPage) > 1) {
-			this.cTF.sFooter += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_volt.gif' border='0' style='cursor:hand' onclick='"+psTableId+".lastPageGrid(" + (Math.floor(this.cTF.iPage) - 1) + ");' alt='Voltar'>";
+			this.cTF.sFooter += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_volt.gif' border='0' style='cursor:hand' onclick='"+psTableId+".lastPageGrid(" + (Math.floor(this.cTF.iPage) - 1) + ");' alt='Voltar'>";
 		}
 		if (Math.floor(this.cTF.iPageCount) > 1) {
 			this.cTF.sFooter += "</td>"
@@ -3026,7 +3026,7 @@ UltraCargo.prototype.createTableFooter_ini = function(psTableId)
 		}
 		if (Math.floor(this.cTF.iPage) < Math.floor(this.cTF.iPageCount)) 
 		{
-			this.cTF.sFooter += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_avan.gif' border='0' style='cursor:hand' onclick='"+psTableId+".nextPageGrid(" + (Math.floor(this.cTF.iPage) + 1) + ");' alt='Avançar'>";
+			this.cTF.sFooter += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_avan.gif' border='0' style='cursor:hand' onclick='"+psTableId+".nextPageGrid(" + (Math.floor(this.cTF.iPage) + 1) + ");' alt='Avanï¿½ar'>";
 		}
 		this.cTF.sFooter += "</td><td width='10' nowrap>&nbsp;</td></tr></table>";
 		
@@ -3433,7 +3433,7 @@ UltraCargo.prototype.verifyGrid = function()
 		this.sMsgHder = "________________________________________________     \n\n"
 			+ " UltraCargo: Aviso de Sistema \n"
 			+ "________________________________________________     \n\n"
-			+ " - Os seguintes campos obrigatórios estão vazios:\n";
+			+ " - Os seguintes campos obrigatï¿½rios estï¿½o vazios:\n";
 		this.sMsgBdy = "";
 		this.bValidate = true;
 		this.oDt = this.oXD.selectSingleNode("root/*");
@@ -3536,7 +3536,7 @@ UltraCargo.prototype.verifyGrid = function()
 		}
 		if (this.sMsgBdy != "") 
 		{
-			msgBox(" - Os seguintes campos obrigatórios estão vazios:\n" + this.sMsgBdy);
+			msgBox(" - Os seguintes campos obrigatï¿½rios estï¿½o vazios:\n" + this.sMsgBdy);
 		}
 		return this.bValidate;
 
@@ -3617,7 +3617,7 @@ UltraCargo.prototype.verifyGridCons = function()
 
 						if(this.sTipo != this.sTipo_col2)
 						{
-							msgBox("As colunas informadas para consitência não são do mespo tipo:\n" + "Coluna " + vwColuna1 + " " + this.sTipo + "\nColuna " + vwColuna2 + " " + this.sTipo_col2);
+							msgBox("As colunas informadas para consitï¿½ncia nï¿½o sï¿½o do mespo tipo:\n" + "Coluna " + vwColuna1 + " " + this.sTipo + "\nColuna " + vwColuna2 + " " + this.sTipo_col2);
 							return false;
 						}
 						
@@ -3693,7 +3693,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			}
 			else
 			{
-				vwRetorno = "O campo " + paLabel1 + " não pode ser diferente do campo " + paLabel2;
+				vwRetorno = "O campo " + paLabel1 + " nï¿½o pode ser diferente do campo " + paLabel2;
 			}
 			break;
 		case ">":
@@ -3703,7 +3703,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			}
 			else
 			{
-					vwRetorno = "O campo " + paLabel1 + " não pode ser menor que o campo " +  paLabel2;
+					vwRetorno = "O campo " + paLabel1 + " nï¿½o pode ser menor que o campo " +  paLabel2;
 			}
 			
 			break;
@@ -3714,7 +3714,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			}
 			else
 			{
-					vwRetorno = "O campo " + paLabel1 + " não pode ser maior que o campo " + paLabel2;
+					vwRetorno = "O campo " + paLabel1 + " nï¿½o pode ser maior que o campo " + paLabel2;
 			}
 			break;
 		case "!=":
@@ -3724,7 +3724,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			}
 			else
 			{
-					vwRetorno = "O campo " + paLabel1 + " não pode  ser igual ao campo " + paLabel2;
+					vwRetorno = "O campo " + paLabel1 + " nï¿½o pode  ser igual ao campo " + paLabel2;
 			}
 			break;
 		case ">=":
@@ -3734,7 +3734,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			} 
 			else
 			{
-					vwRetorno = "O campo " + paLabel1 + " não pode ser menor igual ao campo " + paLabel2;
+					vwRetorno = "O campo " + paLabel1 + " nï¿½o pode ser menor igual ao campo " + paLabel2;
 			}
 			break;
 		case "<=":
@@ -3744,7 +3744,7 @@ UltraCargo.prototype.Fu_RetornaConsistencia = function(paTipo,paOperador,paValor
 			} 
 			else
 			{
-					vwRetorno = "O campo " + paLabel1 + " não pode ser maior igual ao campo " + paLabel2;
+					vwRetorno = "O campo " + paLabel1 + " nï¿½o pode ser maior igual ao campo " + paLabel2;
 			}
 			break;
 	}
@@ -4689,7 +4689,7 @@ UltraCargo.prototype.setDataLink = function(psXML) {
 						this.sXPath = "root/" + this.sPrntFrmId + "/row[@line='" + this.iPrntLn + "']";
 					}
 					for (var iF = 0; iF < document.forms.length; iF++) {
-						this.oElmnts = document.forms[iF].elements;
+						this.oElmnts = document.forms[iF];
 						if (this.oElmnts != null) {this.sFrmId = (this.oElmnts.getAttribute("id")
 							 != null) ? this.oElmnts.getAttribute("id") : "form"+iF;
 							this.sLnk = (this.oElmnts.getAttribute("linked") != null) ? this.oElmnts.getAttribute("linked") : "";
@@ -4730,7 +4730,7 @@ UltraCargo.prototype.setDataLink = function(psXML) {
 
 UltraCargo.prototype.generateTableContent = function(psTableId) 
 {
-		this.sTransImg = "/images_home/img_display/img_botoes/ultr_icon_transp.gif";
+		this.sTransImg = "images_home/img_display/img_botoes/ultr_icon_transp.gif";
 		this.asBGC = new Array(1);
 		this.asBGC[0] = "iftab3branco";
 		this.asBGC[1] = "iftab2cinza";
@@ -4845,10 +4845,10 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 									+ "<input name='Chk' id='Chk' type='radio' onclick='Fu_RadioClick();' line='" + this.iLn + "' style='cursor:hand'" + ((this.sStts == "del") ? " disabled" : "") + " mark='false'>"
 									+ "</td>";
 								this.sHFBdy += "<td nowrap>"
-									+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+									+ "<img src='" + this.sTransImg + "' border='0'>"
 									+ "</td>";
 								this.sHCnt += "<td nowrap>"
-									+ "<img  src='" + this.init.host + this.sTransImg + "' border='0'>"
+									+ "<img  src='" + this.sTransImg + "' border='0'>"
 									+ "</td>";
 							}
 							if (this.bSelBt == "multiple") 
@@ -4925,10 +4925,10 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								}			
 
 								this.sHFBdy += "<td nowrap>"
-									+ "<img src='" + this.init.host + this.sTransImg + "' border='0'>"
+									+ "<img src='" + this.sTransImg + "' border='0'>"
 									+ "</td>";
 								this.sHCnt += "<td nowrap>"
-									+ "<img  src='" + this.init.host + this.sTransImg + "' border='0'>"
+									+ "<img  src='" + this.sTransImg + "' border='0'>"
 									+ "</td>";
 							}
 							
@@ -4939,7 +4939,7 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								this.sHDscr += "<td nowrap align='center' valign='middle' class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'>";
 								if (this.sStts == "del") 
 								{
-									this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='24' border='0'>";
+									this.sHDscr += "<img src='" + this.sTransImg + "' width='24' border='0'>";
 								}
 								else
 								{
@@ -4947,17 +4947,17 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 									{
 										if (this.bSelBt != "multiple") 
 										{
-											this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+											this.sHDscr += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 											}
 									}
-									this.sHDscr += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_edit.gif'"
+									this.sHDscr += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_edit.gif'"
 										+ " border='0' style='cursor:hand'"
 										+ " onclick='editGrid(this);' line='" + this.iLn + "' alt='Editar'>";
 									if (this.bEdtBt == "true" && this.bDelBt == "false") 
 									{
 										if (this.bSelBt != "multiple") 
 										{
-											this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+											this.sHDscr += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 										}
 									}
 								}
@@ -4969,19 +4969,19 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								if (this.bEdtBt == "true" && this.bDelBt == "false")
 								{
 									if (this.bSelBt != "multiple") {
-										this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-										this.sHCnt += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+										this.sHFBdy += "<img src='" + this.sTransImg + "' width='14' border='0'>";
+										this.sHCnt += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 										}
 								}
 								
-								this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' border='0'>";
-								this.sHCnt += "<img src='" + this.init.host + this.sTransImg + "' border='0'>";
+								this.sHFBdy += "<img src='" + this.sTransImg + "' border='0'>";
+								this.sHCnt += "<img src='" + this.sTransImg + "' border='0'>";
 								
 								if (this.bEdtBt == "true" && this.bDelBt == "false") 
 								{
 									if (this.bSelBt != "multiple") {
-										this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
-										this.sHCnt += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+										this.sHFBdy += "<img src='" + this.sTransImg + "' width='15' border='0'>";
+										this.sHCnt += "<img src='" + this.sTransImg + "' width='15' border='0'>";
 										}
 								}
 								
@@ -4995,22 +4995,22 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								this.sHDscr += "<td nowrap align='center' valign='middle' class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'>";
 								if (this.sStts == "del") 
 								{
-									this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='24' border='0'>";
+									this.sHDscr += "<img src='" + this.sTransImg + "' width='24' border='0'>";
 								}
 								else
 								{
 									if (this.bEdtBt == "true" && this.bDelBt == "false" && this.BotaoEspecial =='false')
 									{
-										this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+										this.sHDscr += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
 									}
-									
-									this.sHDscr += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_edit.gif'"
+
+									this.sHDscr += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_edit.gif'"
 										+ " border='0' style='cursor:hand'"
 										+ " onclick='linkedGrid(this);' line='" + this.iLn + "' alt='Editar'>";
 										
 									if (this.bEdtBt == "true" && this.bDelBt == "false" && this.BotaoEspecial == 'false')
 									{
-										this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+										this.sHDscr += "<img  src='" + this.sTransImg + "' width='15' border='0'>";
 									}
 								}
 								this.sHDscr += "</td>";
@@ -5020,17 +5020,17 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								
 								if (this.bEdtBt == "true" && this.bDelBt == "false" && this.BotaoEspecial == 'false') 
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
-								this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' border='0'>";
-								this.sHCnt += "<img    src='" + this.init.host + this.sTransImg + "' border='0'>";
+								this.sHFBdy += "<img  src='" + this.sTransImg + "' border='0'>";
+								this.sHCnt += "<img    src='" + this.sTransImg + "' border='0'>";
 								
 								if (this.bEdtBt == "true" && this.bDelBt == "false" && this.BotaoEspecial == 'false') 
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='15' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='15' border='0'>";
 								}
 								
 								this.sHFBdy += "</td>";
@@ -5045,19 +5045,19 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								{
 									if (this.bEdtBt == "false" && this.bInsBt == "true") 
 									{
-										this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+										this.sHDscr += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 									}
-									this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='24' border='0'>";
+									this.sHDscr += "<img src='" + this.sTransImg + "' width='24' border='0'>";
 									if (this.bEdtBt == "false" && this.bInsBt == "true") 
 									{
-										this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+										this.sHDscr += "<img src='" + this.sTransImg + "' width='15' border='0'>";
 									}
 								}
 								else 
 								{
 									if (this.bEdtBt == "false" && this.bInsBt == "true") 
 									{
-										this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+										this.sHDscr += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 									}
 									
 									switch(this.tipogrid) 
@@ -5070,32 +5070,32 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 												
 												vwChaveConc += this.oNds[iR].selectSingleNode(vwChave[vwc]).getAttribute("value");
 											}
-											this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-											this.sHDscr += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_excl.gif'"
+											this.sHDscr += "<img src='" + this.sTransImg + "' width='14' border='0'>";
+											this.sHDscr += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_excl.gif'"
 											+ " border='0' style='cursor:hand'"
 											+ " onclick='deleteGridCheck(this);'" 
-											+ "line='" 	+ this.iLn + "' chave='" +  vwChaveConc   +  "' formsele='" + this.gridsele +   "' alt='Excluir da seleção'>";
+											+ "line='" 	+ this.iLn + "' chave='" +  vwChaveConc   +  "' formsele='" + this.gridsele +   "' alt='Excluir da seleï¿½ï¿½o'>";
 											break;
 										default:
 											if (this.bDelBt == "true" && this.bEdtBt == "false" && this.BotaoEspecial =='false')
 											{
-												this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+												this.sHDscr += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
 											}
 											
-											this.sHDscr += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/ultr_icon_excl.gif'"
+											this.sHDscr += "<img src='" + "images_home/img_display/img_botoes/ultr_icon_excl.gif'"
 											+ " border='0' style='cursor:hand'"
 											+ " onclick='cancelGrid();deleteGrid(this);main(\""+psTableId+"_local_del\");' line='" + this.iLn + "' alt='Excluir'>";
 
 											if (this.bDelBt == "true" && this.bEdtBt == "false" && this.BotaoEspecial =='false')
 											{
-												this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+												this.sHDscr += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
 											}
 
 											break;
 									}
 									if (this.bEdtBt == "false" && this.bInsBt == "true") 
 									{
-										this.sHDscr += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+										this.sHDscr += "<img src='" + this.sTransImg + "' width='15' border='0'>";
 									}
 								}
 								this.sHDscr += "</td>";
@@ -5104,28 +5104,28 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								
 								if (this.bEdtBt == "false" && this.bInsBt == "true") 
 								{
-									this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
 								if (this.bDelBt == "true" && this.bEdtBt == "false" && this.BotaoEspecial == 'false') 
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
-								this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' border='0'>";
-								this.sHCnt += "<img  src='" + this.init.host + this.sTransImg + "' border='0'>";
+								this.sHFBdy += "<img src='" + this.sTransImg + "' border='0'>";
+								this.sHCnt += "<img  src='" + this.sTransImg + "' border='0'>";
 								
 								if (this.bDelBt == "true" && this.bEdtBt == "false" && this.BotaoEspecial == 'false') 
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
 								if (this.bEdtBt == "false" && this.bInsBt == "true") {
-									this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
-									this.sHCnt += "<img  src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+									this.sHFBdy += "<img src='" + this.sTransImg + "' width='15' border='0'>";
+									this.sHCnt += "<img  src='" + this.sTransImg + "' width='15' border='0'>";
 								}
 								this.sHFBdy += "</td>";
 								this.sHCnt += "</td>";
@@ -5137,16 +5137,16 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 
 								if (this.bDelBt == "false" && this.bEdtBt == "false")
 								{
-									this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHDscr += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
-								this.sHDscr += "<img src='" + this.init.host + "/images_home/img_display/img_botoes/" +  this.ImgBotaoEspecial + "'"
+								this.sHDscr += "<img src='" + "images_home/img_display/img_botoes/" +  this.ImgBotaoEspecial + "'"
 								+ " border='0' style='cursor:hand'"
 								+ " onclick='Fu_DireBotaoEspecial(this);' maincase='"  +  this.MainCaseBotaoEspecial   +  "' form='" + psTableId  +  "' page='"  + this.sPg  +  "' line='" + this.iLn + "' alt='" +  this.ToolTipoBotaoEspecial + "'>";
 								
 								if (this.bDelBt == "false" && this.bEdtBt == "false")
 								{
-									this.sHDscr += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHDscr += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
 								this.sHDscr += "</td>";
@@ -5156,28 +5156,28 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 								
 								if (this.bEdtBt == "false" && this.bInsBt == "true") 
 								{
-									this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
 								if (this.bDelBt == "false" && this.bEdtBt == "false")
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
-								this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' border='0'>";
-								this.sHCnt += "<img  src='" + this.init.host + this.sTransImg + "' border='0'>";
+								this.sHFBdy += "<img src='" + this.sTransImg + "' border='0'>";
+								this.sHCnt += "<img  src='" + this.sTransImg + "' border='0'>";
 								
 								if (this.bDelBt == "false" && this.bEdtBt == "false")
 								{
-									this.sHFBdy += "<img  src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
-									this.sHCnt += "<img   src='" + this.init.host + this.sTransImg + "' width='14' border='0'>";
+									this.sHFBdy += "<img  src='" + this.sTransImg + "' width='14' border='0'>";
+									this.sHCnt += "<img   src='" + this.sTransImg + "' width='14' border='0'>";
 								}
 								
 								if (this.bEdtBt == "false" && this.bInsBt == "true") {
-									this.sHFBdy += "<img src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
-									this.sHCnt += "<img  src='" + this.init.host + this.sTransImg + "' width='15' border='0'>";
+									this.sHFBdy += "<img src='" + this.sTransImg + "' width='15' border='0'>";
+									this.sHCnt += "<img  src='" + this.sTransImg + "' width='15' border='0'>";
 								}
 								this.sHFBdy += "</td>";
 								this.sHCnt += "</td>";
@@ -5276,7 +5276,7 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 														    {
 														        if (this.oElmnt.nodeName == "dsidentificador" && psTableId == "frm_pesquisaDnit" )
 														        {
-														            this.sHCnt += "<td class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'" + " align='" + this.sAlign + "' nowrap><img src='" + this.init.host + "/images_dnit/" + this.sVl + ".png' width='180' border='0'></td>"
+														            this.sHCnt += "<td class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'" + " align='" + this.sAlign + "' nowrap><img src='" + "images_dnit/" + this.sVl + ".png' width='180' border='0'></td>"
 														        }
 														        else
 														        {
@@ -5291,7 +5291,7 @@ UltraCargo.prototype.generateTableContent = function(psTableId)
 														    {
 														        if (this.oElmnt.nodeName == "dsidentificador" && psTableId == "frm_pesquisaDnit" )
 														        {
-														            this.sHCnt += "<td class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'" + " align='" + this.sAlign + "' nowrap><img src='" + this.init.host + "/images_dnit/" + this.sVl + ".png' width='180' border='0'></td>"
+														            this.sHCnt += "<td class='" + ((this.sStts == "del") ? this.asBGC[2] : this.asBGC[(this.iBGColor%2)]) + "'" + " align='" + this.sAlign + "' nowrap><img src='" + "images_dnit/" + this.sVl + ".png' width='180' border='0'></td>"
 														        }
 														        else
 														        {
@@ -5558,7 +5558,7 @@ UltraCargo.prototype.validateCombo = function()
 		{
 			if(vwTipoErro == 'GA')
 			{
-				throw "Desenvolvedor, o recurdo de auto selecionar só está disponível para combo que não pertencem a Grid=" + this.combo.from;
+				throw "Desenvolvedor, o recurdo de auto selecionar sï¿½ estï¿½ disponï¿½vel para combo que nï¿½o pertencem a Grid=" + this.combo.from;
 			}
 			else
 			{
@@ -5586,7 +5586,7 @@ UltraCargo.prototype.verifyExpiredSession = function()
 	
 	if ((this.doVerifySession) && (this.init.sLoginAtu  == '' || this.init.sLoginAtu == null)) 
 	{
-		msgBox("Sua sessão expirou, por favor realize o Login novamente.")
+		msgBox("Sua sessï¿½o expirou, por favor realize o Login novamente.")
 		this.shwSessionMsg = true;
 		return true;
 	}
@@ -6873,7 +6873,7 @@ UltraCargo.prototype.validateToSend = function()
 			
 			if(vwTipoMensagem == 1)
 			{
-				throw "Sua sessão expirou, por favor realize o Login novamente.";
+				throw "Sua sessï¿½o expirou, por favor realize o Login novamente.";
 			}
 			 
 		}*/
@@ -6915,7 +6915,7 @@ UltraCargo.prototype.verifyFields = function()
 		this.sMsgHder = "________________________________________________     \n\n"
 			+ " UltraCargo: Aviso de Sistema \n"
 			+ "________________________________________________     \n\n"
-			+ " - Os seguintes campos obrigatórios estão vazios:\n";
+			+ " - Os seguintes campos obrigatï¿½rios estï¿½o vazios:\n";
 		this.sMsgBdy = "";
 		this.bVerify = false;
 		this.bOr = false;
@@ -7032,13 +7032,13 @@ UltraCargo.prototype.verifyFields = function()
 				
 			switch (this.init.operation){
 				case "qry":
-					msgBox(" - Necessário informar pelo menos um campo no filtro:\n" + this.sMsgBdy);
+					msgBox(" - Necessï¿½rio informar pelo menos um campo no filtro:\n" + this.sMsgBdy);
 					break;
 				case "ins","upd":
-					msgBox(" - Necessário informar campos obrigatórios:\n" + this.sMsgBdy);
+					msgBox(" - Necessï¿½rio informar campos obrigatï¿½rios:\n" + this.sMsgBdy);
 					break;
 				default:
-					msgBox(" - Necessário informar os seguintes campos obrigatórios:\n" + this.sMsgBdy);
+					msgBox(" - Necessï¿½rio informar os seguintes campos obrigatï¿½rios:\n" + this.sMsgBdy);
 					break;				
 				}
 				
@@ -9182,7 +9182,7 @@ UltraCargo.prototype.disableControls = function(psOper,bDisable) {
 }
 
 UltraCargo.prototype.checkStringValue = function(psValue) {
-		return psValue.replace(/[^a-zA-Z0-9"'!@#$%&*()_+-=[]{},.<>;:\/?|\°ºªçÇãÃâÂáÁàÀäÄêÊéÉèÈëËîÎíÍìÌïÖõÕôÔóÓòÒöÖûÛúÚùÙüÜñÑ]/gi," ");
+		return psValue.replace(/[^a-zA-Z0-9"'!@#$%&*()_+-=[]{},.<>;:\/?|\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]/gi," ");
 }
 
 UltraCargo.prototype.getValue = function(psXML,psXPath) {
@@ -9341,7 +9341,7 @@ UltraCargo.prototype.exception = function(poException,psClassMethod) {
 			if (poException.number != null && poException.name != null && poException.description != null) {
 				if (poException.number != 0) {
 					this.exception.sBody += "Erro: " + psClassMethod + "\n\n"
-						+ "Descrição1 : [" + poException.number + "] "
+						+ "Descriï¿½ï¿½o1 : [" + poException.number + "] "
 						+ poException.name + " - "
 						+ poException.description + "\n\n"
 						+ self.location + "\n";
@@ -9350,13 +9350,13 @@ UltraCargo.prototype.exception = function(poException,psClassMethod) {
 			else {
 				if (poException.description == undefined) {
 					this.exception.sBody += "Erro: " + psClassMethod + "\n\n"
-						+ "Descrição : " + poException + "\n";
+						+ "Descriï¿½ï¿½o : " + poException + "\n";
 				}
 			}
 		}
 		if (this.exception.sBody != "") {
 			this.exception.sBody = "Favor reportar esta mensagem para o suporte do sistema,\n"
-				+ "comentando a operação que está sendo executada.\n\n" + this.exception.sBody;
+				+ "comentando a operaï¿½ï¿½o que estï¿½ sendo executada.\n\n" + this.exception.sBody;
 			msgBox(this.exception.sBody);
 		}
 		this.exception.sBody = null;

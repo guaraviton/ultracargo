@@ -1,5 +1,5 @@
 //****************************************************
-//Função para selecionar XML a partir de dois XML
+//Funï¿½ï¿½o para selecionar XML a partir de dois XML
 //informados e, um conjunto de campos  a serem
 //comparados
 //****************************************************
@@ -8,7 +8,7 @@ function Fu_RadioClick()
 	parent.main("chk",null,null);
 }
 //****************************************************
-//Função para direcionar evento click do Botão 
+//Funï¿½ï¿½o para direcionar evento click do Botï¿½o 
 //especial, para o asp/main
 //****************************************************
 function Fu_DireBotaoEspecial(pobj_Field)
@@ -69,18 +69,18 @@ function checkGrid(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 	vwObjXML_orig.loadXML(paXmlOri);
 	if (vwObjXML_orig.parseError != 0)   
 	{
-		alert('Não foi possível carregar o XML de origem:' + vwObjXML_orig.parseError.reason);
+		alert('Nï¿½o foi possï¿½vel carregar o XML de origem:' + vwObjXML_orig.parseError.reason);
 		return false;
 	}
 	//Destino 
 	vwObjXML_comp.loadXML(paXmlCom);
 	if (vwObjXML_comp.parseError != 0)   
 	{
-		alert('Não foi possível carregar o XML de Comparação(2):' + vwObjXML_comp.parseError.reason);
+		alert('Nï¿½o foi possï¿½vel carregar o XML de Comparaï¿½ï¿½o(2):' + vwObjXML_comp.parseError.reason);
 		return false; 
 	}
 	//***********************************
-	// Seleciona o nó de formulário
+	// Seleciona o nï¿½ de formulï¿½rio
 	// do XML de origem 
 	//***********************************
 	var vwConcatenaValores  =  '';
@@ -103,7 +103,7 @@ function checkGrid(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 	} 
 		
 	//************************************
-	//Le o XML de Comparação
+	//Le o XML de Comparaï¿½ï¿½o
 	//************************************
 	var vwObjNodes_Comp  =  vwObjXML_comp.selectNodes("root/" + paFormCom + '/row');
 	
@@ -153,18 +153,18 @@ function checkGrid_pagi(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 	vwObjXML_orig.loadXML(paXmlOri);
 	if (vwObjXML_orig.parseError != 0)   
 	{
-		alert('Não foi possível carregar o XML de origem:' + vwObjXML_orig.parseError.reason);
+		alert('Nï¿½o foi possï¿½vel carregar o XML de origem:' + vwObjXML_orig.parseError.reason);
 		return false;
 	}
 	//Destino
 	vwObjXML_comp.loadXML(paXmlCom);
 	if (vwObjXML_comp.parseError != 0)
 	{
-		alert('Não foi possível carregar o XML de Comparação(2):' + vwObjXML_comp.parseError.reason);
+		alert('Nï¿½o foi possï¿½vel carregar o XML de Comparaï¿½ï¿½o(2):' + vwObjXML_comp.parseError.reason);
 		return false; 
 	}
 	//***********************************
-	// Seleciona o nó de formulário
+	// Seleciona o nï¿½ de formulï¿½rio
 	// do XML de origem 
 	//***********************************
 	var vwConcatenaValores  =  '';
@@ -200,7 +200,7 @@ function checkGrid_pagi(paFormOri,paXmlOri,paFormCom,paXmlCom,paCampos)
 	} 
 		
 	//************************************
-	//Le o XML de Comparação
+	//Le o XML de Comparaï¿½ï¿½o
 	//************************************
 	
 	var vwObjNodes_Comp  =  vwObjXML_comp.selectNodes("root/" + paFormCom + '/row');
@@ -498,7 +498,7 @@ function editGrid(pobj_Field)
         obj_Root.appendChild(obj_Node);
         //zalert("xml: " + obj_XmlDom.xml());
         main(null,null,obj_XmlDom.xml());
-        //zalert("arrá!");
+        //zalert("arrï¿½!");
         var obj_Field = document.getElementById("grid_New");
         var obj_Cols = obj_Field.all("Col");
         var int_Cols = 1;
@@ -858,7 +858,7 @@ function deleteGrid(pobj_Field)
     if (!bln_Enable) {
       return;
     }
-    var str_Return = parent.msgBox("Confirma a exclusão do registro?\n\n",null,"    OK    ","Cancelar");
+    var str_Return = parent.msgBox("Confirma a exclusï¿½o do registro?\n\n",null,"    OK    ","Cancelar");
     if (str_Return == null || str_Return == 1) {
       return;
     }

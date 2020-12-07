@@ -10,7 +10,7 @@
     var bln_New = true;
     var str_Operation = "ins";
     var obj_Ultra = new UltraCargo();
-    obj_Ultra.processPage("./prc/prc_cada_arma_duto.asp");
+    obj_Ultra.init.processPage = 'https://run.mocky.io/v3/4af1c88e-46b4-4c6b-94fa-1625ffb37abb';
 
     function main(pstr_Operation) {
       try {
@@ -53,7 +53,7 @@
             obj_Ultra.getSession(2, "frm_detalhe.idfilialcliente");
             break;
 
-          case "qry":
+          case "qry":            
             setLayer("img_Filtro", null, null, true);
             obj_Ultra.form("frm_pesquisa");
             obj_Ultra.operation(pstr_Operation);
@@ -120,7 +120,7 @@
 
           case "frm_pesquisa_lnk":
             obj_Ultra.clearForms("frm_detalhe");
-            parent.top.frm_rodape.setButton("S,X");
+            // parent.top.frm_rodape.setButton("S,X");
             obj_Ultra.clearLinkedForm("frm_pesquisa");
             obj_Ultra.setDataLink(str_XML);
             if (obj_Ultra.notExistDataLink(str_XML)) {
@@ -216,15 +216,16 @@
             obj_Ultra.getSession(1, "frm_filtro.idempresaultraopera");
             obj_Ultra.getSession(2, "frm_filtro.idfilialultraopera");
 
-            parent.top.frm_seguranca.acessomanutencao("CADARMDUT");
-            parent.top.frm_rodape.setButton("N,P");
+            // parent.top.frm_seguranca.acessomanutencao("CADARMDUT");
+            // parent.top.frm_rodape.setButton("N,P");
             obj_Ultra.initialize();
             //Grid:Pesquisa
+            obj_Ultra.grid = {};
             with(obj_Ultra) {
               grid.id = "frm_pesquisa";
               grid.size = 10;
               grid.keys = "cdanp";
-              grid.colsTitle = "Cod. da Dutovia|Cód. ANP|Cliente|Produto";
+              grid.colsTitle = "Cod. da Dutovia|C&oacute;d. ANP|Cliente|Produto";
               grid.colsField = "cddutovia|cdanp|dsconcatenado|dsnomefantasiaproduto"
               grid.colsHiddenField = "iddutovia"
               grid.colsToValidate = "3|4"
@@ -245,7 +246,7 @@
               combo.autosele = true;
             }
             obj_Ultra.fillCombo();
-            setFocus("frm_filtro", 0);
+            setFocus("frm_filtro", 0);           
             break;
           case "grid":
             obj_Ultra.dataGrid(str_XML);
@@ -255,7 +256,7 @@
             frm_detalhe.dsnomefantasiafilialcliente.value = frm_detalhe.dsconcatenado.value;
             break;
         }
-      } catch (obj_Exception) {
+      } catch (obj_Exception) {        
         alert("main: " + obj_Exception.description);
       } finally {
         delete obj_Field;
@@ -289,16 +290,16 @@
       <td>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="ttop">
           <tr>
-            <td width="37"><img src="../../images_home/img_display/img_titulos/ultr_p_1.gif" width="37" height="25"></td>
+            <td width="37"><img src="images_home/img_display/img_titulos/ultr_p_1.gif" width="37" height="25"></td>
             <td valign="bottom">
               <font size="2" color="#1445B8"><b>Cadastro / </b></font>Armazenagem / Dutovia
             </td>
-            <td width="25"><img src="../../images_home/img_display/img_titulos/ultr_p_2.gif" width="25" height="25"></td>
+            <td width="25"><img src="images_home/img_display/img_titulos/ultr_p_2.gif" width="25" height="25"></td>
           </tr>
           <tr>
-            <td valign="top"><img src="../../images_home/img_display/img_titulos/ultr_p_3.gif" width="37" height="14"></td>
-            <td background="../../images_home/img_display/img_titulos/ultr_bkg.gif">&nbsp;</td>
-            <td valign="top"><img src="../../images_home/img_display/img_titulos/ultr_p_4.gif" width="25" height="14"></td>
+            <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_3.gif" width="37" height="14"></td>
+            <td background="images_home/img_display/img_titulos/ultr_bkg.gif">&nbsp;</td>
+            <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_4.gif" width="25" height="14"></td>
           </tr>
         </table>
       </td>
@@ -319,7 +320,7 @@
                     <tr>
                       <td width='10' class="tab1azul">&nbsp;<a name="lnk_Filtro"></a></td>
                       <td class="tab1azul">Filtro</td>
-                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Filtro"><img id="img_Filtro" border='0' src='../../images_home/img_display/img_botoes/ultr_menos.gif' style='cursor:hand'
+                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Filtro"><img id="img_Filtro" border='0' src='images_home/img_display/img_botoes/ultr_menos.gif' style='cursor:hand'
                             onclick="javascript:expand('img_Filtro',null,null,true);"></a></td>
                     </tr>
                     <tr>
@@ -334,8 +335,8 @@
                               <td colspan="2">
                                 <table width="100%" border="0" cellspacing="0" cellpadding="1" class="framesfundo">
                                   <tr>
-                                    <td width="50%">Código da Dutovia</td>
-                                    <td width="50%">Código ANP</td>
+                                    <td width="50%">C&oacute;digo da Dutovia</td>
+                                    <td width="50%">C&oacute;digo ANP</td>
                                   </tr>
                                   <tr>
                                     <td><input type="text" id="cddutovia" tipo="str(20)" operation="qry" ignore="true" class="cxtext" size="55"></td>
@@ -348,7 +349,7 @@
                               <td colspan="2">&nbsp;</td>
                             </tr>
                             <tr>
-                              <td colspan="2"><img src="../../images_home/img_display/img_titulos/div.gif" width="100%" height="1"></td>
+                              <td colspan="2"><img src="images_home/img_display/img_titulos/div.gif" width="100%" height="1"></td>
                             </tr>
                             <tr>
                               <td colspan="2">&nbsp;</td>
@@ -402,7 +403,7 @@
                     <tr>
                       <td width='10' class="tab1azul">&nbsp;<a name="lnk_Detalhe"></a></td>
                       <td class="tab1azul">Detalhe do Modal Dutovia</td>
-                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Detalhe"><img id="img_Detalhe" border='0' src='../../images_home/img_display/img_botoes/ultr_mais.gif' style='cursor:hand'
+                      <td width='10' align="center" class="tab1azul"><a href="#lnk_Detalhe"><img id="img_Detalhe" border='0' src='images_home/img_display/img_botoes/ultr_mais.gif' style='cursor:hand'
                             onclick="javascript:expand('img_Detalhe',null,null,true);"></a></td>
                     </tr>
                     <tr>
@@ -435,12 +436,12 @@
                                         <tr>
                                           <td colspan="2"><input type="text" id="dsnomefantasiafilialcliente" alias="dsnomefantasia" operation="ins,upd" unique="true" tipo="str(60)" size="55" class="cxtext" onChange="Fu_LimpaHidden('CLIENTE')"
                                               onBlur="javascript:main('filt_deta_clie',this);" lbl="Cliente">
-                                            &nbsp;&nbsp;<img src="../../images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle"
+                                            &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle"
                                               onClick="javascript:main('filt_deta_clie',null);">
                                           </td>
                                           <td colspan="2"> <input type="text" id="dsnomefantasiaproduto" operation="ins,deta_prod,upd" tipo="str(25)" unique="true" class="cxtext" onChange="Fu_LimpaHidden('PRODUTO')"
                                               onBlur="javascript:main('filt_deta_prod',this);" lbl="Produto">
-                                            &nbsp;&nbsp;<img src="../../images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('filt_deta_prod');">
+                                            &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('filt_deta_prod');">
                                             &nbsp; &nbsp; &nbsp;
                                             <input id="intipomovimentacao" name="Grupodebotõesderádio1" checked="true" type="radio" value="Carga" operation="ins,upd" />Carga&nbsp;
                                             <input id="intipomovimentacao" name="Grupodebotõesderádio1" type="radio" value="Descarga" operation="ins,upd" />Descarga</td>
@@ -479,6 +480,17 @@
           </tr>
         </table>
       </td>
+    </tr>
+  </table>
+  <table class="rodape">
+    <tr>
+      <td>
+        <!-- <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div>
+        <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div>
+        <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div> -->
+        <div><img src='images_home/img_display/img_botoes/ultr_icon_pesq.gif' style='cursor:hand'
+          onclick="javascript:main('qry');"></div>
+      </td>   
     </tr>
   </table>
 </body>
