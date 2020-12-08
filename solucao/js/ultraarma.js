@@ -4690,8 +4690,8 @@ UltraCargo.prototype.setDataLink = function(psXML) {
 					}
 					for (var iF = 0; iF < document.forms.length; iF++) {
 						this.oElmnts = document.forms[iF];
-						if (this.oElmnts != null) {this.sFrmId = (this.oElmnts.getAttribute("id")
-							 != null) ? this.oElmnts.getAttribute("id") : "form"+iF;
+						if (this.oElmnts != null) {
+							this.sFrmId = (this.oElmnts.getAttribute("id")!= null) ? this.oElmnts.getAttribute("id") : "form"+iF;
 							this.sLnk = (this.oElmnts.getAttribute("linked") != null) ? this.oElmnts.getAttribute("linked") : "";
 							if (this.sPrntFrmId == this.sLnk) {
 								this.oElmnts.setAttribute("pk",this.sXPath);
@@ -9388,6 +9388,8 @@ function msgBox()
 		else {
 			this.msgBox.asFeatures[2] = "OK";
 		}
+		// this.msgBox.sResp = window.open(this.msgBox.sHost + "/solucao/mensagem.html",this.msgBox.asFeatures,"dialogHeight:" + this.msgBox.iHeight + "px;dialogWidth:350px;help:no;resizable:no;status:no;scroll:no");
+
 		this.msgBox.sResp = window.showModalDialog(this.msgBox.sHost + "/includes/mensagem.asp",this.msgBox.asFeatures,"dialogHeight:" + this.msgBox.iHeight + "px;dialogWidth:350px;help:no;resizable:no;status:no;scroll:no");
 		if (this.msgBox.sResp != null) {
 			if (this.msgBox.sResp.toString() == "true") {

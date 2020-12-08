@@ -10,7 +10,7 @@
     var bln_New = true;
     var str_Operation = "ins";
     var obj_Ultra = new UltraCargo();
-    obj_Ultra.init.processPage = 'https://run.mocky.io/v3/4af1c88e-46b4-4c6b-94fa-1625ffb37abb';
+    obj_Ultra.init.processPage = 'https://run.mocky.io/v3/4af1c88e-46b4-4c6b-94fa-1625ffb37abb';    
 
     function main(pstr_Operation) {
       try {
@@ -27,7 +27,7 @@
 
           case "ext":
             obj_Ultra.clearForms("frm_detalhe");
-            parent.top.frm_rodape.setButton("N,P");
+            //parent.top.frm_rodape.setButton("N,P");
 
             setLayer("img_Filtro", null, null, true);
             str_Operation = "ins";
@@ -125,8 +125,9 @@
             obj_Ultra.setDataLink(str_XML);
             if (obj_Ultra.notExistDataLink(str_XML)) {
               obj_Ultra.form("frm_detalhe");
-              obj_Ultra.operation("qry");
-              obj_Ultra.send(str_XML);
+              obj_Ultra.operation("qry");    
+              obj_Ultra.init.processPage = 'https://run.mocky.io/v3/bd04d855-af41-420f-ad71-8d16c7a05bc5';          
+              obj_Ultra.send(str_XML);              
             }
 
             setLayer("img_Detalhe", null, null, true);
@@ -486,9 +487,10 @@
     <tr>
       <td>
         <!-- <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div>
-        <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div>
         <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div> -->
-        <div><img src='images_home/img_display/img_botoes/ultr_icon_pesq.gif' style='cursor:hand'
+        <div style="width: 95%; float: left;"><img src="images_home/img_rdp/img_botoes/ultr_excluir.gif" style='cursor:hand'
+          onclick="javascript:main('ext');"></div>
+        <div style="width: 5%; float: right;"><img src='images_home/img_display/img_botoes/ultr_icon_pesq.gif' style='cursor:hand'
           onclick="javascript:main('qry');"></div>
       </td>   
     </tr>
