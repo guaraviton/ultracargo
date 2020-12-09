@@ -6559,9 +6559,10 @@ UltraCargo.prototype.send = function()
 			{
 				this.oXAux = new XMLHttpRequest()
 				this.oXAux.loadXML("<root/>");
-				this.oRootAux = this.oXAux.documentElement;
+				this.oRootAux = this.oXAux.document.documentElement;
 				this.asForm = this.init.multiForm.split("|");
-				this.oNds = this.oNd.children;
+				this.oNds = this.oNd.children;				
+
 				for (var iM = 0; iM < this.asForm.length; iM++) 
 				{
 					this.sTipo = "";

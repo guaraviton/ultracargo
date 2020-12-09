@@ -1557,7 +1557,7 @@ function enableGrid() {
     obj_XmlDom.loadXML("<root/>");
     var obj_Root = obj_XmlDom.document.documentElement;
     var obj_Field = document.getElementById("grid_PK");
-    var obj_Frame = obj_Field.all("FRAME");
+    var obj_Frame = obj_Field.querySelector("#FRAME");
     var str_Frame = (obj_Frame != null) ? obj_Frame.value : "";
     if (str_Frame != "") {
       var obj_Node = obj_XmlDom.createNode(1,str_Frame,"");

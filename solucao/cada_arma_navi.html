@@ -1,0 +1,778 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="css/styles.css" type="text/css" />
+<script language="javascript" src="js/general.js" type="text/javascript"></script>
+<script language="javascript" src="js/ultraarma.js" type="text/javascript"></script>
+<script language="javascript" src="js/xmlgrid.js" type="text/javascript"></script>
+
+
+<script language="javascript" type="text/javascript">
+
+var bln_New = true;
+var str_Action = "ins";
+var str_Operation = "ins";
+var str_Dsnomenavio = "";
+var str_Dsarmador = "";
+var str_Dsagente = "";
+
+// var objXML    =  new ActiveXObject("MSXML2.FreeThreadedDOMDocument");
+this.objXML = new XMLHttpRequest();
+
+var obj_Ultra = new UltraCargo();
+
+obj_Ultra.init.processPage = 'https://run.mocky.io/v3/d3fc9321-2b9b-4186-883a-3ad336038df0';
+
+function main(pstr_Operation) 
+{
+  //alert(pstr_Operation);
+  try {
+    var obj_Field = (arguments[1] != null) ? arguments[1] : null;
+    var str_XML = (arguments[2] != null) ? arguments[2] : "";
+	switch(pstr_Operation) {	
+      case "exp":
+        if (bln_New) {
+          main('new');
+        }
+        break;
+      case "ext":
+        //parent.top.frm_rodape.setButton("N,P");
+        //ron: obj_Ultra.clearLinkedForm("frm_pesquisa");
+        setLayer("img_Filtro");
+        str_Action = "ins";
+        str_Operation = "ins";
+        setFocus("frm_filtro");
+        bln_Expand = false;
+        bln_New = true;
+		//self.frames[0].clearGrid();
+		//self.frames[1].clearGrid();
+        //self.frames[1].disableGrid();
+		//obj_Ultra.clearForms("frm_filtro");
+		//Fu_LimpaPaginador('frm_pesquisa'); 
+		//main('qry');
+        break;
+      case "new":
+        parent.top.frm_rodape.setButton("S,X");
+        // obj_Ultra.clearLinkedForm("frm_pesquisa");
+        setLayer("img_Detalhe",true);
+        str_Action = "ins";
+        str_Operation = "ins";
+        setFocus("frm_detalhe");
+        bln_New = false;
+        self.frames[1].clearGrid();
+        obj_Ultra.clearForms("frm_detalhe");
+        //self.frames[1].disableGrid();
+        break;
+      case "qry":
+        setLayer("img_Filtro");
+        obj_Ultra.form("frm_pesquisa");
+        obj_Ultra.operation(pstr_Operation);
+        if (obj_Ultra.send()) 
+        {
+			if (str_Operation == "ins")
+			{
+				self.frames[0].clearGrid();
+				Fu_LimpaPaginador('frm_pesquisa'); 
+			}
+        }
+        setFocus("frm_filtro");
+        break;
+      case "ins":
+        obj_Ultra.form("frm_detalhe");
+        frm_detalhe.dsnomefantasiaarmador.value =  frm_detalhe.dsconcatenado.value;
+        obj_Ultra.operation(str_Operation);
+
+        if (obj_Ultra.send()) 
+        {
+			if (str_Operation == "ins")
+			{
+				Fu_CarregaFiltroFromIns('frm_detalhe','frm_filtro')	
+				parent.top.frm_rodape.setButton("N,P");
+				obj_Ultra.clearLinkedForm("frm_pesquisa");
+				obj_Ultra.rebuild("frm_pesquisa");
+				setLayer("img_Filtro");
+				bln_Expand = false;
+				zbln_New = true;
+				setFocus("frm_filtro");
+				main("qry");
+			}
+			else
+			{
+				//Fu_CarregaFiltroFromIns('frm_detalhe','frm_filtro');
+				parent.top.frm_rodape.setButton("N,P");
+				//obj_Ultra.clearLinkedForm("frm_pesquisa");
+				//obj_Ultra.rebuild("frm_pesquisa");
+				setLayer("img_Filtro");          
+				bln_Expand = false;
+				bln_New = true;
+				
+				//**comando que retorna o grid para a pagina em que foi escolhido o registro para alterar.
+				obj_Ultra.keepPage('frm_pesquisa');				
+				//*******				
+				//main("qry");	
+				//obj_Ultra.clearForms("frm_filtro");
+				setFocus("frm_filtro");
+				
+				objXML.loadXML(obj_Ultra.Xml());
+				objNodes  = objXML.selectNodes("root/mensagem");
+				if(objNodes.length != 0){
+					if (objNodes[0].getAttribute("value") == 5){				
+						self.frames[0].clearGrid();												
+						}
+					}								
+					
+				//Teste para apagar grid
+
+				/*
+				self.frames[0].clearGrid();
+				str_XML = obj_Ultra.getXml("frm_filtro","qry");
+				obj_Ultra.form("frm_pesquisa");
+				obj_Ultra.operation("qry");
+				frm_filtro.dsnomenavio.value = "";
+				frm_filtro.dsconcatenado.value = "";
+				frm_filtro.dsconcaagente.value = "";
+				//obj_Ultra.send(str_XML);
+				frm_filtro.dsnomenavio.focus();
+				
+				frm_filtro.dsnomenavio.value = str_Dsnomenavio;
+				frm_filtro.dsconcatenado.value = str_Dsarmador;
+				frm_filtro.dsconcaagente.value = str_Dsagente;
+				*/
+			}
+        }
+        break;
+
+      case "frm_pesquisa_del":
+        obj_Ultra.form("frm_pesquisa");
+        obj_Ultra.operation(pstr_Operation);
+        if (obj_Ultra.send(str_XML)) {
+          obj_Ultra.rebuild("frm_pesquisa");
+          setFocus("frm_filtro");
+        }
+        break;
+      case "frm_pesquisa_lnk":
+		str_Dsnomenavio = frm_filtro.dsnomenavio.value;
+		str_Dsarmador = frm_filtro.dsconcatenado.value;
+		str_Dsagente = frm_filtro.dsconcaagente.value;
+	    //parent.top.frm_rodape.setButton("S,X");
+        obj_Ultra.clearLinkedForm("frm_pesquisa");
+		self.frames[1].clearGrid();
+        obj_Ultra.setDataLink(str_XML);
+        if (obj_Ultra.notExistDataLink(str_XML)) {
+          obj_Ultra.multiForm("frm_detalhe|frm_manifold");
+          obj_Ultra.operation(pstr_Operation);
+          obj_Ultra.init.processPage = 'https://run.mocky.io/v3/a3b912cc-69f2-4737-90f8-44651d0c2ea7'; 
+          if (!obj_Ultra.send(str_XML)) {
+            self.frames[1].enableGrid();
+          }
+        }
+        else {
+          self.frames[1].enableGrid();
+        }
+        setLayer("img_Detalhe",true);
+        setFocus("frm_detalhe");
+        str_Action = "upd";
+        str_Operation = "upd";
+        bln_New = false;
+        break;
+       
+      case "frm_manifold_can":
+			parent.top.frm_rodape.setButton("S,X");
+			break;
+	  case "frm_manifold_new":
+			//parent.top.frm_rodape.setButton("X");
+			break;
+      case "frm_manifold_ins":
+      case "frm_manifold_del":
+      case "frm_manifold_upd":
+        obj_Ultra.form("frm_manifold");
+        obj_Ultra.operation(pstr_Operation);
+        if (obj_Ultra.send(str_XML)) {
+          if (str_Action == "ins") {
+            obj_Ultra.form("frm_manifold");
+            obj_Ultra.operation("frm_manifold_qry");
+            obj_Ultra.shwMsg = false;
+            if (obj_Ultra.send()) {
+              self.frames[0].clearGrid();
+            }
+          }
+          else {
+            obj_Ultra.rebuild("frm_manifold","frm_manifold_qry");
+          }
+        }
+        break;
+      case "frm_manifold_qry":
+		parent.top.frm_rodape.setButton("S,X");
+	  	obj_Ultra.form("frm_manifold");
+        obj_Ultra.operation(pstr_Operation);
+        obj_Ultra.shwMsg = false;
+        if (obj_Ultra.send(str_XML)) {
+          self.frames[0].clearGrid();
+        }
+        break;
+       
+      case "filt_arma":
+      case "deta_arma":
+			var vwAtivaPopUp		= false; 
+			var str_Form			= "frm_filtro";
+			var str_filtArma		= frm_filtro.dsconcatenado.value;
+			var str_detArma			= frm_detalhe.dsconcatenado.value;
+			
+			if(pstr_Operation == "deta_arma") 
+			{
+				str_Form = "frm_detalhe";
+				if (frm_detalhe.dsconcatenado.value != null) 
+				{
+						var str_dsnomefantasiacliente = (frm_detalhe.dsconcatenado.value != null) ? frm_detalhe.dsconcatenado.value : "";
+						var dsentidade = str_dsnomefantasiacliente.substr(0,str_dsnomefantasiacliente.indexOf("/"));
+						if (str_dsnomefantasiacliente.indexOf("/") >0) 
+						{
+							frm_detalhe.dsnomefantasiaarmador.value = trim(unescape(dsentidade));
+							var dsfilial = str_dsnomefantasiacliente.substr(str_dsnomefantasiacliente.indexOf("/") + 1, str_dsnomefantasiacliente.length);
+							frm_detalhe.dsarmadorfilial.value = trim(unescape(dsfilial));
+						}
+						else 
+						{
+							frm_detalhe.dsnomefantasiaarmador.value = str_dsnomefantasiacliente;
+							frm_detalhe.dsarmadorfilial.value = "";
+						}
+			    }
+			}				
+		    else
+		    {							
+				str_Form = "frm_filtro";
+				if (frm_filtro.dsconcatenado.value != null)
+				{
+						var str_dsnomefantasiacliente = (frm_filtro.dsconcatenado.value != null) ? frm_filtro.dsconcatenado.value : "";
+						var dsentidade = str_dsnomefantasiacliente.substr(0,str_dsnomefantasiacliente.indexOf("/"));
+						if (str_dsnomefantasiacliente.indexOf("/") >0) 
+						{
+							frm_filtro.dsnomefantasiaarmador.value = trim(unescape(dsentidade));
+							var dsfilial = str_dsnomefantasiacliente.substr(str_dsnomefantasiacliente.indexOf("/") + 1, str_dsnomefantasiacliente.length);
+							frm_filtro.dsarmadorfilial.value = trim(unescape(dsfilial));
+						}
+						else 
+						{
+							frm_filtro.dsnomefantasiaarmador.value = str_dsnomefantasiacliente;
+							frm_filtro.dsarmadorfilial.value = "";
+						}
+				}
+		 	}
+			//break;
+			
+			
+			/*
+			{
+				str_Form = "frm_detalhe";
+			}
+			*/	
+			if (obj_Field != null)
+			
+			{
+				if(obj_Field.value == '')
+				{
+					Fu_ClearLnkHid(str_Form, obj_Field)
+					return;
+				}
+				obj_Ultra.form(str_Form);
+				obj_Ultra.operation(pstr_Operation);
+				obj_Ultra.shwMsg =  false;
+				obj_Ultra.unique =  true;
+				
+				
+				if (obj_Ultra.send()) 
+				{
+					if(pstr_Operation == "deta_arma")
+					{						
+						Fu_AutoCompletar(frm_detalhe.idarmador, obj_Ultra.Xml(), 'identidade');
+						Fu_AutoCompletar(frm_detalhe.dsconcatenado, obj_Ultra.Xml(), 'dsconcatenado');
+						Fu_AutoCompletar(frm_detalhe.idfilialarmador, obj_Ultra.Xml(), 'idfilial');
+					}
+					else
+					{
+						
+						Fu_AutoCompletar(frm_filtro.idarmador, obj_Ultra.Xml(), 'identidade');
+						Fu_AutoCompletar(frm_filtro.dsconcatenado, obj_Ultra.Xml(), 'dsconcatenado');
+						Fu_AutoCompletar(frm_filtro.idfilialarmador, obj_Ultra.Xml(), 'idfilial');
+					} 
+				}
+				else
+				{
+					vwAtivaPopUp  = true;  
+				}
+			}
+			else
+			{
+				obj_Field = document.getElementById(str_Form).item("dsnomefantasiaent");
+				if (obj_Field != null && obj_Field.disabled == false) 
+				{
+					if(obj_Field.value == '')
+					{
+						Fu_ClearLnkHid(str_Form, obj_Field)
+						
+					}
+					vwAtivaPopUp  = true;
+				}
+			}
+			if(vwAtivaPopUp == true)
+			{
+				str_XML = obj_Ultra.getXml(str_Form,pstr_Operation);
+				obj_Ultra.popUpGrid(str_Form);
+				obj_Ultra.popUp("./pop-up/pop_auxi_armador.asp",str_XML,null,470,false);
+				if(frm_filtro.dsconcatenado.value == str_filtArma){
+					frm_filtro.dsconcatenado.value = "";
+				}
+				if(frm_detalhe.dsconcatenado.value == str_detArma){
+					frm_detalhe.dsconcatenado.value = "";
+				}
+			}
+			break;
+			
+
+  
+      case "filt_agen":
+      case "deta_agen":
+			var vwAtivaPopUp		= false; 
+			var str_Form			= "frm_filtro";
+			
+			if(pstr_Operation == "deta_agen") 
+			{
+				str_Form = "frm_detalhe";
+				if (frm_detalhe.dsconcaagente.value != null) 
+				{
+					var str_dsnomefantasiacliente = (frm_detalhe.dsconcaagente.value != null) ? frm_detalhe.dsconcaagente.value : "";
+					var dsentidade = str_dsnomefantasiacliente.substr(0,str_dsnomefantasiacliente.indexOf("/"));
+					if (str_dsnomefantasiacliente.indexOf("/") >0) 
+					{
+						frm_detalhe.dsnomefantasiaent.value = trim(unescape(dsentidade));
+						var dsfilial = str_dsnomefantasiacliente.substr(str_dsnomefantasiacliente.indexOf("/") + 1, str_dsnomefantasiacliente.length);
+						frm_detalhe.dsnomefantasiafil.value = trim(unescape(dsfilial));
+					}
+					else 
+					{
+						frm_detalhe.dsnomefantasiaent.value = trim(unescape(str_dsnomefantasiacliente));
+						frm_detalhe.dsnomefantasiafil.value = "";
+					}
+			    }
+			}				
+		    else
+		    {							
+				if (frm_filtro.dsconcaagente.value != null)
+				{
+					var str_dsnomefantasiacliente = (frm_filtro.dsconcaagente.value != null) ? frm_filtro.dsconcaagente.value : "";
+					var dsentidade = str_dsnomefantasiacliente.substr(0,str_dsnomefantasiacliente.indexOf("/"));
+						if (str_dsnomefantasiacliente.indexOf("/") >0) 
+						{
+							frm_filtro.dsnomefantasiaent.value = trim(unescape(dsentidade));
+							var dsfilial = str_dsnomefantasiacliente.substr(str_dsnomefantasiacliente.indexOf("/") + 1, str_dsnomefantasiacliente.length);
+							frm_filtro.dsnomefantasiafil.value = trim(unescape(dsfilial));
+						}
+						else 
+						{
+							frm_filtro.dsnomefantasiaent.value = trim(unescape(str_dsnomefantasiacliente));
+							frm_filtro.dsnomefantasiafil.value = "";
+						}
+				}
+		 	}
+			
+			if (obj_Field != null)
+			{
+				if(obj_Field.value == '')
+				{
+					Fu_ClearLnkHid(str_Form, obj_Field)
+					return;
+				}
+				obj_Ultra.form(str_Form);
+				obj_Ultra.operation(pstr_Operation);
+				obj_Ultra.shwMsg =  false;
+				obj_Ultra.unique =  true;
+				
+				str_XML = obj_Ultra.getXml("frm_filtro",pstr_Operation);
+				if (obj_Ultra.send(str_XML))
+				{
+					if(pstr_Operation == "deta_agen")
+					{						
+						Fu_AutoCompletar(frm_detalhe.idagente, obj_Ultra.Xml(), 'idagente');
+						Fu_AutoCompletar(frm_detalhe.idfilialagente, obj_Ultra.Xml(), 'idfilialagente');
+						Fu_AutoCompletar(frm_detalhe.dsconcaagente, obj_Ultra.Xml(), 'dsconcaagente');
+					}
+					else
+					{
+						Fu_AutoCompletar(frm_filtro.idagente, obj_Ultra.Xml(), 'idagente');
+						Fu_AutoCompletar(frm_filtro.idfilialagente, obj_Ultra.Xml(), 'idfilialagente');
+						Fu_AutoCompletar(frm_filtro.dsconcaagente, obj_Ultra.Xml(), 'dsconcaagente');
+
+					} 
+				}
+				else
+				{
+					vwAtivaPopUp  = true;  
+				}
+			}
+			else
+			{	
+				obj_Field = document.getElementById(str_Form).item("dsconcaagente");
+				if (obj_Field != null && obj_Field.disabled == false) 
+				{
+					if(obj_Field.value == '')
+					{
+						Fu_ClearLnkHid(str_Form, obj_Field)
+					}
+					vwAtivaPopUp  = true;
+				}
+			}
+			if(vwAtivaPopUp == true)
+			{				
+				str_XML = obj_Ultra.getXml(str_Form,pstr_Operation);				
+				obj_Ultra.popUpGrid(str_Form);
+				obj_Ultra.popUp("./pop-up/pop_auxi_agente.asp",str_XML,null,470,false);
+			}
+			break;
+      
+	case"clearidagente":
+			if (frm_filtro.dsconcaagente.value == "") {
+			frm_filtro.idagente.value="";
+			frm_filtro.idfilialagente.value="";
+			}
+			break;
+
+		case"clearidarmador":
+			if (frm_filtro.dsconcatenado.value == "") {
+			frm_filtro.idarmador.value="";
+			frm_filtro.idfilialarmador.value="";
+			}
+			break;
+      case "start":
+        // parent.top.frm_seguranca.acessomanutencao("CADARMNAV");
+        // parent.top.frm_rodape.setButton("N,P");
+        obj_Ultra.initialize();
+        //Grid:Pesquisa
+        obj_Ultra.grid = {};
+        with(obj_Ultra) {
+          grid.id = "frm_pesquisa";
+          grid.size = 10;
+          grid.keys = "idnavio";
+          grid.colsTitle = "Nome|Armador|Agência Marítima";
+          grid.colsField = "dsnomenavio|dsarmadorfilial|dsagentefilial";
+          grid.colsType = "str(30)|str(30)|str(30)";
+          grid.colsWidth = "180|250|250";
+          grid.colsAlign = "left|left|left";
+          grid.colIndex = 0;
+          grid.insertButton = false;
+        }
+        obj_Ultra.addTable();
+        // Grid:Detalhe;
+        showLayer("div_Detalhe");
+        with(obj_Ultra) {
+          grid.id = "frm_manifold";
+          grid.size = 10;
+          grid.keys = "idnavio|nrmanifold";
+          grid.fk = "frm_detalhe.idnavio";
+          grid.colsTitle = "Número do Manifold|Diâmetro|Distância";
+          grid.colsField = "nrmanifold|nrdiametro|nrdistancia";
+          grid.colsToValidate = "1|2|3"
+          grid.colsType = "int(5)|lng(3,2)|lng(6,2)";
+          grid.colsWidth = "155|155|235";
+          grid.colsAlign = "center|right|right";
+          grid.editOnDetail = false;
+          grid.ShowButEdt			= "X";
+		  grid.ShowButUpd			= "S,X";
+        }
+        obj_Ultra.addTable();
+        hideLayer("div_Detalhe");
+        break;
+      case "grid":
+        obj_Ultra.dataGrid(str_XML);
+        frm_detalhe.dsconcatenado.value   =  frm_detalhe.dsarmadorfilial.value;
+        break;
+      case "forms":
+        obj_Ultra.formData(str_XML);
+        break;
+    }
+  }
+  catch(obj_Exception) {
+    alert("main: " + obj_Exception.description);
+  }
+  finally {
+    delete obj_Field;
+    delete str_XML;
+    delete str_Form;
+  }
+}
+function Fu_LimpaHidden(paTipo) 
+{
+	if(paTipo  == 'ARMADOR')
+	{
+			//*********************************************
+			// Limpa os hiddens de Armador/ArmadorFilial
+			//*********************************************
+			frm_filtro.idarmador.value			= '';
+			frm_filtro.idfilialarmador.value	= '';
+	}
+	
+	if(paTipo  == 'AGENTE')
+	{
+			//*********************************************
+			// Limpa os hiddens de Agente/AgenteFilial
+			//*********************************************
+			frm_filtro.idagente.value			= '';
+			frm_filtro.idfilialagente.value			= '';
+	}
+}
+
+
+</script>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" onload="main('start');">
+<table width="680" cellspacing="0" cellpadding="0" align="center" border="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="ttop" >
+        <tr> 
+          <td width="37"><img src="images_home/img_display/img_titulos/ultr_p_1.gif" width="37" height="25"></td>
+          <td valign="bottom"><font size="2"><b><font color="#1445B8">Cadastro / </font></b></font>Armazenagem / Navio</td>
+          <td width="25"><img src="images_home/img_display/img_titulos/ultr_p_2.gif" width="25" height="25"></td>
+        </tr>
+        <tr> 
+          <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_3.gif" width="37" height="14"></td>
+          <td background="images_home/img_display/img_titulos/ultr_bkg.gif">&nbsp;</td>
+          <td valign="top"><img src="images_home/img_display/img_titulos/ultr_p_4.gif" width="25" height="14"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+        <tr>
+          <td>
+            <div style="position:relative"> 
+              <form id="frm_filtro" style="margin-bottom:0">
+                <input type="hidden" id="intransportadora" tipo="str(1)" operation="filt_arma,deta_arma" fixed="true" value="S">
+                <input type="hidden" id="idarmador" alias="idtransportadora" tipo="int(7)" operation="qry,filt_arma" unique="true" linkhidden="dsconcatenado">
+                <input type="hidden" id="idfilialarmador" alias="idfilialtransportadora" tipo="int(3)" operation="qry,filt_arma" unique="true">
+                <input type="hidden" id="idagente" tipo="int(7)" operation="qry,filt_agen" unique="true">
+                <input type="hidden" id="idfilialagente" tipo="int(3)" operation="qry,filt_agen" unique="true">
+                <input type="hidden" id="dsnomefantasiafil"  tipo="str(60)" operation="filt_agen">
+                <input type="hidden" id="dsnomefantasiaent"  tipo="str(60)" operation="filt_agen">
+                <input type="hidden" id="insubtipodispositivo"  tipo="str(60)" value="Maritimo" fixed="True" operation="ins,upd,frm_pesquisa_del">
+                <input type="hidden" id="dsnomefantasiaarmador" tipo="str(60)" operation="ins,filt_arma" unique="true">
+                <input type="hidden" id="dsarmadorfilial" tipo="str(60)" operation="ins,filt_arma" unique="true">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabbordageral" align="center">
+                  <tr> 
+                    <td width='10' class="tab1azul">&nbsp; </td>
+                    <td class="tab1azul">Filtro</td>
+                    <td width='10' align="center" class="tab1azul"><a href="#lnk_Filtro"><img id="img_Filtro" border='0' src='images_home/img_display/img_botoes/ultr_menos.gif' style='cursor:hand'></a></td>
+                  </tr>
+                  <tr> 
+                    <td></td>
+                    <td> <div id="div_Filtro" nivel="0"> 
+                        <table width="100%" border="0" cellspacing="0" cellpadding="2" class="tabfont">
+                          <tr> 
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr> 
+                            <td> <table border="0" cellpadding="1" cellspacing="0" class="framesfundo" width="100%">
+                                <tr> 
+                                  <td colspan="2">Nome</td>
+                                </tr>
+                                <tr> 
+                                  <td colspan="2"> <input type="text" id="dsnomenavio" tipo="str(20)" operation="qry" ignore="true" size="55" class="cxtext"> 
+                                  </td>
+                                </tr>
+                                <tr> 
+                                  <td width="50%">Armador</td>
+                                  <td width="50%">Agência Marítima</td>
+                                </tr>
+                                <tr> 
+                                  <td><input type="text" id="dsconcatenado" tipo="str(60)" operation="filt_arma" unique="true" size="55" class="cxtext" onChange="Fu_LimpaHidden('ARMADOR')" onBlur="javascript:main('filt_arma',this);" lbl="Armador"> 
+                                    &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('filt_arma');"> 
+                                  </td>
+                                  <td> <input type="text" id="dsconcaagente" tipo="str(60)" operation="filt_agen" unique="true" size="55" class="cxtext" onChange="Fu_LimpaHidden('AGENTE')" onBlur="javascript:main('filt_agen',this)" lbl="Agência Marítima"> 
+                                    &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('filt_agen');"> 
+                                  </td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                          <tr> 
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr> 
+                            <td> <img src="images_home/img_display/img_titulos/div.gif" width="100%" height="1"> 
+                            </td>
+                          </tr>
+                          <tr> 
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr> 
+                            <td> <table width="100%" height="131" border="0" cellpadding="0" cellspacing="0" class="iframecinza">
+                                <tr> 
+                                  <td><iframe id="frm_pesquisa" execute="server" operation="upd" width="100%" height="272" src="grid.html" frameborder="no" scrolling="yes"></iframe> 
+                                    <div id="frm_pesquisa"></div></td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                          <tr> 
+                            <td>&nbsp;</td>
+                          </tr>
+                        </table>
+                      </div></td>
+                    <td></td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <tr> 
+          <td> 
+            <div>
+            <form id="frm_detalhe" style="margin-bottom:0" linked="frm_pesquisa"> 
+            <input type="hidden" id="idnavio" tipo="int(5)" operation="ins,frm_manifold_qry"  pk="true">
+            <input type="hidden" id="idarmador" alias="idtransportadora" tipo="int(7)" operation="ins,deta_arma" unique="true">
+            <input type="hidden" id="idfilialarmador" alias="idfilialtransportadora" tipo="int(3)" operation="ins,deta_arma" unique="true">
+            <input type="hidden" id="idagente" tipo="int(7)" operation="ins,deta_agen" unique="true"><!-- lbl="Agente">-->
+            <input type="hidden" id="idfilialagente" tipo="int(3)" operation="ins,deta_agen" unique="true">
+			<input type="hidden" id="idconcatenadoage" tipo="int(3)" operation="qry,filt_agen" unique="true">
+            <input type="hidden" id="idconcatenado" tipo="str(5)" operation="qry,filt_agen" unique="true">
+            <input type="hidden" id="dsnomefantasiaarmador" tipo="str(60)" operation="ins,deta_arma" unique="true">
+            <input type="hidden" id="dsarmadorfilial" tipo="str(60)" operation="ins,deta_arma" unique="true">
+			<input type="hidden" id="dsnomefantasiafil"  tipo="str(60)" operation="deta_agen">		
+			<input type="hidden" id="dsnomefantasiaent"  tipo="str(60)" operation="deta_agen">
+			
+            
+            
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabbordageral" align="center">
+              <tr> 
+                <td width='10' class="tab1azul">&nbsp;</td>
+                <td class="tab1azul">Detalhe de Modal Mar&iacute;timo</td>
+                <td width='10' align="center" class="tab1azul"><a href="#lnk_Detalhe"><img id="img_Detalhe" border='0' src='images_home/img_display/img_botoes/ultr_mais.gif' style='cursor:hand'></a></td>
+              </tr>
+              <tr> 
+                <td></td>
+                <td> 
+                  <div id="div_Detalhe" nivel="0" style="display:none"> 
+                  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="tabfont">
+                    <tr> 
+                      <td width="150%">&nbsp;</td>
+                    </tr>
+                    <tr> 
+                      <td height="14">
+                        <table border="0" cellpadding="1" cellspacing="0" class="framesfundo" width="100%">
+                          <tr> 
+                            <td>Nome</td>
+                            <td>&nbsp;</td>
+                            <td>Registro no Loyds</td>
+                            <td>Código ANP</td>
+                          </tr>
+                          <tr> 
+                            <td colspan="2">
+                              <input type="text" id="dsnomenavio" tipo="str(20)" operation="ins,upd" size="55" class="cxtext" filtro_ins="dsnomenavio" lbl="Nome">
+                            </td>
+                            <td colspan="1">
+                              <input type="text" id="nrregistroloyds" tipo="str(25)" operation="ins,upd" size="20" class="cxtext" lbl="Registro">
+                            </td>
+                            <td colspan="1">
+                              <input type="text" id="codanp" tipo="str(7)" operation="ins,upd" size="20" class="cxtext">
+                            </td>
+                          </tr>
+                          <tr> 
+                            <td colspan="2">Armador</td>
+                            <td colspan="2">Agência Marítima</td>
+                          </tr>
+                          <tr> 
+                            <td colspan="2">
+                              <input type="text" id="dsconcatenado"  operation="ins,deta_arma" tipo="str(60)" unique="true" size="55" class="cxtext" filtro_ins="dsconcatenado" onBlur="javascript:main('deta_arma',this);" lbl="Armador">
+                              &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('deta_arma');">
+                            </td>
+                            <td colspan="2">
+                              <input type="text" id="dsconcaagente" operation="ins,deta_agen" tipo="str(60)" unique="true" size="55" class="cxtext" filtro_ins="dsconcaagente" onBlur="javascript:main('deta_agen',this);" lbl="Agência Marítima"> 
+                              &nbsp;&nbsp;<img src="images_home/img_display/img_botoes/ultr_icon_pasta.gif" style="cursor:hand" alt="Procurar" width="17" height="17" align="absmiddle" onClick="javascript:main('deta_agen');"> 
+                            </td>
+                          </tr>
+                          <tr> 
+                            <td>Calado (m)</td>
+                            <td>Comprimento (m)</td>
+                            <td>Dist. Proa Manifold-Central (m)</td>
+                            <td>DWT (t)</td>
+                          </tr>
+                          <tr> 
+                            <td>
+                              <input type="text" id="nrcalado" tipo="lng(6,2)" operation="ins"  size="20" class="cxtext"> 
+                            </td>
+                            <td>
+                              <input type="text" id="nrcomprimento" tipo="lng(6,2)" operation="ins" size="19" class="cxtext">
+                            </td>
+                            <td>
+                              <input type="text" id="nrmanifoldcentralproa" tipo="lng(6,2)" operation="ins" size="20" class="cxtext"> 
+                            </td>
+                            <td>
+                              <input type="text" id="nrdwt" tipo="lng(6,2)" operation="ins" size="16" class="cxtext">
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr> 
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr> 
+                      <td>
+                        <table width="100%" border="0" cellspacing="0" class="framesfundo">
+                          <tr class="framestop"> 
+                            <td>&nbsp;Manifolds</td>
+                          </tr>
+                          <tr> 
+                            <td>
+                              <table width="100%" height="131" border="0" cellpadding="0" cellspacing="0" class="iframecinza">
+                                <tr>
+                                  <td>
+                                    <iframe id="frm_manifold" execute="server" linked="frm_pesquisa" width="100%" height="130" src="grid.html" frameborder="no" scrolling="yes"></iframe><div id="frm_manifold"></div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </table>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+            </form>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table class="rodape">
+    <tr>
+      <td>
+        <!-- <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div>
+        <div><img src="images_home/img_display/img_botoes/ultr_icon_pesq.gif" width="20" height="20"></div> -->
+        <div style="width: 95%; float: left;"><img src="images_home/img_rdp/img_botoes/ultr_excluir.gif" style='cursor:hand'
+          onclick="javascript:main('ext');"></div>
+        <div style="width: 5%; float: right;"><img src='images_home/img_display/img_botoes/ultr_icon_pesq.gif' style='cursor:hand'
+          onclick="javascript:main('qry');"></div>
+      </td>   
+    </tr>
+  </table>
+
+
+</body>
+</html>
